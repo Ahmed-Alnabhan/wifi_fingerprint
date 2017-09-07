@@ -8,4 +8,10 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="connection_status">Connected</string>
+    <string name="ssid_name">SSID Name</string>
+    <string name="ap_ip">192.168.0.1</string>
+    <string name="channel">Channel: 11</string>
+    <string name="mac_address">MAC: 12:e3:4f:12:a3</string>
+    <string name="signal_strength">-61</string>
 </resources>
