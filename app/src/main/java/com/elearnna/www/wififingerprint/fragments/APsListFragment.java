@@ -123,7 +123,7 @@ public class APsListFragment extends Fragment implements APsListView{
 
     @Override
     public void displayAPsList(List<AP> APsList) {
-        rvAPsList.setAdapter(new APsAdapter(APsList));
+        rvAPsList.setAdapter(new APsAdapter(APsList, getContext()));
         rvAPsList.getAdapter().notifyDataSetChanged();
     }
 
