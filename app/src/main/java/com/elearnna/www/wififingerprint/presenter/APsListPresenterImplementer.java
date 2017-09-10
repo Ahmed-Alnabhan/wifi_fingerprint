@@ -9,8 +9,10 @@ import android.net.wifi.WifiManager;
 import android.os.Handler;
 import android.util.Log;
 
+import com.elearnna.www.wififingerprint.model.AP;
 import com.elearnna.www.wififingerprint.view.APsListView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -27,15 +29,17 @@ public class APsListPresenterImplementer implements APsListPresenter{
     private WiFiBroadcastReceiver wiFiBroadcastReceiver;
     private Context mContext;
     private IntentFilter intentFilter;
+    private List<AP> APsList;
+    private AP ap;
 
     public APsListPresenterImplementer(Context context) {
         this.mContext = context;
     }
 
-    private void readWifiNetworks() {
+    private void readWifiNetworks(int duration) {
         wifiManager.setWifiEnabled(true);
         wifiManager.startScan();
-        handler.postDelayed(runnable, 1000);
+        handler.postDelayed(runnable, duration);
     }
 
     @Override
@@ -45,6 +49,7 @@ public class APsListPresenterImplementer implements APsListPresenter{
 
     @Override
     public void getAPsList() {
+        APsList = new ArrayList<>();
         intentFilter = new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION);
         wifiManager = (WifiManager) mContext.getSystemService(Context.WIFI_SERVICE);
         wiFiBroadcastReceiver = new WiFiBroadcastReceiver();
@@ -54,7 +59,7 @@ public class APsListPresenterImplementer implements APsListPresenter{
         runnable = new Runnable(){
             @Override
             public void run() {
-                readWifiNetworks();
+                readWifiNetworks(5000);
             }
         };
         runnable.run();
@@ -69,7 +74,17 @@ public class APsListPresenterImplementer implements APsListPresenter{
 
         @Override
         public void onReceive(Context context, Intent intent) {
+            APsList.clear();
             wifiAPsList = wifiManager.getScanResults();
+            for(ScanResult sr : wifiAPsList){
+                ap = new AP();
+                ap.setSsid(sr.SSID);
+                ap.setChennel(sr.frequency);
+                ap.setMacAddress(sr.BSSID);
+                ap.setRssi(sr.level);
+                APsList.add(ap);
+            }
+            aPsListView.displayAPsList(APsList);
             Log.d("AAA", String.valueOf(wifiAPsList.size()));
         }
     }

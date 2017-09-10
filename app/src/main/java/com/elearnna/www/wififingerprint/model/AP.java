@@ -12,10 +12,11 @@ public class AP {
     private int frequency;
     private String macAddress;
     private int chennel;
-    private boolean isLocked;
+    private int isLocked;
     private String manufacturer;
     private String securityProtocol;
     private String ipAddress;
+    private int isConnected;
 
     public String getId() {
         return id;
@@ -73,11 +74,11 @@ public class AP {
         this.chennel = chennel;
     }
 
-    public boolean isLocked() {
+    public int isLocked() {
         return isLocked;
     }
 
-    public void setLocked(boolean locked) {
+    public void setLocked(int locked) {
         isLocked = locked;
     }
 
@@ -103,5 +104,13 @@ public class AP {
 
     public void setIpAddress(String ipAddress) {
         this.ipAddress = ipAddress;
+    }
+
+    public int isConnected() {
+        return isConnected;
+    }
+
+    public void setConnected(int connected) {
+        isConnected = connected;
     }
 }

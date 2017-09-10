@@ -12,12 +12,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar;
 import com.elearnna.www.wififingerprint.R;
+import com.elearnna.www.wififingerprint.adapter.APsAdapter;
 import com.elearnna.www.wififingerprint.model.AP;
 import com.elearnna.www.wififingerprint.presenter.APsListPresenter;
 import com.elearnna.www.wififingerprint.presenter.APsListPresenterImplementer;
@@ -84,6 +86,8 @@ public class APsListFragment extends Fragment implements APsListView{
         aPsListPresenter = new APsListPresenterImplementer(getContext());
         aPsListPresenter.setAPsListView(this);
         aPsListPresenter.getAPsList();
+        // Keep the screen on
+        getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         return view;
     }
 
@@ -119,7 +123,8 @@ public class APsListFragment extends Fragment implements APsListView{
 
     @Override
     public void displayAPsList(List<AP> APsList) {
-
+        rvAPsList.setAdapter(new APsAdapter(APsList));
+        rvAPsList.getAdapter().notifyDataSetChanged();
     }
 
     @Override
