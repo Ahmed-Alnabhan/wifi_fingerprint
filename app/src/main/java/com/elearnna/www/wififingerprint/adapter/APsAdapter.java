@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 
 import com.elearnna.www.wififingerprint.R;
 import com.elearnna.www.wififingerprint.app.Constants;
+import com.elearnna.www.wififingerprint.app.FrequenceyToChannel;
 import com.elearnna.www.wififingerprint.model.AP;
 import com.elearnna.www.wififingerprint.view.APsListViewHolder;
 
@@ -35,10 +36,12 @@ public class APsAdapter extends RecyclerView.Adapter<APsListViewHolder>{
     @Override
     public void onBindViewHolder(APsListViewHolder holder, int position) {
         AP ap = listOfAPs.get(position);
+        int freq = ap.getChennel();
+        int channel = FrequenceyToChannel.convertFrequencyToChannel(freq);
         holder.getTxtSSID().setText(ap.getSsid());
         holder.getTxtIPAddress().setText(ap.getIpAddress());
         holder.getTxtConnectionStatus().setText(String.valueOf(ap.isConnected()));
-        holder.getTxtChennel().setText(String.valueOf("Channel: " + ap.getChennel()));
+        holder.getTxtChennel().setText(String.valueOf("Channel: " + channel));
         holder.getTxtMAC().setText("MAC: " + ap.getMacAddress());
         holder.getTxtSignalStrength().setText(String.valueOf(ap.getRssi()));
         setWifiImage(holder, ap);
@@ -68,6 +71,7 @@ public class APsAdapter extends RecyclerView.Adapter<APsListViewHolder>{
                 break;
             default:
                 Log.e("APsAdapter", "Error in wifi signals reading");
+                break;
         }
     }
 

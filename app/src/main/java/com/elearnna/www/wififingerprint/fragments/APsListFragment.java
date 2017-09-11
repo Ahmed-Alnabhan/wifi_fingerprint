@@ -1,9 +1,14 @@
 package com.elearnna.www.wififingerprint.fragments;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.pm.PackageManager;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -20,6 +25,7 @@ import android.widget.TextView;
 import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar;
 import com.elearnna.www.wififingerprint.R;
 import com.elearnna.www.wififingerprint.adapter.APsAdapter;
+import com.elearnna.www.wififingerprint.app.FrequenceyToChannel;
 import com.elearnna.www.wififingerprint.model.AP;
 import com.elearnna.www.wififingerprint.presenter.APsListPresenter;
 import com.elearnna.www.wififingerprint.presenter.APsListPresenterImplementer;
@@ -34,8 +40,9 @@ import butterknife.ButterKnife;
 public class APsListFragment extends Fragment implements APsListView{
 
     APsListPresenter aPsListPresenter;
+    WifiManager wifiManager;
+    WifiInfo wifiInfo;
     public APsListFragment() {
-        // Required empty public constructor
     }
 
     @BindView(R.id.wifi_image)
@@ -74,6 +81,7 @@ public class APsListFragment extends Fragment implements APsListView{
         super.onCreate(savedInstanceState);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -82,6 +90,8 @@ public class APsListFragment extends Fragment implements APsListView{
         ButterKnife.bind(this, view);
         // request the user permission for location access
         requestUserPermission();
+        // Retrieve the info of the currently connected APs
+        getConnectedAPInfo();
         rvAPsList.setLayoutManager(new LinearLayoutManager(getContext()));
         aPsListPresenter = new APsListPresenterImplementer(getContext());
         aPsListPresenter.setAPsListView(this);
@@ -89,6 +99,15 @@ public class APsListFragment extends Fragment implements APsListView{
         // Keep the screen on
         getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         return view;
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    private void getConnectedAPInfo() {
+        wifiManager = (WifiManager) getActivity().getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+        wifiInfo = wifiManager.getConnectionInfo();
+        txtSSID.setText(wifiInfo.getSSID());
+        txtIPAddress.setText("IP: " + wifiInfo.getIpAddress());
+        txtChennel.setText("Channel: " + FrequenceyToChannel.convertFrequencyToChannel(wifiInfo.getFrequency()));
     }
 
     private void requestUserPermission() {
