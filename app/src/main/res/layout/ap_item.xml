@@ -107,11 +107,13 @@
         android:layout_marginEnd="146dp" />
 
     <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="200dp"
+        android:layout_height="7dp"
         app:layout_constraintLeft_toRightOf="@+id/wifi_image"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="12dp"
+        app:rcMax="90"
+        app:rcBackgroundColor="@color/wifi_light_grey"
         app:layout_constraintTop_toBottomOf="@+id/tv_channel"
         android:id="@+id/roundCornerProgressBar"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -121,7 +123,7 @@
     <View
         android:id="@+id/items_devider"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="0.75dp"
         android:background="@android:color/darker_gray"
         tools:layout_editor_absoluteY="96dp"
         app:layout_constraintRight_toRightOf="parent"

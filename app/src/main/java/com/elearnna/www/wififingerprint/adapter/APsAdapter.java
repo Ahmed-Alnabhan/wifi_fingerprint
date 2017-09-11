@@ -38,41 +38,52 @@ public class APsAdapter extends RecyclerView.Adapter<APsListViewHolder>{
         AP ap = listOfAPs.get(position);
         int freq = ap.getChennel();
         int channel = FrequenceyToChannel.convertFrequencyToChannel(freq);
+        int rssi = ap.getRssi();
         holder.getTxtSSID().setText(ap.getSsid());
         holder.getTxtIPAddress().setText(ap.getIpAddress());
         holder.getTxtConnectionStatus().setText(String.valueOf(ap.isConnected()));
         holder.getTxtChennel().setText(String.valueOf("Channel: " + channel));
         holder.getTxtMAC().setText("MAC: " + ap.getMacAddress());
-        holder.getTxtSignalStrength().setText(String.valueOf(ap.getRssi()));
-        setWifiImage(holder, ap);
+        holder.getTxtSignalStrength().setText(String.valueOf(rssi));
+        int rssiSignalColor = setWifiImage(holder, rssi);
+        holder.getRoundCornerProgressBar().setProgress((120 + (rssi)));
+        holder.getRoundCornerProgressBar().setProgressColor(rssiSignalColor);
     }
 
-    private void setWifiImage(APsListViewHolder holder, AP ap) {
+    private int setWifiImage(APsListViewHolder holder, int rssi) {
+        int rssiSiganlColor = 0;
         int signalRange;
-        signalRange = isBetween(ap.getRssi());
+        signalRange = isBetween(rssi);
         switch (signalRange) {
             case Constants.EXCELLENT:
                 holder.getWifiImage().setImageDrawable(ContextCompat.getDrawable(context,R.drawable.ic_wifi_signal_full));
+                rssiSiganlColor = ContextCompat.getColor(context, R.color.green);
                 break;
             case Constants.GOOD:
                 holder.getWifiImage().setImageDrawable(ContextCompat.getDrawable(context,R.drawable.ic_wifi_signal_good));
+                rssiSiganlColor = ContextCompat.getColor(context, R.color.light_green);
                 break;
             case Constants.MEDIUM:
                 holder.getWifiImage().setImageDrawable(ContextCompat.getDrawable(context,R.drawable.ic_wifi_signal_medium));
+                rssiSiganlColor = ContextCompat.getColor(context, R.color.orange);
                 break;
             case Constants.FAIR:
                 holder.getWifiImage().setImageDrawable(ContextCompat.getDrawable(context,R.drawable.ic_wifi_signal_average));
+                rssiSiganlColor = ContextCompat.getColor(context, R.color.dark_orange);
                 break;
             case Constants.WEAK:
                 holder.getWifiImage().setImageDrawable(ContextCompat.getDrawable(context,R.drawable.ic_wifi_signal_weak));
+                rssiSiganlColor = ContextCompat.getColor(context, R.color.red);
                 break;
             case Constants.VERY_WEAK:
                 holder.getWifiImage().setImageDrawable(ContextCompat.getDrawable(context,R.drawable.ic_wifi_signal_very_weak));
+                rssiSiganlColor = ContextCompat.getColor(context, R.color.dark_red);
                 break;
             default:
                 Log.e("APsAdapter", "Error in wifi signals reading");
                 break;
         }
+        return rssiSiganlColor;
     }
 
     private int isBetween(int rssi) {

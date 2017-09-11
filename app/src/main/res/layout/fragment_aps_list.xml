@@ -15,10 +15,10 @@
         android:visibility="gone"/>
     <FrameLayout
         android:id="@+id/Connected_ap"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_width="match_parent"
         android:layout_weight="4"
-        android:background="#ccc">
+        android:background="@color/connected_bg">
     <include
         layout="@layout/ap_item"/>
     </FrameLayout>

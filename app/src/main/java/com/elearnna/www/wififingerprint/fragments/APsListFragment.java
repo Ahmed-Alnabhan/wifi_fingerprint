@@ -148,7 +148,7 @@ public class APsListFragment extends Fragment implements APsListView{
 
     @Override
     public void displayAPsList(List<AP> APsList) {
-        // Restore the RecyclerView scroll every time a new reading is displayed
+        // Restore the RecyclerView scroll position every time a new reading is displayed
         onSaveInstanceState(state);
         rvAPsList.setAdapter(new APsAdapter(APsList, getContext()));
         rvAPsList.getAdapter().notifyDataSetChanged();

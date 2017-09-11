@@ -3,4 +3,14 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="orange">#FFA500</color>
+    <color name="dark_orange">#FF8C00</color>
+    <color name="wifi_light_grey">#BCBCBC</color>
+    <color name="wifi_dark_grey">#A9AAA9</color>
+    <color name="light_green">#82CC00</color>
+    <color name="dark_green">#61C105</color>
+    <color name="red">#FF0000</color>
+    <color name="dark_red">#AA0000</color>
+    <color name="connected_bg">#CCCCCC</color>
+    <color name="green">#00FF00</color>
 </resources>
