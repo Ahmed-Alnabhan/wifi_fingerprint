@@ -7,7 +7,9 @@ import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -39,9 +41,12 @@ import butterknife.ButterKnife;
 
 public class APsListFragment extends Fragment implements APsListView{
 
+    private static final String RECYCLER_STATE = "recycler.state";
     APsListPresenter aPsListPresenter;
     WifiManager wifiManager;
     WifiInfo wifiInfo;
+    Bundle state;
+
     public APsListFragment() {
     }
 
@@ -88,6 +93,7 @@ public class APsListFragment extends Fragment implements APsListView{
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_aps_list, container, false);
         ButterKnife.bind(this, view);
+        state = new Bundle();
         // request the user permission for location access
         requestUserPermission();
         // Retrieve the info of the currently connected APs
@@ -142,8 +148,11 @@ public class APsListFragment extends Fragment implements APsListView{
 
     @Override
     public void displayAPsList(List<AP> APsList) {
+        // Restore the RecyclerView scroll every time a new reading is displayed
+        onSaveInstanceState(state);
         rvAPsList.setAdapter(new APsAdapter(APsList, getContext()));
         rvAPsList.getAdapter().notifyDataSetChanged();
+        onViewStateRestored(state);
     }
 
     @Override
@@ -164,5 +173,21 @@ public class APsListFragment extends Fragment implements APsListView{
     @Override
     public void hideAPsLoading() {
 
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelable(RECYCLER_STATE, rvAPsList.getLayoutManager().onSaveInstanceState());
+    }
+
+    @Override
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
+        if(savedInstanceState != null)
+        {
+            Parcelable savedRecyclerLayoutState = savedInstanceState.getParcelable(RECYCLER_STATE);
+            rvAPsList.getLayoutManager().onRestoreInstanceState(savedRecyclerLayoutState);
+        }
     }
 }
