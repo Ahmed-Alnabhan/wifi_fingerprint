@@ -7,6 +7,7 @@ import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -27,6 +28,7 @@ import android.widget.TextView;
 import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar;
 import com.elearnna.www.wififingerprint.R;
 import com.elearnna.www.wififingerprint.adapter.APsAdapter;
+import com.elearnna.www.wififingerprint.app.RSSIRepresenter;
 import com.elearnna.www.wififingerprint.app.Utils;
 import com.elearnna.www.wififingerprint.model.AP;
 import com.elearnna.www.wififingerprint.presenter.APsListPresenter;
@@ -46,6 +48,8 @@ public class APsListFragment extends Fragment implements APsListView{
     WifiManager wifiManager;
     WifiInfo wifiInfo;
     Bundle state;
+    Handler handler;
+    Runnable runnable;
 
     public APsListFragment() {
     }
@@ -86,6 +90,19 @@ public class APsListFragment extends Fragment implements APsListView{
         super.onCreate(savedInstanceState);
     }
 
+    private void readConnectedAPPeriodically() {
+        // Create handler that gets connected AP info every 5 mins
+        handler = new Handler();
+        runnable = new Runnable(){
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+            @Override
+            public void run() {
+                getConnectedAPInfo(5000);
+            }
+        };
+        runnable.run();
+    }
+
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -97,27 +114,38 @@ public class APsListFragment extends Fragment implements APsListView{
         // request the user permission for location access
         requestUserPermission();
         // Retrieve the info of the currently connected APs
-        getConnectedAPInfo();
         rvAPsList.setLayoutManager(new LinearLayoutManager(getContext()));
         aPsListPresenter = new APsListPresenterImplementer(getContext());
         aPsListPresenter.setAPsListView(this);
         aPsListPresenter.getAPsList();
         // Keep the screen on
         getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+
+        readConnectedAPPeriodically();
+
         return view;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    private void getConnectedAPInfo() {
-        wifiManager = (WifiManager) getActivity().getApplicationContext().getSystemService(Context.WIFI_SERVICE);
-        wifiInfo = wifiManager.getConnectionInfo();
-        int rssi = wifiInfo.getRssi();
-        txtSSID.setText(wifiInfo.getSSID());
-        int ip = wifiInfo.getIpAddress();
-        String ipAddress = String.format("%d.%d.%d.%d", (ip & 0xff),(ip >> 8 & 0xff),(ip >> 16 & 0xff),(ip >> 24 & 0xff));
-        txtIPAddress.setText("IP: " + ipAddress);
-        txtChennel.setText("Channel: " + Utils.convertFrequencyToChannel(wifiInfo.getFrequency()));
-        txtMAC.setText("MAC: " + wifiInfo.getMacAddress());
+    private void getConnectedAPInfo(int timer) {
+        if (getActivity() != null) {
+            wifiManager = (WifiManager) getActivity().getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+            wifiInfo = wifiManager.getConnectionInfo();
+            int rssi = wifiInfo.getRssi();
+            txtSSID.setText(wifiInfo.getSSID());
+            int ip = wifiInfo.getIpAddress();
+            String ipAddress = String.format("%d.%d.%d.%d", (ip & 0xff), (ip >> 8 & 0xff), (ip >> 16 & 0xff), (ip >> 24 & 0xff));
+            txtIPAddress.setText("IP: " + ipAddress);
+            txtChennel.setText("Channel: " + Utils.convertFrequencyToChannel(wifiInfo.getFrequency()));
+            txtMAC.setText("MAC: " + wifiInfo.getMacAddress());
+
+            RSSIRepresenter rssiRepresenter = Utils.setWifiImage(rssi, getContext());
+            wifiImage.setImageDrawable(ContextCompat.getDrawable(getContext(), rssiRepresenter.getRSSIImage()));
+            roundCornerProgressBar.setProgress((120 + (rssi)));
+            roundCornerProgressBar.setProgressColor(rssiRepresenter.getRSSIStrength());
+            txtSignalStrength.setText(String.valueOf(rssi));
+            handler.postDelayed(runnable, timer);
+        }
     }
 
     private void requestUserPermission() {
