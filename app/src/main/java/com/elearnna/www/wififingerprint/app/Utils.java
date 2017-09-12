@@ -1,12 +1,16 @@
 package com.elearnna.www.wififingerprint.app;
 
+import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
+
+import com.elearnna.www.wififingerprint.R;
 
 /**
  * Created by Ahmed on 9/10/2017.
  */
 
-public class FrequenceyToChannel {
+public class Utils {
     public static int convertFrequencyToChannel(int frequency) {
         int channel = 0;
         switch (frequency) {
@@ -131,4 +135,59 @@ public class FrequenceyToChannel {
 
         return channel;
     }
+
+    public static RSSIRepresenter setWifiImage(int rssi, Context context) {
+        int rssiSiganlColor = 0;
+        int rssiSignalImage = 0;
+        int signalRange;
+        signalRange = isBetween(rssi);
+        switch (signalRange) {
+            case Constants.EXCELLENT:
+                rssiSignalImage = R.drawable.ic_wifi_signal_full;
+                rssiSiganlColor = ContextCompat.getColor(context, R.color.green);
+                break;
+            case Constants.GOOD:
+                rssiSignalImage = R.drawable.ic_wifi_signal_good;
+                rssiSiganlColor = ContextCompat.getColor(context, R.color.light_green);
+                break;
+            case Constants.MEDIUM:
+                rssiSignalImage = R.drawable.ic_wifi_signal_medium;
+                rssiSiganlColor = ContextCompat.getColor(context, R.color.orange);
+                break;
+            case Constants.FAIR:
+                rssiSignalImage = R.drawable.ic_wifi_signal_average;
+                rssiSiganlColor = ContextCompat.getColor(context, R.color.dark_orange);
+                break;
+            case Constants.WEAK:
+                rssiSignalImage = R.drawable.ic_wifi_signal_weak;
+                rssiSiganlColor = ContextCompat.getColor(context, R.color.red);
+                break;
+            case Constants.VERY_WEAK:
+                rssiSignalImage = R.drawable.ic_wifi_signal_very_weak;
+                rssiSiganlColor = ContextCompat.getColor(context, R.color.dark_red);
+                break;
+            default:
+                Log.e("APsAdapter", "Error in wifi signals reading");
+                break;
+        }
+        return new RSSIRepresenter(rssiSignalImage, rssiSiganlColor);
+    }
+
+    public static int isBetween(int rssi) {
+        if(rssi <= Constants.MAX_EXCELLENT && rssi >= Constants.MIN_EXCELLENT){
+            return Constants.EXCELLENT;
+        } else if(rssi <= Constants.MAX_GOOD && rssi >= Constants.MIN_GOOD){
+            return Constants.GOOD;
+        } else if(rssi <= Constants.MAX_MEDIUM && rssi >= Constants.MIN_MEDIUM){
+            return Constants.MEDIUM;
+        } else if(rssi <= Constants.MAX_FAIR && rssi >= Constants.MIN_FAIR){
+            return Constants.FAIR;
+        }else if(rssi <= Constants.MAX_WEAK && rssi >= Constants.MIN_WEAK){
+            return Constants.WEAK;
+        }else if(rssi <= Constants.MAX_VERY_WEAK && rssi >= Constants.MIN_VERY_WEAK){
+            return Constants.VERY_WEAK;
+        }
+        return Constants.ERROR;
+    }
+
 }

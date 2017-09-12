@@ -27,7 +27,7 @@ import android.widget.TextView;
 import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar;
 import com.elearnna.www.wififingerprint.R;
 import com.elearnna.www.wififingerprint.adapter.APsAdapter;
-import com.elearnna.www.wififingerprint.app.FrequenceyToChannel;
+import com.elearnna.www.wififingerprint.app.Utils;
 import com.elearnna.www.wififingerprint.model.AP;
 import com.elearnna.www.wififingerprint.presenter.APsListPresenter;
 import com.elearnna.www.wififingerprint.presenter.APsListPresenterImplementer;
@@ -111,9 +111,13 @@ public class APsListFragment extends Fragment implements APsListView{
     private void getConnectedAPInfo() {
         wifiManager = (WifiManager) getActivity().getApplicationContext().getSystemService(Context.WIFI_SERVICE);
         wifiInfo = wifiManager.getConnectionInfo();
+        int rssi = wifiInfo.getRssi();
         txtSSID.setText(wifiInfo.getSSID());
-        txtIPAddress.setText("IP: " + wifiInfo.getIpAddress());
-        txtChennel.setText("Channel: " + FrequenceyToChannel.convertFrequencyToChannel(wifiInfo.getFrequency()));
+        int ip = wifiInfo.getIpAddress();
+        String ipAddress = String.format("%d.%d.%d.%d", (ip & 0xff),(ip >> 8 & 0xff),(ip >> 16 & 0xff),(ip >> 24 & 0xff));
+        txtIPAddress.setText("IP: " + ipAddress);
+        txtChennel.setText("Channel: " + Utils.convertFrequencyToChannel(wifiInfo.getFrequency()));
+        txtMAC.setText("MAC: " + wifiInfo.getMacAddress());
     }
 
     private void requestUserPermission() {
