@@ -21,6 +21,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -84,6 +85,12 @@ public class APsListFragment extends Fragment implements APsListView{
     @BindView(R.id.rv_aps_list)
     RecyclerView rvAPsList;
 
+    @BindView(R.id.txt_wifi_not_connected)
+    TextView txtWifiNotConnected;
+
+    @BindView(R.id.ap_item_layout)
+    FrameLayout apItemLayout;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -91,7 +98,7 @@ public class APsListFragment extends Fragment implements APsListView{
     }
 
     private void readConnectedAPPeriodically() {
-        // Create handler that gets connected AP info every 5 mins
+        // Create handler that gets connected AP info every 5 seconds
         handler = new Handler();
         runnable = new Runnable(){
             @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -122,7 +129,6 @@ public class APsListFragment extends Fragment implements APsListView{
         getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
         readConnectedAPPeriodically();
-
         return view;
     }
 
@@ -131,20 +137,27 @@ public class APsListFragment extends Fragment implements APsListView{
         if (getActivity() != null) {
             wifiManager = (WifiManager) getActivity().getApplicationContext().getSystemService(Context.WIFI_SERVICE);
             wifiInfo = wifiManager.getConnectionInfo();
-            int rssi = wifiInfo.getRssi();
-            txtSSID.setText(wifiInfo.getSSID());
-            int ip = wifiInfo.getIpAddress();
-            String ipAddress = String.format("%d.%d.%d.%d", (ip & 0xff), (ip >> 8 & 0xff), (ip >> 16 & 0xff), (ip >> 24 & 0xff));
-            txtIPAddress.setText("IP: " + ipAddress);
-            txtChennel.setText("Channel: " + Utils.convertFrequencyToChannel(wifiInfo.getFrequency()));
-            txtMAC.setText("MAC: " + wifiInfo.getMacAddress());
+            if (wifiInfo.getNetworkId() != -1) {
+                txtWifiNotConnected.setVisibility(View.GONE);
+                int rssi = wifiInfo.getRssi();
+                txtSSID.setText(wifiInfo.getSSID());
+                int ip = wifiInfo.getIpAddress();
+                String ipAddress = String.format("%d.%d.%d.%d", (ip & 0xff), (ip >> 8 & 0xff), (ip >> 16 & 0xff), (ip >> 24 & 0xff));
+                txtIPAddress.setText("IP: " + ipAddress);
+                txtChennel.setText("Channel: " + Utils.convertFrequencyToChannel(wifiInfo.getFrequency()));
+                txtMAC.setText("MAC: " + Utils.getMacAddr());
 
-            RSSIRepresenter rssiRepresenter = Utils.setWifiImage(rssi, getContext());
-            wifiImage.setImageDrawable(ContextCompat.getDrawable(getContext(), rssiRepresenter.getRSSIImage()));
-            roundCornerProgressBar.setProgress((120 + (rssi)));
-            roundCornerProgressBar.setProgressColor(rssiRepresenter.getRSSIStrength());
-            txtSignalStrength.setText(String.valueOf(rssi));
-            handler.postDelayed(runnable, timer);
+                RSSIRepresenter rssiRepresenter = Utils.setWifiImage(rssi, getContext());
+                wifiImage.setImageDrawable(ContextCompat.getDrawable(getContext(), rssiRepresenter.getRSSIImage()));
+                roundCornerProgressBar.setProgress((120 + (rssi)));
+                roundCornerProgressBar.setProgressColor(rssiRepresenter.getRSSIStrength());
+                txtSignalStrength.setText(String.valueOf(rssi));
+                handler.postDelayed(runnable, timer);
+                apItemLayout.setVisibility(View.VISIBLE);
+            } else {
+                apItemLayout.setVisibility(View.GONE);
+                txtWifiNotConnected.setVisibility(View.VISIBLE);
+            }
         }
     }
 
@@ -181,10 +194,13 @@ public class APsListFragment extends Fragment implements APsListView{
     @Override
     public void displayAPsList(List<AP> APsList) {
         // Restore the RecyclerView scroll position every time a new reading is displayed
-        onSaveInstanceState(state);
-        rvAPsList.setAdapter(new APsAdapter(APsList, getContext()));
-        rvAPsList.getAdapter().notifyDataSetChanged();
-        onViewStateRestored(state);
+        if (APsList != null) {
+            apsLoadingProgressBar.setVisibility(View.GONE);
+            onSaveInstanceState(state);
+            rvAPsList.setAdapter(new APsAdapter(APsList, getContext()));
+            rvAPsList.getAdapter().notifyDataSetChanged();
+            onViewStateRestored(state);
+        }
     }
 
     @Override

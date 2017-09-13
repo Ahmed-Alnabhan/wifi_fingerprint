@@ -48,6 +48,12 @@ public class APsAdapter extends RecyclerView.Adapter<APsListViewHolder>{
         holder.getWifiImage().setImageDrawable(ContextCompat.getDrawable(context, rssiRepresenter.getRSSIImage()));
         holder.getRoundCornerProgressBar().setProgress((120 + (rssi)));
         holder.getRoundCornerProgressBar().setProgressColor(rssiRepresenter.getRSSIStrength());
+        // Check if the AP is connected to the Internet then show a connected textview
+        if (Utils.isConnected(context, ap.getMacAddress())){
+            holder.getTxtConnectionStatus().setText("Connected");
+        } else {
+            holder.getTxtConnectionStatus().setText("");
+        }
     }
 
     @Override
