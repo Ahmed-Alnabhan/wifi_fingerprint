@@ -15,4 +15,5 @@
     <string name="mac_address">MAC: 12:e3:4f:12:a3</string>
     <string name="signal_strength">-61</string>
     <string name="no_connection">Device is not connected to Wifi!</string>
+    <string name="about">About</string>
 </resources>
