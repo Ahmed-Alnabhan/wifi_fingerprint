@@ -16,4 +16,16 @@
     <string name="signal_strength">-61</string>
     <string name="no_connection">Device is not connected to Wifi!</string>
     <string name="about">About</string>
+    <string name="rssi">RSSI</string>
+    <string name="mac_address_label">MAC Address:</string>
+    <string name="channel_label">Channel:</string>
+    <string name="frequency">Frequency:</string>
+    <string name="security_protocol">Security Protocol:</string>
+    <string name="manufacturer">Manufacturer:</string>
+    <string name="band">Band:</string>
+    <string name="frequency_value">5300 MHz</string>
+    <string name="band_value">5GHz</string>
+    <string name="security_protocol_value">[WAP][WAP2]</string>
+    <string name="manufacturer_value">NETGEAR</string>
+    <string name="channel_value">112</string>
 </resources>

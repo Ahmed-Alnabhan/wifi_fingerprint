@@ -50,5 +50,8 @@ dependencies {
      */
     compile "com.jakewharton:butterknife:$butterknifeVersion"
     annotationProcessor "com.jakewharton:butterknife-compiler:$butterknifeVersion"
-
+    /**
+     * rssi gauge view
+     */
+    compile 'com.github.shinelw:library:1.0.1'
 }
