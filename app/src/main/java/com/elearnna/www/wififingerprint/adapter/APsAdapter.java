@@ -22,19 +22,23 @@ public class APsAdapter extends RecyclerView.Adapter<APsListViewHolder>{
 
     private List<AP> listOfAPs;
     private Context context;
-    public APsAdapter(List<AP> APsList, Context context){
+    private APsAdapterOnClickHandler onClickHandler;
+    private AP ap;
+
+    public APsAdapter(List<AP> APsList, Context context, APsAdapterOnClickHandler onClickHandler){
         this.listOfAPs = APsList;
         this.context = context;
+        this.onClickHandler = onClickHandler;
     }
     @Override
     public APsListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        return new APsListViewHolder(inflater.inflate(R.layout.ap_item, parent, false));
+        return new APsListViewHolder(inflater.inflate(R.layout.ap_item, parent, false), listOfAPs, onClickHandler);
     }
 
     @Override
     public void onBindViewHolder(APsListViewHolder holder, int position) {
-        AP ap = listOfAPs.get(position);
+        ap = listOfAPs.get(position);
         int freq = ap.getChennel();
         int channel = Utils.convertFrequencyToChannel(freq);
         int rssi = ap.getRssi();

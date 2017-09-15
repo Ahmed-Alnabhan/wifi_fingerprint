@@ -16,6 +16,6 @@ public class APDetail extends AppCompatActivity {
 
         APDetailFragment fragment = new APDetailFragment();
         FragmentManager fragmentMananger = getSupportFragmentManager();
-        fragmentMananger.beginTransaction().add(R.id.fragment_ap_detail, fragment);
+        fragmentMananger.beginTransaction().add(R.id.fragment_ap_detail, fragment).commit();
     }
 }

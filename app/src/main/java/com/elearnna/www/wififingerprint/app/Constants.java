@@ -140,4 +140,8 @@ public class Constants {
     public static final int CHANNEL_135 = 135;
     public static final int CHANNEL_137 = 137;
     public static final int CHANNEL_138 = 138;
+    /**
+     * Access Point
+     */
+    public static final String ACCESS_POINT = "ap";
 }

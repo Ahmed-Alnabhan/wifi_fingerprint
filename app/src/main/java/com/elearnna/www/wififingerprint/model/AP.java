@@ -1,10 +1,13 @@
 package com.elearnna.www.wififingerprint.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by Ahmed on 9/6/2017.
  */
 
-public class AP {
+public class AP implements Parcelable {
     private String id;
     private String locationName;
     private String ssid;
@@ -113,4 +116,55 @@ public class AP {
     public void setConnected(int connected) {
         isConnected = connected;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.id);
+        dest.writeString(this.locationName);
+        dest.writeString(this.ssid);
+        dest.writeInt(this.rssi);
+        dest.writeInt(this.frequency);
+        dest.writeString(this.macAddress);
+        dest.writeInt(this.chennel);
+        dest.writeInt(this.isLocked);
+        dest.writeString(this.manufacturer);
+        dest.writeString(this.securityProtocol);
+        dest.writeString(this.ipAddress);
+        dest.writeInt(this.isConnected);
+    }
+
+    public AP() {
+    }
+
+    protected AP(Parcel in) {
+        this.id = in.readString();
+        this.locationName = in.readString();
+        this.ssid = in.readString();
+        this.rssi = in.readInt();
+        this.frequency = in.readInt();
+        this.macAddress = in.readString();
+        this.chennel = in.readInt();
+        this.isLocked = in.readInt();
+        this.manufacturer = in.readString();
+        this.securityProtocol = in.readString();
+        this.ipAddress = in.readString();
+        this.isConnected = in.readInt();
+    }
+
+    public static final Parcelable.Creator<AP> CREATOR = new Parcelable.Creator<AP>() {
+        @Override
+        public AP createFromParcel(Parcel source) {
+            return new AP(source);
+        }
+
+        @Override
+        public AP[] newArray(int size) {
+            return new AP[size];
+        }
+    };
 }

@@ -3,11 +3,16 @@ package com.elearnna.www.wififingerprint.view;
 import android.app.Activity;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar;
 import com.elearnna.www.wififingerprint.R;
+import com.elearnna.www.wififingerprint.adapter.APsAdapterOnClickHandler;
+import com.elearnna.www.wififingerprint.model.AP;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -16,7 +21,7 @@ import butterknife.ButterKnife;
  * Created by Ahmed on 9/6/2017.
  */
 
-public class APsListViewHolder extends RecyclerView.ViewHolder{
+public class APsListViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
     @BindView(R.id.wifi_image)
     ImageView wifiImage;
 
@@ -41,9 +46,19 @@ public class APsListViewHolder extends RecyclerView.ViewHolder{
     @BindView(R.id.tv_signal_strength)
     TextView txtSignalStrength;
 
+    @BindView(R.id.ap_item_view)
+    ViewGroup apItemContainer;
+
     Activity activity;
-    public APsListViewHolder(View itemView) {
+    private List<AP> listOfAps;
+    private APsAdapterOnClickHandler listener;
+
+
+    public APsListViewHolder(View itemView, List<AP> aps, APsAdapterOnClickHandler handler) {
         super(itemView);
+        itemView.setOnClickListener(this);
+        listOfAps = aps;
+        listener = handler;
         ButterKnife.bind(this, itemView);
     }
 
@@ -81,5 +96,14 @@ public class APsListViewHolder extends RecyclerView.ViewHolder{
 
     public Activity getActivity() {
         return activity;
+    }
+
+    public ViewGroup getApItemContainer() {return apItemContainer;}
+
+    @Override
+    public void onClick(View view) {
+        int adapterPosition = getAdapterPosition();
+        AP apData = listOfAps.get(adapterPosition);
+        listener.onClick(apData);
     }
 }

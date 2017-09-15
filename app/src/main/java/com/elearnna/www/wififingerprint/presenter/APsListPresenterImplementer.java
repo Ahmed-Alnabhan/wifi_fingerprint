@@ -80,8 +80,10 @@ public class APsListPresenterImplementer implements APsListPresenter{
                 ap = new AP();
                 ap.setSsid(sr.SSID);
                 ap.setChennel(sr.frequency);
+                ap.setFrequency(sr.frequency);
                 ap.setMacAddress(sr.BSSID);
                 ap.setRssi(sr.level);
+                ap.setManufacturer(String.valueOf(sr.channelWidth));
                 APsList.add(ap);
             }
             aPsListView.displayAPsList(APsList);

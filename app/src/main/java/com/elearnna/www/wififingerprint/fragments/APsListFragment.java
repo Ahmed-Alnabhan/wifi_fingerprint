@@ -2,6 +2,7 @@ package com.elearnna.www.wififingerprint.fragments;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
@@ -14,6 +15,7 @@ import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -28,7 +30,10 @@ import android.widget.TextView;
 
 import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar;
 import com.elearnna.www.wififingerprint.R;
+import com.elearnna.www.wififingerprint.activities.APDetail;
 import com.elearnna.www.wififingerprint.adapter.APsAdapter;
+import com.elearnna.www.wififingerprint.adapter.APsAdapterOnClickHandler;
+import com.elearnna.www.wififingerprint.app.Constants;
 import com.elearnna.www.wififingerprint.app.RSSIRepresenter;
 import com.elearnna.www.wififingerprint.app.Utils;
 import com.elearnna.www.wififingerprint.model.AP;
@@ -42,15 +47,19 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
-public class APsListFragment extends Fragment implements APsListView{
+public class APsListFragment extends Fragment implements APsListView, APsAdapterOnClickHandler{
 
     private static final String RECYCLER_STATE = "recycler.state";
-    APsListPresenter aPsListPresenter;
-    WifiManager wifiManager;
-    WifiInfo wifiInfo;
-    Bundle state;
-    Handler handler;
-    Runnable runnable;
+    private APsListPresenter aPsListPresenter;
+    private WifiManager wifiManager;
+    private WifiInfo wifiInfo;
+    private Bundle state, bundle;
+    private Handler handler;
+    private Runnable runnable;
+    private boolean mTwoPane;
+    private FragmentManager fragmentManager;
+    private Context context;
+    private Intent intent;
 
     public APsListFragment() {
     }
@@ -118,6 +127,8 @@ public class APsListFragment extends Fragment implements APsListView{
         View view = inflater.inflate(R.layout.fragment_aps_list, container, false);
         ButterKnife.bind(this, view);
         state = new Bundle();
+        bundle = new Bundle();
+        mTwoPane = false;
         // request the user permission for location access
         requestUserPermission();
         // Retrieve the info of the currently connected APs
@@ -197,7 +208,7 @@ public class APsListFragment extends Fragment implements APsListView{
         if (APsList != null) {
             apsLoadingProgressBar.setVisibility(View.GONE);
             onSaveInstanceState(state);
-            rvAPsList.setAdapter(new APsAdapter(APsList, getContext()));
+            rvAPsList.setAdapter(new APsAdapter(APsList, getContext(), this));
             rvAPsList.getAdapter().notifyDataSetChanged();
             onViewStateRestored(state);
         }
@@ -236,6 +247,23 @@ public class APsListFragment extends Fragment implements APsListView{
         {
             Parcelable savedRecyclerLayoutState = savedInstanceState.getParcelable(RECYCLER_STATE);
             rvAPsList.getLayoutManager().onRestoreInstanceState(savedRecyclerLayoutState);
+        }
+    }
+
+    @Override
+    public void onClick(AP ap) {
+        bundle.putParcelable(Constants.ACCESS_POINT, ap);
+        if (mTwoPane) {
+            fragmentManager = getFragmentManager();
+            APDetailFragment detailFragment = new APDetailFragment();
+            detailFragment.setArguments(bundle);
+//            fragmentManager.beginTransaction()
+//                    .replace(R.id.movie_detail_container, detailFragment).commit();
+        } else {
+            context = getActivity().getApplicationContext();
+            intent = new Intent(context, APDetail.class);
+            intent.putExtras(bundle);
+            startActivity(intent);
         }
     }
 }
