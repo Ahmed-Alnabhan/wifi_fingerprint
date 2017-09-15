@@ -5,20 +5,27 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.elearnna.www.wififingerprint.R;
+import com.elearnna.www.wififingerprint.app.ApiUtils;
 import com.elearnna.www.wififingerprint.app.Constants;
 import com.elearnna.www.wififingerprint.model.AP;
+import com.elearnna.www.wififingerprint.network.VendorService;
 import com.elearnna.www.wififingerprint.presenter.APDetailPresenter;
 import com.elearnna.www.wififingerprint.view.APDetailView;
+import com.google.gson.Gson;
 import com.shinelw.library.ColorArcProgressBar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -27,6 +34,8 @@ public class APDetailFragment extends Fragment implements APDetailView, APDetail
     private Intent intent;
     private AP ap;
     private APDetailView apDetailView;
+    private VendorService vendorService;
+    private String vendor;
 
     // Fields
     @BindView(R.id.txt_ap_name_title)
@@ -73,11 +82,15 @@ public class APDetailFragment extends Fragment implements APDetailView, APDetail
     @Override
     public void dispalyAP(AP ap) {
         if(ap != null) {
-            apNameTitle.setText(ap.getSsid());
-            manufacturerValue.setText(ap.getManufacturer());
-            //frequencyValue.setText(ap.getFrequency());
-            macValue.setText(ap.getMacAddress());
             int rssi = ap.getRssi();
+            String mac = ap.getMacAddress();
+            apNameTitle.setText(ap.getSsid());
+            getVendorFromMac(mac, manufacturerValue);
+            if (vendor != null) {
+                manufacturerValue.setText(vendor);
+            }
+            //frequencyValue.setText(ap.getFrequency());
+            macValue.setText(mac);
             colorArcProgressBar.setIsShowCurrentSpeed(true);
             colorArcProgressBar.setCurrentValues((float)Math.round(rssi * (-0.6)));
             colorArcProgressBar.setMaxValues(-100);
@@ -112,6 +125,30 @@ public class APDetailFragment extends Fragment implements APDetailView, APDetail
         } else {
             ap = getArguments().getParcelable(Constants.ACCESS_POINT);
         }
+    }
+
+    @Override
+    public void getVendorFromMac(String mac, final TextView tv) {
+        vendorService = ApiUtils.getVendorService();
+        Call<String> call = vendorService.getVendor(mac);
+        call.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                Log.w("2.0 getFeed > Full json res wrapped in gson => ",new Gson().toJson(response));
+                if (response.isSuccessful()) {
+                    vendor = response.body();
+                    tv.setText(vendor);
+                } else {
+                    int statusCode = response.code();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                showErrorMessage();
+                Log.e("failure", String.valueOf(t.getCause()));
+            }
+        });
     }
 
     /**
