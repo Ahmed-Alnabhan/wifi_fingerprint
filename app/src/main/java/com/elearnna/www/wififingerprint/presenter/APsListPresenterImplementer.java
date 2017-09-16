@@ -84,10 +84,11 @@ public class APsListPresenterImplementer implements APsListPresenter{
                 ap.setMacAddress(sr.BSSID);
                 ap.setRssi(sr.level);
                 ap.setManufacturer(String.valueOf(sr.channelWidth));
+                ap.setSecurityProtocol(sr.capabilities);
                 APsList.add(ap);
             }
             aPsListView.displayAPsList(APsList);
-            Log.d("AAA", String.valueOf(wifiAPsList.size()));
+            Log.d("Security:::", String.valueOf(wifiAPsList.get(0).capabilities));
         }
     }
 }

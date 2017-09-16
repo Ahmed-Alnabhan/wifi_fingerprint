@@ -151,7 +151,15 @@ public class APsListFragment extends Fragment implements APsListView, APsAdapter
             if (wifiInfo.getNetworkId() != -1) {
                 txtWifiNotConnected.setVisibility(View.GONE);
                 int rssi = wifiInfo.getRssi();
-                txtSSID.setText(wifiInfo.getSSID());
+
+                // Set the name of the network SSID
+                String ssid = wifiInfo.getSSID();
+                if (!ssid.isEmpty() && ssid != null) {
+                    txtSSID.setText(ssid);
+                } else {
+                    txtSSID.setText(Constants.UNKNOWN);
+                }
+
                 int ip = wifiInfo.getIpAddress();
                 String ipAddress = String.format("%d.%d.%d.%d", (ip & 0xff), (ip >> 8 & 0xff), (ip >> 16 & 0xff), (ip >> 24 & 0xff));
                 txtIPAddress.setText("IP: " + ipAddress);

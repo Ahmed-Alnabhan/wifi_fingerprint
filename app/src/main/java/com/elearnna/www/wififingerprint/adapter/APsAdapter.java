@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.elearnna.www.wififingerprint.R;
+import com.elearnna.www.wififingerprint.app.Constants;
 import com.elearnna.www.wififingerprint.app.RSSIRepresenter;
 import com.elearnna.www.wififingerprint.app.Utils;
 import com.elearnna.www.wififingerprint.model.AP;
@@ -42,7 +43,15 @@ public class APsAdapter extends RecyclerView.Adapter<APsListViewHolder>{
         int freq = ap.getChennel();
         int channel = Utils.convertFrequencyToChannel(freq);
         int rssi = ap.getRssi();
-        holder.getTxtSSID().setText(ap.getSsid());
+
+        // Set the name of the network SSID
+        String ssid = ap.getSsid();
+        if (!ssid.isEmpty() && ssid != null) {
+            holder.getTxtSSID().setText(ssid);
+        } else {
+            holder.getTxtSSID().setText(Constants.UNKNOWN);
+        }
+
         holder.getTxtIPAddress().setText(ap.getIpAddress());
         holder.getTxtConnectionStatus().setText(String.valueOf(ap.isConnected()));
         holder.getTxtChennel().setText(String.valueOf("Channel: " + channel));

@@ -2,8 +2,10 @@ package com.elearnna.www.wififingerprint.fragments;
 
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,11 +16,11 @@ import android.widget.TextView;
 import com.elearnna.www.wififingerprint.R;
 import com.elearnna.www.wififingerprint.app.ApiUtils;
 import com.elearnna.www.wififingerprint.app.Constants;
+import com.elearnna.www.wififingerprint.app.Utils;
 import com.elearnna.www.wififingerprint.model.AP;
 import com.elearnna.www.wififingerprint.network.VendorService;
 import com.elearnna.www.wififingerprint.presenter.APDetailPresenter;
 import com.elearnna.www.wififingerprint.view.APDetailView;
-import com.google.gson.Gson;
 import com.shinelw.library.ColorArcProgressBar;
 
 import butterknife.BindView;
@@ -67,6 +69,7 @@ public class APDetailFragment extends Fragment implements APDetailView, APDetail
     }
 
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -79,18 +82,37 @@ public class APDetailFragment extends Fragment implements APDetailView, APDetail
         return view;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void dispalyAP(AP ap) {
         if(ap != null) {
+            String ssid = ap.getSsid();
             int rssi = ap.getRssi();
             String mac = ap.getMacAddress();
-            apNameTitle.setText(ap.getSsid());
-            getVendorFromMac(mac, manufacturerValue);
-            if (vendor != null) {
-                manufacturerValue.setText(vendor);
+            int frequency = ap.getFrequency();
+            int channel = Utils.convertFrequencyToChannel(frequency);
+            String band = Utils.getBandFromFrequency(frequency);
+            String capabilities = ap.getSecurityProtocol();
+            int rssiColor = Utils.getRSSIColor(rssi);
+
+            securityProtocol.setText(capabilities);
+            // set the AP name (SSID)
+            if (!ssid.isEmpty() && ssid != null) {
+                apNameTitle.setText(ssid);
+            } else {
+                apNameTitle.setText(Constants.UNKNOWN);
             }
-            //frequencyValue.setText(ap.getFrequency());
+
+            // set the band
+            if (!band.isEmpty() && band != null) {
+                bandValue.setText(band);
+            } else {
+                bandValue.setText(Constants.UNKNOWN);
+            }
+            getVendorFromMac(mac, manufacturerValue);
+            frequencyValue.setText(String.valueOf(frequency));
             macValue.setText(mac);
+            channelValue.setText(String.valueOf(channel));
             colorArcProgressBar.setIsShowCurrentSpeed(true);
             colorArcProgressBar.setCurrentValues((float)Math.round(rssi * (-0.6)));
             colorArcProgressBar.setMaxValues(-100);
@@ -134,10 +156,13 @@ public class APDetailFragment extends Fragment implements APDetailView, APDetail
         call.enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
-                Log.w("2.0 getFeed > Full json res wrapped in gson => ",new Gson().toJson(response));
                 if (response.isSuccessful()) {
                     vendor = response.body();
-                    tv.setText(vendor);
+                    if (!vendor.isEmpty() && vendor != null) {
+                        tv.setText(vendor);
+                    } else {
+                        tv.setText(Constants.UNKNOWN);
+                    }
                 } else {
                     int statusCode = response.code();
                 }

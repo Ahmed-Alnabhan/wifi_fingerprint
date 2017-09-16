@@ -207,7 +207,9 @@ public class Utils {
 
     public static String getMacAddr() {
         try {
+
             List<NetworkInterface> all = Collections.list(NetworkInterface.getNetworkInterfaces());
+
             for (NetworkInterface nif : all) {
                 if (!nif.getName().equalsIgnoreCase("wlan0")) continue;
 
@@ -229,6 +231,28 @@ public class Utils {
         } catch (Exception ex) {
         }
         return "02:00:00:00:00:00";
+    }
+
+    public static String getBandFromFrequency(int frequency){
+        String band = null;
+        if (frequency >= Constants.MIN_5_GHZ_FREQUENCY && frequency <= Constants.MAX_5_GHZ_FREQUENCY){
+            band = Constants.BAND_5_GHZ;
+        } else if (frequency >= Constants.MIN_2_4_GHZ_FREQUENCY && frequency <= Constants.MAX_2_4_GHZ_FREQUENCY){
+            band = Constants.BAND_2_4_GHZ;
+        }
+        return band;
+    }
+
+    public static int getRSSIColor(int rssi) {
+        int rssiColor = 0;
+        if (rssi <= Constants.MAX_EXCELLENT && rssi >= Constants.MIN_GOOD){
+            rssiColor = R.color.green;
+        } else if (rssi <= Constants.MAX_MEDIUM && rssi >= Constants.MIN_FAIR){
+            rssiColor = R.color.orange;
+        } else if (rssi <= Constants.MAX_WEAK && rssi >= Constants.MIN_VERY_WEAK){
+            rssiColor = R.color.red;
+        }
+        return rssiColor;
     }
 
 }

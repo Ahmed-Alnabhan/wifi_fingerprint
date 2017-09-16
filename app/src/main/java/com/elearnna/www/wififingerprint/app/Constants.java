@@ -144,4 +144,14 @@ public class Constants {
      * Access Point
      */
     public static final String ACCESS_POINT = "ap";
+
+    public static final String UNKNOWN = "Unknown";
+    
+    public static int MIN_5_GHZ_FREQUENCY = 5180;
+    public static int MAX_5_GHZ_FREQUENCY =  5809;
+    public static int MIN_2_4_GHZ_FREQUENCY = 2412;
+    public static int MAX_2_4_GHZ_FREQUENCY = 2484;
+    public static String BAND_5_GHZ = "5GHz";
+    public static String BAND_2_4_GHZ = "2.4GHz";
+
 }
