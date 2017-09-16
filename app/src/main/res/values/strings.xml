@@ -28,4 +28,14 @@
     <string name="security_protocol_value">[WAP][WAP2]</string>
     <string name="manufacturer_value">NETGEAR</string>
     <string name="channel_value">112</string>
+    <string name="ap_detail_activity_title">AP Detail</string>
+    <string name="device_info_activity_title">Device Info</string>
+    <string name="device_manufacturer">Manufacturer:</string>
+    <string name="device_model">Model:</string>
+    <string name="device_brand">Brand:</string>
+    <string name="device">Device:</string>
+    <string name="product">Product:</string>
+    <string name="os">Operating System:</string>
+    <string name="os_version">OS Version:</string>
+    <string name="api_level">API Level:</string>
 </resources>

@@ -7,7 +7,6 @@ import android.content.IntentFilter;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
 import android.os.Handler;
-import android.util.Log;
 
 import com.elearnna.www.wififingerprint.model.AP;
 import com.elearnna.www.wififingerprint.view.APsListView;
@@ -88,7 +87,6 @@ public class APsListPresenterImplementer implements APsListPresenter{
                 APsList.add(ap);
             }
             aPsListView.displayAPsList(APsList);
-            Log.d("Security:::", String.valueOf(wifiAPsList.get(0).capabilities));
         }
     }
 }

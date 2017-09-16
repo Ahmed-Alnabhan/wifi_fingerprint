@@ -14,4 +14,6 @@
     <dimen name="dimen_24_dp">24dp</dimen>
     <dimen name="dimen_50_dp">50dp</dimen>
     <dimen name="dimen_4_dp">4dp</dimen>
+    <dimen name="dimen_32_dp">32dp</dimen>
+    <dimen name="dimen_12_dp">12dp</dimen>
 </resources>

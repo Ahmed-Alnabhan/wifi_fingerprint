@@ -265,8 +265,8 @@ public class APsListFragment extends Fragment implements APsListView, APsAdapter
             fragmentManager = getFragmentManager();
             APDetailFragment detailFragment = new APDetailFragment();
             detailFragment.setArguments(bundle);
-//            fragmentManager.beginTransaction()
-//                    .replace(R.id.movie_detail_container, detailFragment).commit();
+            fragmentManager.beginTransaction()
+                    .replace(R.id.fragment_ap_detail_view, detailFragment).commit();
         } else {
             context = getActivity().getApplicationContext();
             intent = new Intent(context, APDetail.class);
