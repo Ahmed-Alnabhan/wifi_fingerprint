@@ -95,7 +95,8 @@ public class APsList extends AppCompatActivity
         } else if (id == R.id.nav_settings) {
 
         } else if (id == R.id.nav_about) {
-
+            Intent aboutIntent = new Intent(this, About.class);
+            startActivity(aboutIntent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
