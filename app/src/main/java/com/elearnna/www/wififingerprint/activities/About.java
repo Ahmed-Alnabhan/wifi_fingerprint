@@ -16,7 +16,7 @@ public class About extends AppCompatActivity {
 
         // Add about fragment to the About activity
         AboutFragment fragment = new AboutFragment();
-        FragmentManager fragmentMananger = getSupportFragmentManager();
-        fragmentMananger.beginTransaction().add(R.id.fragment_about, fragment).commit();
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction().add(R.id.fragment_about, fragment).commit();
     }
 }

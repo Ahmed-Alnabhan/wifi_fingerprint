@@ -5,18 +5,20 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 
 import com.elearnna.www.wififingerprint.R;
-import com.elearnna.www.wififingerprint.fragments.DeviceInfoFragment;
+import com.elearnna.www.wififingerprint.fragments.StoredFilesFragment;
 
-public class DeviceInfo extends AppCompatActivity {
+public class StoredFiles extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_device_info);
+        setContentView(R.layout.activity_stored_files);
 
-        // Add the device info fragment to the activity
-        DeviceInfoFragment fragment = new DeviceInfoFragment();
+        // Add storedFiles fragment to the activity
+        StoredFilesFragment fragment = new StoredFilesFragment();
         FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().add(R.id.fragment_device_info, fragment).commit();
+        fragmentManager.beginTransaction().add(R.id.stored_files_fragment_container, fragment).commit();
+
+
     }
 }

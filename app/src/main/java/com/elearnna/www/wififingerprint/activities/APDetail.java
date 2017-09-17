@@ -15,7 +15,7 @@ public class APDetail extends AppCompatActivity {
         setContentView(R.layout.activity_apdetail);
 
         APDetailFragment fragment = new APDetailFragment();
-        FragmentManager fragmentMananger = getSupportFragmentManager();
-        fragmentMananger.beginTransaction().add(R.id.fragment_ap_detail, fragment).commit();
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction().add(R.id.fragment_ap_detail, fragment).commit();
     }
 }

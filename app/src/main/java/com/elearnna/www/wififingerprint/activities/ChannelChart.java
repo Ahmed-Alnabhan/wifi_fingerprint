@@ -5,18 +5,18 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 
 import com.elearnna.www.wififingerprint.R;
-import com.elearnna.www.wififingerprint.fragments.DeviceInfoFragment;
+import com.elearnna.www.wififingerprint.fragments.ChannelChartFragment;
 
-public class DeviceInfo extends AppCompatActivity {
+public class ChannelChart extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_device_info);
+        setContentView(R.layout.activity_channel_chart);
 
-        // Add the device info fragment to the activity
-        DeviceInfoFragment fragment = new DeviceInfoFragment();
+        // Add channel chart fragment to the activity
+        ChannelChartFragment fragment = new ChannelChartFragment();
         FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().add(R.id.fragment_device_info, fragment).commit();
+        fragmentManager.beginTransaction().add(R.id.fragment_cahnnel_chart, fragment).commit();
     }
 }

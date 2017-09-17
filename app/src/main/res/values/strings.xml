@@ -39,4 +39,7 @@
     <string name="os_version">OS Version:</string>
     <string name="api_level">API Level:</string>
     <string name="about_activity_title">About the app</string>
+    <string name="channel_chart_activity_title">Channel Chart</string>
+    <string name="stored_files_activity_title">Stored Files</string>
+    <string name="settings_activity_title">Settings</string>
 </resources>

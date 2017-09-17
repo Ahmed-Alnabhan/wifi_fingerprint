@@ -5,18 +5,18 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 
 import com.elearnna.www.wififingerprint.R;
-import com.elearnna.www.wififingerprint.fragments.DeviceInfoFragment;
+import com.elearnna.www.wififingerprint.fragments.SettingsFragment;
 
-public class DeviceInfo extends AppCompatActivity {
+public class Settings extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_device_info);
+        setContentView(R.layout.activity_settings);
 
-        // Add the device info fragment to the activity
-        DeviceInfoFragment fragment = new DeviceInfoFragment();
+        // Add settings fragment to the activity
+        SettingsFragment fragment = new SettingsFragment();
         FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().add(R.id.fragment_device_info, fragment).commit();
+        fragmentManager.beginTransaction().add(R.id.settings_fragment_container, fragment).commit();
     }
 }

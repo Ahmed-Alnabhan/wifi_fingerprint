@@ -29,16 +29,27 @@
         <activity
             android:name=".activities.APDetail"
             android:label="@string/ap_detail_activity_title"
-            android:parentActivityName=".activities.APsList"></activity>
+            android:parentActivityName=".activities.APsList" />
         <activity
             android:name=".activities.DeviceInfo"
             android:label="@string/device_info_activity_title"
-            android:parentActivityName=".activities.APsList">
-        </activity>
-        <activity android:name=".activities.About"
+            android:parentActivityName=".activities.APsList" />
+        <activity
+            android:name=".activities.About"
             android:label="@string/about_activity_title"
-            android:parentActivityName=".activities.APsList">
-        </activity>
+            android:parentActivityName=".activities.APsList" />
+        <activity
+            android:name=".activities.ChannelChart"
+            android:label="@string/channel_chart_activity_title"
+            android:parentActivityName=".activities.APsList" />
+        <activity
+            android:name=".activities.StoredFiles"
+            android:label="@string/stored_files_activity_title"
+            android:parentActivityName=".activities.APsList" />
+        <activity
+            android:name=".activities.Settings"
+            android:label="@string/settings_activity_title"
+            android:parentActivityName=".activities.APsList"></activity>
     </application>
 
 </manifest>

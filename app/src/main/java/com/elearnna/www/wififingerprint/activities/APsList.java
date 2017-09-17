@@ -84,16 +84,19 @@ public class APsList extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_chart) {
-            // Handle the camera action
+            Intent channelChartIntent = new Intent(this, ChannelChart.class);
+            startActivity(channelChartIntent);
         } else if (id == R.id.nav_aps) {
 
         } else if (id == R.id.nav_files) {
-
+            Intent storedFilesIntent = new Intent(this, StoredFiles.class);
+            startActivity(storedFilesIntent);
         } else if (id == R.id.nav_device_info) {
             Intent deviceInfoIntent = new Intent(this, DeviceInfo.class);
             startActivity(deviceInfoIntent);
         } else if (id == R.id.nav_settings) {
-
+            Intent settingsIntent = new Intent(this, Settings.class);
+            startActivity(settingsIntent);
         } else if (id == R.id.nav_about) {
             Intent aboutIntent = new Intent(this, About.class);
             startActivity(aboutIntent);
