@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="sortArray">
+        <item>RSSI (Asc)</item>
+        <item>Alphabetically</item>
+        <item>Naturally</item>
+    </string-array>
+
+    <string-array name="sortValues">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+
+    <string-array name="bandArray">
+        <item>All</item>
+        <item>5GHz</item>
+        <item>2.4GHz</item>
+    </string-array>
+
+    <string-array name="bandValues">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+
+    <string-array name="themeArray">
+        <item>Dark</item>
+        <item>Light</item>
+    </string-array>
+
+    <string-array name="themeValues">
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+</resources>

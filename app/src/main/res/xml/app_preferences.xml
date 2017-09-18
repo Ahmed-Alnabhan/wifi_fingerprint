@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+        android:title="Configuration">
+
+        <ListPreference
+            android:key="sort"
+            android:title="Sort By"
+            android:defaultValue="1"
+            android:entries="@array/sortArray"
+            android:entryValues="@array/sortValues"/>
+
+        <ListPreference
+            android:key="band"
+            android:title="Band"
+            android:defaultValue="1"
+            android:entries="@array/bandArray"
+            android:entryValues="@array/bandValues"/>
+
+        <ListPreference
+            android:key="theme"
+            android:title="Theme"
+            android:defaultValue="1"
+            android:entries="@array/themeArray"
+            android:entryValues="@array/themeValues"/>
+
+        <Preference
+            android:title="Default Files Location"
+            android:key="filesLocation"
+            />
+
+    </PreferenceCategory>
+</PreferenceScreen>
