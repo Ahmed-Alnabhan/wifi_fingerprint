@@ -154,4 +154,19 @@ public class Constants {
     public static String BAND_5_GHZ = "5GHz";
     public static String BAND_2_4_GHZ = "2.4GHz";
 
+    public static final String ABOUT_APP = "<b>Description:</b><br /> " +
+            "This app enables users to scan WiFi networks and" +
+            " collect data about the access points. The app " +
+            "displays access points and network data in" +
+            " a customizable way and provides charts to " +
+            "support the visualization of data. Furthermore," +
+            " the app enables users to store WiFi information" +
+            " in a SQLite database and retrieve the chosen data" +
+            " in a form of JSON, XML or CSV file and share the retrieved" +
+            " file.<br /><br /><b>Used Libraries:</b><br />ButterKnife<br/>" +
+            "<a href=\"http://jakewharton.github.io/butterknife/\">" +
+            "http://jakewharton.github.io/butterknife/</a><br/><br/>" +
+            "Retrofit<br/><a href=\"http://square.github.io/retrofit/\">" +
+            "http://square.github.io/retrofit/</a><br/><br/>";
+
 }
