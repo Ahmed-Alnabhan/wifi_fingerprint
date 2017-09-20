@@ -1,6 +1,7 @@
 package com.elearnna.www.wififingerprint.app;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 
@@ -253,6 +254,20 @@ public class Utils {
             rssiColor = R.color.red;
         }
         return rssiColor;
+    }
+
+    /**
+     * Set the Quicksand-Bold font
+     */
+    public static Typeface setQuicksandBoldFont(Context context){
+        return Typeface.createFromAsset(context.getAssets(),  "fonts/Quicksand-Bold.otf");
+    }
+
+    /**
+     * Set the Quicksand-Regular font
+     */
+    public static Typeface setQuicksandRegularFont(Context context){
+        return Typeface.createFromAsset(context.getAssets(),  "fonts/Quicksand-Regular.otf");
     }
 
 }

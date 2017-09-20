@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.Material_Light" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="pageBackground">@style/page_background_light</item>
+        <item name="textLarge">@style/text_large_light</item>
+        <item name="textRegular">@style/text_regular_light</item>
+        <item name="textSmall">@style/text_small_light</item>
+        <item name="actionBarStyle">@style/action_bar_light</item>
+        <item name="colorPrimary">@color/toolBarLight</item>
+        <item name="colorPrimaryDark">@color/statusBarLight</item>
+        <item name="colorAccent">@color/purple</item>
+    </style>
+
+    <style name="Theme.Material_Dark" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="pageBackground">@style/page_background_dark</item>
+        <item name="textLarge">@style/text_large_dark</item>
+        <item name="textRegular">@style/text_regular_dark</item>
+        <item name="textSmall">@style/text_small_dark</item>
+        <item name="actionBarStyle">@style/action_bar_dark</item>
+        <item name="colorPrimary">@color/toolBarDark</item>
+        <item name="colorPrimaryDark">@color/statusBarDark</item>
+        <item name="colorAccent">@color/purple</item>
+    </style>
+</resources>

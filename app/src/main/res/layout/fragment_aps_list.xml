@@ -12,7 +12,8 @@
         android:layout_height="match_parent"
         android:layout_width="match_parent"
         android:layout_weight="4"
-        android:background="@color/connected_bg">
+        android:elevation="@dimen/dimen_4_dp"
+        android:background="@color/bold_gray">
 
         <TextView
             android:id="@+id/txt_wifi_not_connected"

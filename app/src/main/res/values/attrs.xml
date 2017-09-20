@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="pageBackground" format="reference"></attr>
+    <attr name="textLarge" format="reference"></attr>
+    <attr name="textRegular" format="reference"></attr>
+    <attr name="textSmall" format="reference"></attr>
+    <attr name="fat" format="reference"></attr>
+    <attr name="drawer" format="reference"></attr>
+</resources>

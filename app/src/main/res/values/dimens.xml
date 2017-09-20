@@ -16,4 +16,7 @@
     <dimen name="dimen_4_dp">4dp</dimen>
     <dimen name="dimen_32_dp">32dp</dimen>
     <dimen name="dimen_12_dp">12dp</dimen>
+    <dimen name="size_16_sp">16sp</dimen>
+    <dimen name="size_14_sp">14sp</dimen>
+    <dimen name="size_12_sp">12sp</dimen>
 </resources>

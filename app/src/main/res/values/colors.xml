@@ -13,4 +13,10 @@
     <color name="dark_red">#AA0000</color>
     <color name="connected_bg">#CCCCCC</color>
     <color name="green">#00FF00</color>
+    <color name="bold_gray">#ff000000</color>
+    <color name="statusBarLight">#001064</color>
+    <color name="toolBarLight">#283593</color>
+    <color name="purple">#9c27b0</color>
+    <color name="toolBarDark">#1b1b1b</color>
+    <color name="statusBarDark">#424242</color>
 </resources>

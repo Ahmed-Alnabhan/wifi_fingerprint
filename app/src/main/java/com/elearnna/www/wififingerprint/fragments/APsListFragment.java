@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Typeface;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Build;
@@ -17,6 +18,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.TextViewCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -129,6 +131,66 @@ public class APsListFragment extends Fragment implements APsListView, APsAdapter
         state = new Bundle();
         bundle = new Bundle();
         mTwoPane = false;
+
+        // set quicksand bold font
+        Typeface bold_font = Utils.setQuicksandBoldFont(getActivity());
+        // set quicksand regular font
+        Typeface regular_font = Utils.setQuicksandRegularFont(getActivity());
+
+        // Set the style of the SSID based on the app theme
+        if (getActivity().getApplicationInfo().theme == R.style.Theme_Material_Dark) {
+            TextViewCompat.setTextAppearance(txtSSID, R.style.text_large_dark);
+            txtSSID.setTypeface(bold_font);
+        } else if (getActivity().getApplicationInfo().theme == R.style.Theme_Material_Light) {
+            TextViewCompat.setTextAppearance(txtSSID, R.style.text_large_light);
+            txtSSID.setTypeface(bold_font);
+        }
+
+        // Set the style of the IP address based on the app theme
+        if (getActivity().getApplicationInfo().theme == R.style.Theme_Material_Dark) {
+            TextViewCompat.setTextAppearance(txtIPAddress, R.style.text_regular_dark);
+            txtIPAddress.setTypeface(bold_font);
+        } else if (getActivity().getApplicationInfo().theme == R.style.Theme_Material_Light) {
+            TextViewCompat.setTextAppearance(txtIPAddress, R.style.text_regular_light);
+            txtIPAddress.setTypeface(bold_font);
+        }
+
+        // Set the style of the Connection status based on the app theme
+        if (getActivity().getApplicationInfo().theme == R.style.Theme_Material_Dark) {
+            TextViewCompat.setTextAppearance(txtConnectionStatus, R.style.text_small_dark);
+            txtConnectionStatus.setTypeface(bold_font);
+        } else if (getActivity().getApplicationInfo().theme == R.style.Theme_Material_Light) {
+            TextViewCompat.setTextAppearance(txtConnectionStatus, R.style.text_small_light);
+            txtConnectionStatus.setTypeface(bold_font);
+        }
+
+        // Set the style of the Channel based on the app theme
+        if (getActivity().getApplicationInfo().theme == R.style.Theme_Material_Dark) {
+            TextViewCompat.setTextAppearance(txtChennel, R.style.text_regular_dark);
+            txtChennel.setTypeface(bold_font);
+        } else if (getActivity().getApplicationInfo().theme == R.style.Theme_Material_Light) {
+            TextViewCompat.setTextAppearance(txtChennel, R.style.text_regular_light);
+            txtChennel.setTypeface(bold_font);
+        }
+
+        // Set the style of the MAC based on the app theme
+        if (getActivity().getApplicationInfo().theme == R.style.Theme_Material_Dark) {
+            TextViewCompat.setTextAppearance(txtMAC, R.style.text_regular_dark);
+            txtMAC.setTypeface(bold_font);
+        } else if (getActivity().getApplicationInfo().theme == R.style.Theme_Material_Light) {
+            TextViewCompat.setTextAppearance(txtMAC, R.style.text_regular_light);
+            txtMAC.setTypeface(bold_font);
+        }
+
+        // Set the style of the RSSI based on the app theme
+        if (getActivity().getApplicationInfo().theme == R.style.Theme_Material_Dark) {
+            TextViewCompat.setTextAppearance(txtSignalStrength, R.style.text_large_dark);
+            txtSignalStrength.setTypeface(bold_font);
+        } else if (getActivity().getApplicationInfo().theme == R.style.Theme_Material_Light) {
+            TextViewCompat.setTextAppearance(txtSignalStrength, R.style.text_large_light);
+            txtSignalStrength.setTypeface(bold_font);
+        }
+
         // request the user permission for location access
         requestUserPermission();
         // Retrieve the info of the currently connected APs
