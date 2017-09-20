@@ -49,7 +49,7 @@
             android:name=".activities.Settings"
             android:label="@string/settings_activity_title"
             android:parentActivityName=".activities.APsList"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>

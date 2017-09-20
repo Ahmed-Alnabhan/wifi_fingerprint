@@ -39,11 +39,6 @@
         <item name="android:background">@color/wifi_light_gray</item>
     </style>
 
-    <style name="action_bar_light" parent="@style/AppTheme.NoActionBar">
-        <item name="android:maxHeight">@dimen/abc_action_bar_default_height_material</item>
-        <item name="popupTheme">@style/ThemeOverlay.AppCompat.Light</item>
-    </style>
-
     <!-- Dark Style -->
     <style name="page_background_dark">
         <item name="android:background">@drawable/dark_background_gradient</item>
@@ -63,5 +58,4 @@
         <item name="android:textSize">@dimen/size_12_sp</item>
         <item name="android:background">@android:color/background_dark</item>
     </style>
-
 </resources>

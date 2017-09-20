@@ -1,21 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
    <style name="action_bar_light" parent="@style/AppTheme.NoActionBar" tools:ignore="DuplicateDefinition">
-       <item name="android:background">@color/toolBarLight</item>
+       <item name="android:background">@color/toolBarDark</item>
        <item name="android:colorAccent">@color/purple</item>
        <item name="windowActionBar">false</item>
        <item name="windowNoTitle">true</item>
        <item name="android:maxHeight">@dimen/abc_action_bar_default_height_material</item>
        <item name="popupTheme">@style/ThemeOverlay.AppCompat.Light</item>
    </style>
-
-    <style name="action_bar_dark" parent="@style/AppTheme.NoActionBar" tools:ignore="DuplicateDefinition">
-        <item name="android:background">@color/toolBarDark</item>
-        <item name="android:colorAccent">@color/purple</item>
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-        <item name="android:maxHeight">@dimen/abc_action_bar_default_height_material</item>
-        <item name="popupTheme">@style/ThemeOverlay.AppCompat.Light</item>
-    </style>
 
 </resources>

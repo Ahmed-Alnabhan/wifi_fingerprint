@@ -107,19 +107,6 @@ public class APsListFragment extends Fragment implements APsListView, APsAdapter
         super.onCreate(savedInstanceState);
     }
 
-    private void readConnectedAPPeriodically() {
-        // Create handler that gets connected AP info every 5 seconds
-        handler = new Handler();
-        runnable = new Runnable(){
-            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-            @Override
-            public void run() {
-                getConnectedAPInfo(5000);
-            }
-        };
-        runnable.run();
-    }
-
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -153,6 +140,9 @@ public class APsListFragment extends Fragment implements APsListView, APsAdapter
 
         // Set the style of the RSSI based on the app theme
         Utils.setTextViewStyle(getActivity(), txtSignalStrength, bold_font, "Large");
+
+        // Set the style of the wifiNotConnected text view
+        Utils.setTextViewStyle(getActivity(), txtWifiNotConnected, bold_font, "Large");
 
         // request the user permission for location access
         requestUserPermission();
@@ -246,6 +236,20 @@ public class APsListFragment extends Fragment implements APsListView, APsAdapter
             onViewStateRestored(state);
         }
     }
+
+    private void readConnectedAPPeriodically() {
+        // Create handler that gets connected AP info every 5 seconds
+        handler = new Handler();
+        runnable = new Runnable(){
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+            @Override
+            public void run() {
+                getConnectedAPInfo(5000);
+            }
+        };
+        runnable.run();
+    }
+
 
     @Override
     public void showAPDetail(AP ap) {

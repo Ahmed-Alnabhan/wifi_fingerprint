@@ -2,6 +2,7 @@ package com.elearnna.www.wififingerprint.adapter;
 
 import android.content.Context;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -91,6 +92,16 @@ public class APsAdapter extends RecyclerView.Adapter<APsListViewHolder>{
         } else {
             holder.getTxtConnectionStatus().setText("");
         }
+
+        // Set the background
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            if (context.getApplicationInfo().theme == R.style.Theme_Material_Dark) {
+                holder.getApItemContainer().setBackground(ContextCompat.getDrawable(context,R.drawable.dark_background_gradient));
+            } else if (context.getApplicationInfo().theme == R.style.Theme_Material_Light) {
+                holder.getApItemContainer().setBackground(ContextCompat.getDrawable(context,R.drawable.light_background_gradient));
+            }
+        }
+
     }
 
     @Override
