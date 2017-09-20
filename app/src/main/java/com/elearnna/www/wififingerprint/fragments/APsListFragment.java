@@ -18,7 +18,6 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.widget.TextViewCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -138,58 +137,22 @@ public class APsListFragment extends Fragment implements APsListView, APsAdapter
         Typeface regular_font = Utils.setQuicksandRegularFont(getActivity());
 
         // Set the style of the SSID based on the app theme
-        if (getActivity().getApplicationInfo().theme == R.style.Theme_Material_Dark) {
-            TextViewCompat.setTextAppearance(txtSSID, R.style.text_large_dark);
-            txtSSID.setTypeface(bold_font);
-        } else if (getActivity().getApplicationInfo().theme == R.style.Theme_Material_Light) {
-            TextViewCompat.setTextAppearance(txtSSID, R.style.text_large_light);
-            txtSSID.setTypeface(bold_font);
-        }
+        Utils.setTextViewStyle(getActivity(), txtSSID, bold_font, "Large");
 
         // Set the style of the IP address based on the app theme
-        if (getActivity().getApplicationInfo().theme == R.style.Theme_Material_Dark) {
-            TextViewCompat.setTextAppearance(txtIPAddress, R.style.text_regular_dark);
-            txtIPAddress.setTypeface(bold_font);
-        } else if (getActivity().getApplicationInfo().theme == R.style.Theme_Material_Light) {
-            TextViewCompat.setTextAppearance(txtIPAddress, R.style.text_regular_light);
-            txtIPAddress.setTypeface(bold_font);
-        }
+        Utils.setTextViewStyle(getActivity(), txtIPAddress, regular_font, "Regular");
 
         // Set the style of the Connection status based on the app theme
-        if (getActivity().getApplicationInfo().theme == R.style.Theme_Material_Dark) {
-            TextViewCompat.setTextAppearance(txtConnectionStatus, R.style.text_small_dark);
-            txtConnectionStatus.setTypeface(bold_font);
-        } else if (getActivity().getApplicationInfo().theme == R.style.Theme_Material_Light) {
-            TextViewCompat.setTextAppearance(txtConnectionStatus, R.style.text_small_light);
-            txtConnectionStatus.setTypeface(bold_font);
-        }
+        Utils.setTextViewStyle(getActivity(), txtConnectionStatus, regular_font, "Small");
 
         // Set the style of the Channel based on the app theme
-        if (getActivity().getApplicationInfo().theme == R.style.Theme_Material_Dark) {
-            TextViewCompat.setTextAppearance(txtChennel, R.style.text_regular_dark);
-            txtChennel.setTypeface(bold_font);
-        } else if (getActivity().getApplicationInfo().theme == R.style.Theme_Material_Light) {
-            TextViewCompat.setTextAppearance(txtChennel, R.style.text_regular_light);
-            txtChennel.setTypeface(bold_font);
-        }
+        Utils.setTextViewStyle(getActivity(), txtChennel, regular_font, "Large");
 
         // Set the style of the MAC based on the app theme
-        if (getActivity().getApplicationInfo().theme == R.style.Theme_Material_Dark) {
-            TextViewCompat.setTextAppearance(txtMAC, R.style.text_regular_dark);
-            txtMAC.setTypeface(bold_font);
-        } else if (getActivity().getApplicationInfo().theme == R.style.Theme_Material_Light) {
-            TextViewCompat.setTextAppearance(txtMAC, R.style.text_regular_light);
-            txtMAC.setTypeface(bold_font);
-        }
+        Utils.setTextViewStyle(getActivity(), txtMAC, regular_font, "Large");
 
         // Set the style of the RSSI based on the app theme
-        if (getActivity().getApplicationInfo().theme == R.style.Theme_Material_Dark) {
-            TextViewCompat.setTextAppearance(txtSignalStrength, R.style.text_large_dark);
-            txtSignalStrength.setTypeface(bold_font);
-        } else if (getActivity().getApplicationInfo().theme == R.style.Theme_Material_Light) {
-            TextViewCompat.setTextAppearance(txtSignalStrength, R.style.text_large_light);
-            txtSignalStrength.setTypeface(bold_font);
-        }
+        Utils.setTextViewStyle(getActivity(), txtSignalStrength, bold_font, "Large");
 
         // request the user permission for location access
         requestUserPermission();

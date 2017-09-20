@@ -3,7 +3,9 @@ package com.elearnna.www.wififingerprint.app;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.TextViewCompat;
 import android.util.Log;
+import android.widget.TextView;
 
 import com.elearnna.www.wififingerprint.R;
 
@@ -268,6 +270,31 @@ public class Utils {
      */
     public static Typeface setQuicksandRegularFont(Context context){
         return Typeface.createFromAsset(context.getAssets(),  "fonts/Quicksand-Regular.otf");
+    }
+
+    /**
+     * Set the customized style to a text view
+     */
+    public static void setTextViewStyle(Context context, TextView tv, Typeface font, String fontSize){
+        int darkSize = 0;
+        int lightSize = 0;
+        if (fontSize.equals("Large")){
+            darkSize = R.style.text_large_dark;
+            lightSize = R.style.text_large_light;
+        } else if (fontSize.equals("Regular")){
+            darkSize = R.style.text_regular_dark;
+            lightSize = R.style.text_regular_light;
+        } else if (fontSize.equals("Small")) {
+            darkSize = R.style.text_small_dark;
+            lightSize = R.style.text_small_light;
+        }
+
+        if (context.getApplicationInfo().theme == R.style.Theme_Material_Dark) {
+            TextViewCompat.setTextAppearance(tv, darkSize);
+        } else if (context.getApplicationInfo().theme == R.style.Theme_Material_Light) {
+            TextViewCompat.setTextAppearance(tv, lightSize);
+        }
+        tv.setTypeface(font);
     }
 
 }
