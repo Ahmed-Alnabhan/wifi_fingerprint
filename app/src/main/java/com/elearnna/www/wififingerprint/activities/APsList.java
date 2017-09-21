@@ -1,6 +1,7 @@
 package com.elearnna.www.wififingerprint.activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -9,18 +10,26 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.preference.PreferenceManager;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 
 import com.elearnna.www.wififingerprint.R;
+import com.elearnna.www.wififingerprint.app.Utils;
 
 public class APsList extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, SharedPreferences.OnSharedPreferenceChangeListener {
+
+
+    private SharedPreferences sharedPreferences;
+    private String theme;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setupPreferences();
         super.onCreate(savedInstanceState);
+        setTheme(R.style.Theme_Material_Dark);
         setContentView(R.layout.activity_aps_list);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -83,4 +92,27 @@ public class APsList extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    private void setupPreferences(){
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        theme = sharedPreferences.getString(getString(R.string.pref_theme_key), getResources().getString(R.string.light_value));
+        sharedPreferences.registerOnSharedPreferenceChangeListener(this);
+    }
+
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String s) {
+
+        Utils.changeToTheme(APsList.this, 1);
+        if(s.equals(getString(R.string.pref_theme_key))){
+            theme = sharedPreferences.getString("theme", "light");
+        }
+    }
+
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).unregisterOnSharedPreferenceChangeListener(this);
+    }
+
 }

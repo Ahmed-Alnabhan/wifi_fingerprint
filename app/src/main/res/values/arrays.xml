@@ -3,13 +3,11 @@
     <string-array name="sortArray">
         <item>RSSI (Asc)</item>
         <item>Alphabetically</item>
-        <item>Naturally</item>
     </string-array>
 
     <string-array name="sortValues">
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
+        <item>@string/rssiValue</item>
+        <item>@string/alpha</item>
     </string-array>
 
     <string-array name="bandArray">
@@ -19,9 +17,9 @@
     </string-array>
 
     <string-array name="bandValues">
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
+        <item>@string/all_bands</item>
+        <item>@string/five_g_hz</item>
+        <item>@string/two_g_hz</item>
     </string-array>
 
     <string-array name="themeArray">
@@ -30,7 +28,7 @@
     </string-array>
 
     <string-array name="themeValues">
-        <item>1</item>
-        <item>2</item>
+        <item>@string/dark_value</item>
+        <item>@string/light_value</item>
     </string-array>
 </resources>

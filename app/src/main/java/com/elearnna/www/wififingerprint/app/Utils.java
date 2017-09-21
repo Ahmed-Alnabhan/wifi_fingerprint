@@ -1,6 +1,8 @@
 package com.elearnna.www.wififingerprint.app;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.TextViewCompat;
@@ -18,6 +20,39 @@ import java.util.List;
  */
 
 public class Utils {
+    private static int mTheme;
+    /**
+     * Themes
+     */
+    public final static int THEME_LIGHT = 1;
+    public final static int THEME_DARK = 0;
+
+    public static void changeToTheme(Activity activity, int theme) {
+        mTheme = theme;
+        activity.finish();
+        activity.startActivity(new Intent(activity, activity.getClass()));
+        activity.overridePendingTransition(android.R.anim.fade_in,
+                android.R.anim.fade_out);
+    }
+
+    public static void onActivityCreateSetTheme(Activity activity) {
+        switch (mTheme) {
+            default:
+            case THEME_LIGHT:
+                activity.setTheme(R.style.Theme_Material_Light);
+                break;
+            case THEME_DARK:
+                activity.setTheme(R.style.Theme_Material_Dark);
+                break;
+        }
+    }
+
+
+    /**
+     *
+     * @param frequency
+     * @return
+     */
     public static int convertFrequencyToChannel(int frequency) {
         int channel = 0;
         switch (frequency) {

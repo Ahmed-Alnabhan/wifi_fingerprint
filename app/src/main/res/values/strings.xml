@@ -42,4 +42,14 @@
     <string name="channel_chart_activity_title">Channel Chart</string>
     <string name="stored_files_activity_title">Stored Files</string>
     <string name="settings_activity_title">Settings</string>
+
+    <!-- Settings values -->
+    <string name="rssiValue">rssi</string>
+    <string name="alpha">alphabetically</string>
+    <string name="all_bands">all</string>
+    <string name="five_g_hz">5GHz</string>
+    <string name="two_g_hz">2.4GHz</string>
+    <string name="dark_value">dark</string>
+    <string name="light_value">light</string>
+    <string name="pref_theme_key">theme</string>
 </resources>

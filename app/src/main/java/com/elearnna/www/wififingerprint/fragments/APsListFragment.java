@@ -104,6 +104,7 @@ public class APsListFragment extends Fragment implements APsListView, APsAdapter
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
     }
 
@@ -111,12 +112,14 @@ public class APsListFragment extends Fragment implements APsListView, APsAdapter
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_aps_list, container, false);
         ButterKnife.bind(this, view);
         state = new Bundle();
         bundle = new Bundle();
         mTwoPane = false;
+
 
         // set quicksand bold font
         Typeface bold_font = Utils.setQuicksandBoldFont(getActivity());
