@@ -9,7 +9,6 @@ import android.os.Parcelable;
 
 public class AP implements Parcelable {
     private String id;
-    private String locationName;
     private String ssid;
     private int rssi;
     private int frequency;
@@ -20,6 +19,7 @@ public class AP implements Parcelable {
     private String securityProtocol;
     private String ipAddress;
     private int isConnected;
+    private String time;
 
     public String getId() {
         return id;
@@ -27,14 +27,6 @@ public class AP implements Parcelable {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public String getLocationName() {
-        return locationName;
-    }
-
-    public void setLocationName(String locationName) {
-        this.locationName = locationName;
     }
 
     public String getSsid() {
@@ -117,6 +109,14 @@ public class AP implements Parcelable {
         isConnected = connected;
     }
 
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -125,7 +125,6 @@ public class AP implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.id);
-        dest.writeString(this.locationName);
         dest.writeString(this.ssid);
         dest.writeInt(this.rssi);
         dest.writeInt(this.frequency);
@@ -136,6 +135,7 @@ public class AP implements Parcelable {
         dest.writeString(this.securityProtocol);
         dest.writeString(this.ipAddress);
         dest.writeInt(this.isConnected);
+        dest.writeString(this.time);
     }
 
     public AP() {
@@ -143,7 +143,6 @@ public class AP implements Parcelable {
 
     protected AP(Parcel in) {
         this.id = in.readString();
-        this.locationName = in.readString();
         this.ssid = in.readString();
         this.rssi = in.readInt();
         this.frequency = in.readInt();
@@ -154,6 +153,7 @@ public class AP implements Parcelable {
         this.securityProtocol = in.readString();
         this.ipAddress = in.readString();
         this.isConnected = in.readInt();
+        this.time = in.readString();
     }
 
     public static final Parcelable.Creator<AP> CREATOR = new Parcelable.Creator<AP>() {

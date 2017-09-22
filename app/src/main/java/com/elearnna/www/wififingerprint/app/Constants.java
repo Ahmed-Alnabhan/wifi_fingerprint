@@ -1,5 +1,7 @@
 package com.elearnna.www.wififingerprint.app;
 
+import android.net.Uri;
+
 /**
  * Created by Ahmed on 9/10/2017.
  */
@@ -168,5 +170,18 @@ public class Constants {
             "http://jakewharton.github.io/butterknife/</a><br/><br/>" +
             "Retrofit<br/><a href=\"http://square.github.io/retrofit/\">" +
             "http://square.github.io/retrofit/</a><br/><br/>";
+
+    /**
+     * APContentProvider constants
+     */
+    public static final String AP_PROVIDER_NAME = "com.elearnna.www.wififingerprint.provider.APContentProvider";
+    public static final String URL = "content://" + AP_PROVIDER_NAME + "/apscp";
+    public static final Uri CONTENT_URL = Uri.parse(URL);
+
+    /**
+     * Database constants
+     */
+    public static final String DATABASE_NAME = "wifi_fingerprint.db";
+    public static final int DATABASE_VERSION = 1;
 
 }

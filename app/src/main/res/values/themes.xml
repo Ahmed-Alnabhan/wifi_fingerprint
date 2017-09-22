@@ -17,8 +17,8 @@
         <item name="textRegular">@style/text_regular_dark</item>
         <item name="textSmall">@style/text_small_dark</item>
         <item name="actionBarStyle">@style/action_bar_light</item>
-        <item name="colorPrimary">@color/toolBarDark</item>
-        <item name="colorPrimaryDark">@color/statusBarDark</item>
+        <item name="colorPrimary">@color/early_night_blue</item>
+        <item name="colorPrimaryDark">@color/late_night_blue</item>
         <item name="colorAccent">@color/purple</item>
     </style>
 </resources>

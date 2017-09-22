@@ -27,9 +27,11 @@ public class APsList extends AppCompatActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setupPreferences();
+        ////setupPreferences();
+        //Utils.onActivityCreateSetTheme(APsList.this);
+
         super.onCreate(savedInstanceState);
-        setTheme(R.style.Theme_Material_Dark);
+        //setTheme(R.style.Theme_Material_Dark);
         setContentView(R.layout.activity_aps_list);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -101,10 +103,13 @@ public class APsList extends AppCompatActivity
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String s) {
-
-        Utils.changeToTheme(APsList.this, 1);
+        if (theme.equals("dark")) {
+            Utils.changeToTheme(APsList.this, 0);
+        } else if (theme.equals("light")){
+            Utils.changeToTheme(APsList.this, 1);
+        }
         if(s.equals(getString(R.string.pref_theme_key))){
-            theme = sharedPreferences.getString("theme", "light");
+            Utils.onActivityCreateSetTheme(this);
         }
     }
 

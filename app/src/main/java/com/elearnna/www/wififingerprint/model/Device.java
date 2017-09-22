@@ -9,6 +9,7 @@ import android.os.Parcelable;
 
 public class Device implements Parcelable {
 
+    private int id;
     private String manufacturer;
     private String model;
     private String brand;
@@ -17,6 +18,10 @@ public class Device implements Parcelable {
     private String os;
     private String osVersion;
     private int apiLevel;
+
+    public int getId() { return id; }
+
+    public void setId(int id) { this.id = id; }
 
     public String getManufacturer() {
         return manufacturer;
@@ -89,6 +94,7 @@ public class Device implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.id);
         dest.writeString(this.model);
         dest.writeString(this.manufacturer);
         dest.writeString(this.brand);
@@ -103,6 +109,7 @@ public class Device implements Parcelable {
     }
 
     protected Device(Parcel in) {
+        this.id = in.readInt();
         this.model = in.readString();
         this.manufacturer = in.readString();
         this.brand = in.readString();
