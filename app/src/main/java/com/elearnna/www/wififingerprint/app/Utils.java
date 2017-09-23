@@ -2,7 +2,6 @@ package com.elearnna.www.wififingerprint.app;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.TextViewCompat;
@@ -29,10 +28,7 @@ public class Utils {
 
     public static void changeToTheme(Activity activity, int theme) {
         mTheme = theme;
-        activity.finish();
-        activity.startActivity(new Intent(activity, activity.getClass()));
-        activity.overridePendingTransition(android.R.anim.fade_in,
-                android.R.anim.fade_out);
+        activity.recreate();
     }
 
     public static void onActivityCreateSetTheme(Activity activity) {

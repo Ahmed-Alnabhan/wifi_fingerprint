@@ -28,7 +28,7 @@ public class APsList extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         ////setupPreferences();
-        //Utils.onActivityCreateSetTheme(APsList.this);
+       Utils.onActivityCreateSetTheme(APsList.this);
 
         super.onCreate(savedInstanceState);
         //setTheme(R.style.Theme_Material_Dark);

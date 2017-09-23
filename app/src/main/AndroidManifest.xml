@@ -14,7 +14,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme_Material_Dark">
+        android:theme="@style/Theme_Material_Light">
         <activity
             android:name=".activities.APsList"
             android:label="@string/app_name"
