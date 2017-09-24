@@ -20,6 +20,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -311,6 +312,6 @@ public class APsListFragment extends Fragment implements APsListView, APsAdapter
 
     @Override
     public void getLocationandDuration(Locator locator) {
-
+        Log.i("Locator Content: ", locator.getLocation() + " ,,, " + locator.getDuration());
     }
 }

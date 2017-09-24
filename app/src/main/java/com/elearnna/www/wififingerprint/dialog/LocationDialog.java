@@ -1,11 +1,11 @@
 package com.elearnna.www.wififingerprint.dialog;
 
-import android.app.Activity;
-import android.app.Dialog;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.app.DialogFragment;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.view.Window;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -22,9 +22,9 @@ import butterknife.ButterKnife;
  * Created by Ahmed on 9/23/2017.
  */
 
-public class LocationDialog extends Dialog implements View.OnClickListener{
-    private Activity activity;
-    private Dialog dialog;
+public class LocationDialog extends DialogFragment implements View.OnClickListener{
+    //private Activity activity;
+    //private Dialog dialog;
     private LocationDuration locDuration;
     private Locator locator;
     private Integer[] spinnerItems;
@@ -40,30 +40,41 @@ public class LocationDialog extends Dialog implements View.OnClickListener{
 
     @BindView(R.id.save_location_dialog)
     Button btnSaveLocationDialog;
+    public LocationDialog() {
 
-    public LocationDialog(@NonNull Activity activity) {
-        super(activity);
-        this.activity = activity;
+    }
+
+    public static LocationDialog newInstance(String title) {
+        LocationDialog frag = new LocationDialog();
+        Bundle args = new Bundle();
+        args.putString("title", title);
+        frag.setArguments(args);
+        return frag;
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.location_dialog, container);
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.location_dialog);
-        ButterKnife.bind(this);
-        spinnerItems = new Integer[]{5,10,15,20,25};
-        if(spinScanningDuration != null && spinScanningDuration.getSelectedItem() !=null ) {
-            ArrayAdapter<Integer> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, spinnerItems);
-            spinScanningDuration.setAdapter(adapter);
-            locator.setDuration(Integer.parseInt(spinScanningDuration.getSelectedItem().toString()));
-        }
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        ButterKnife.bind(this, view);
+
+        String title = getArguments().getString("title", "Enter Name");
+        getDialog().setTitle(title);
+
         locDuration = new APsListFragment();
         locator = new Locator();
+        spinnerItems = new Integer[]{5,10,15,20,25};
+        Integer defaultSpinnerValue = spinnerItems[0];
 
-        if (!(etLocationName.getText().toString().isEmpty()) && etLocationName.getText() != null){
-            locator.setLocation(etLocationName.getText().toString());
-        }
+        ArrayAdapter<Integer> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, spinnerItems);
+        int spinnerPosition = adapter.getPosition(defaultSpinnerValue);
+        spinScanningDuration.setSelection(spinnerPosition);
+        spinScanningDuration.setAdapter(adapter);
 
         btnCancelLocationDialog.setOnClickListener(this);
         btnSaveLocationDialog.setOnClickListener(this);
@@ -73,6 +84,13 @@ public class LocationDialog extends Dialog implements View.OnClickListener{
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.save_location_dialog:
+                locator.setDuration(Integer.parseInt(spinScanningDuration.getSelectedItem().toString()));
+
+
+                if (!(etLocationName.getText().toString().isEmpty()) && etLocationName.getText() != null){
+                    locator.setLocation(etLocationName.getText().toString());
+                }
+
                 locDuration.getLocationandDuration(locator);
                 break;
             case R.id.cancel_location_dialog:

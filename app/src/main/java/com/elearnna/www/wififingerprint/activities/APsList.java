@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -40,8 +41,9 @@ public class APsList extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                LocationDialog ld = new LocationDialog(APsList.this);
-                ld.show();
+//                LocationDialog ld = new LocationDialog(APsList.this);
+//                ld.show();
+                showLocationDialog();
             }
         });
 
@@ -119,5 +121,12 @@ public class APsList extends AppCompatActivity
         super.onDestroy();
         PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).unregisterOnSharedPreferenceChangeListener(this);
     }
+
+    private void showLocationDialog() {
+        FragmentManager fm = getSupportFragmentManager();
+        LocationDialog editLocationDialogFragment = LocationDialog.newInstance("Some Title");
+        editLocationDialogFragment.show(fm, "fragment_edit_name");
+    }
+
 
 }
