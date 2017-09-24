@@ -52,4 +52,8 @@
     <string name="dark_value">dark</string>
     <string name="light_value">light</string>
     <string name="pref_theme_key">theme</string>
+    <string name="scanning_duration">Scanning Duration:</string>
+    <string name="location_name">Location Name:</string>
+    <string name="cancel">CANCEL</string>
+    <string name="save">SAVE</string>
 </resources>

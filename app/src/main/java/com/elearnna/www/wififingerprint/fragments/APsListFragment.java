@@ -37,7 +37,9 @@ import com.elearnna.www.wififingerprint.adapter.APsAdapterOnClickHandler;
 import com.elearnna.www.wififingerprint.app.Constants;
 import com.elearnna.www.wififingerprint.app.RSSIRepresenter;
 import com.elearnna.www.wififingerprint.app.Utils;
+import com.elearnna.www.wififingerprint.dialog.LocationDuration;
 import com.elearnna.www.wififingerprint.model.AP;
+import com.elearnna.www.wififingerprint.model.Locator;
 import com.elearnna.www.wififingerprint.presenter.APsListPresenter;
 import com.elearnna.www.wififingerprint.presenter.APsListPresenterImplementer;
 import com.elearnna.www.wififingerprint.view.APsListView;
@@ -48,7 +50,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
-public class APsListFragment extends Fragment implements APsListView, APsAdapterOnClickHandler{
+public class APsListFragment extends Fragment implements APsListView, APsAdapterOnClickHandler, LocationDuration{
 
     private static final String RECYCLER_STATE = "recycler.state";
     private APsListPresenter aPsListPresenter;
@@ -305,5 +307,10 @@ public class APsListFragment extends Fragment implements APsListView, APsAdapter
             intent.putExtras(bundle);
             startActivity(intent);
         }
+    }
+
+    @Override
+    public void getLocationandDuration(Locator locator) {
+
     }
 }

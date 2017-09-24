@@ -37,7 +37,7 @@
     <style name="text_small_light">
         <item name="android:textColor">@color/bold_gray</item>
         <item name="android:textSize">@dimen/size_12_sp</item>
-        <item name="android:background">@color/wifi_light_gray</item>
+        <item name="android:background">@color/orange</item>
     </style>
 
     <!-- Dark Style -->
