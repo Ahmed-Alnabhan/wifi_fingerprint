@@ -55,16 +55,18 @@ public class LocationDialog extends DialogFragment implements View.OnClickListen
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.location_dialog, container);
+        String title = getArguments().getString("title");
+        getDialog().setTitle(title);
+        setStyle(DialogFragment.STYLE_NORMAL, R.style.CustomDialog);
+        View view = inflater.inflate(R.layout.location_dialog, container);
+        ButterKnife.bind(this, view);
+        return view;
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        ButterKnife.bind(this, view);
 
-        String title = getArguments().getString("title", "Enter Name");
-        getDialog().setTitle(title);
 
         locDuration = new APsListFragment();
         locator = new Locator();

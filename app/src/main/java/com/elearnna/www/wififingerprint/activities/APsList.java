@@ -41,8 +41,6 @@ public class APsList extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                LocationDialog ld = new LocationDialog(APsList.this);
-//                ld.show();
                 showLocationDialog();
             }
         });
@@ -124,7 +122,7 @@ public class APsList extends AppCompatActivity
 
     private void showLocationDialog() {
         FragmentManager fm = getSupportFragmentManager();
-        LocationDialog editLocationDialogFragment = LocationDialog.newInstance("Some Title");
+        LocationDialog editLocationDialogFragment = LocationDialog.newInstance("Location-duration Info");
         editLocationDialogFragment.show(fm, "fragment_edit_name");
     }
 

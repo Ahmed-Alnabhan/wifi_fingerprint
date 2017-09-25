@@ -8,6 +8,7 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
         <item name="android:windowDisablePreview">true</item>
+        <item name="android:dialogTheme">@style/CustomDialog</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -58,5 +59,9 @@
         <item name="android:textColor">@color/wifi_light_gray</item>
         <item name="android:textSize">@dimen/size_12_sp</item>
         <item name="android:background">@android:color/background_dark</item>
+    </style>
+
+    <style name="CustomDialog" parent="@style/Theme.AppCompat.Light.Dialog">
+        <item name="android:windowNoTitle">false</item>
     </style>
 </resources>

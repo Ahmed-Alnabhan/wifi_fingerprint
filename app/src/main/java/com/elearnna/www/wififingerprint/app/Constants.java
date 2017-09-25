@@ -148,7 +148,8 @@ public class Constants {
     public static final String ACCESS_POINT = "ap";
 
     public static final String UNKNOWN = "Unknown";
-    
+    public static final String NOT_APPLICABLE = "n/a";
+
     public static int MIN_5_GHZ_FREQUENCY = 5180;
     public static int MAX_5_GHZ_FREQUENCY =  5809;
     public static int MIN_2_4_GHZ_FREQUENCY = 2412;

@@ -6,8 +6,10 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
+import android.os.Build;
 import android.os.Handler;
 
+import com.elearnna.www.wififingerprint.app.Constants;
 import com.elearnna.www.wififingerprint.model.AP;
 import com.elearnna.www.wififingerprint.view.APsListView;
 
@@ -82,7 +84,11 @@ public class APsListPresenterImplementer implements APsListPresenter{
                 ap.setFrequency(sr.frequency);
                 ap.setMacAddress(sr.BSSID);
                 ap.setRssi(sr.level);
-                ap.setManufacturer(String.valueOf(sr.channelWidth));
+                if (Build.VERSION.SDK_INT >= 23) {
+                    ap.setManufacturer(String.valueOf(sr.channelWidth));
+                } else {
+                    ap.setManufacturer(Constants.NOT_APPLICABLE);
+                }
                 ap.setSecurityProtocol(sr.capabilities);
                 APsList.add(ap);
             }
