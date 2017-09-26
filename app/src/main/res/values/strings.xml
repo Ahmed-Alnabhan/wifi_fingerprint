@@ -56,4 +56,11 @@
     <string name="location_name">Location Name:</string>
     <string name="cancel">CANCEL</string>
     <string name="save">SAVE</string>
+    <string name="file_type">File Type:</string>
+    <string name="file_name">File Name:</string>
+    <string name="file_name_hint">File Name</string>
+    <string name="default_file_location_label">Default File Location:</string>
+    <string name="default_file_location_value">a/b/folderXYZ</string>
+    <string name="change_file_location">New File Location:</string>
+    <string name="browse">Browse</string>
 </resources>

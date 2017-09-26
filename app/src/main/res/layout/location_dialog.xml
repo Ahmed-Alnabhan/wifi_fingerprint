@@ -58,8 +58,8 @@
 
     <EditText
         android:id="@+id/location_name_value"
-        android:layout_width="142dp"
-        android:layout_height="40dp"
+        android:layout_width="@dimen/dimen_142_dp"
+        android:layout_height="@dimen/dimen_60_dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:hint="Location Name"

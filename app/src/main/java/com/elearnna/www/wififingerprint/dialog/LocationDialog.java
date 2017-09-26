@@ -3,6 +3,7 @@ package com.elearnna.www.wififingerprint.dialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,9 +24,8 @@ import butterknife.ButterKnife;
  */
 
 public class LocationDialog extends DialogFragment implements View.OnClickListener{
-    //private Activity activity;
-    //private Dialog dialog;
-    private LocationDuration locDuration;
+    
+    private LocationDuration locDuration, cowntdownTimer;
     private Locator locator;
     private Integer[] spinnerItems;
 
@@ -66,8 +66,6 @@ public class LocationDialog extends DialogFragment implements View.OnClickListen
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-
         locDuration = new APsListFragment();
         locator = new Locator();
         spinnerItems = new Integer[]{5,10,15,20,25};
@@ -87,17 +85,22 @@ public class LocationDialog extends DialogFragment implements View.OnClickListen
         switch (view.getId()){
             case R.id.save_location_dialog:
                 locator.setDuration(Integer.parseInt(spinScanningDuration.getSelectedItem().toString()));
-
-
                 if (!(etLocationName.getText().toString().isEmpty()) && etLocationName.getText() != null){
                     locator.setLocation(etLocationName.getText().toString());
                 }
-
                 locDuration.getLocationandDuration(locator);
+                dismiss();
+                showFileInfoDialog();
                 break;
             case R.id.cancel_location_dialog:
                 dismiss();
                 break;
         }
+    }
+
+    private void showFileInfoDialog() {
+        FragmentManager fm = getActivity().getSupportFragmentManager();
+        FileInfoDialogFragment fileInfoDialogFragment = FileInfoDialogFragment.newInstance("Enter File Info", locator.getDuration());
+        fileInfoDialogFragment.show(fm, "timer");
     }
 }

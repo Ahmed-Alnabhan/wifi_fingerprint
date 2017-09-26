@@ -19,4 +19,8 @@
     <dimen name="size_16_sp">16sp</dimen>
     <dimen name="size_14_sp">14sp</dimen>
     <dimen name="size_12_sp">12sp</dimen>
+    <dimen name="size_50_sp">50sp</dimen>
+    <dimen name="size_75_sp">75sp</dimen>
+    <dimen name="dimen_142_dp">142dp</dimen>
+    <dimen name="dimen_60_dp">60dp</dimen>
 </resources>
