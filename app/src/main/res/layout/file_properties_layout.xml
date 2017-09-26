@@ -69,6 +69,7 @@
         android:id="@+id/spinner_file_type_value"
         android:layout_width="75dp"
         android:layout_height="wrap_content"
+        android:spinnerMode="dropdown"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="51dp"

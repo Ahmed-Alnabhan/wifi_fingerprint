@@ -24,7 +24,7 @@ import butterknife.ButterKnife;
  */
 
 public class LocationDialog extends DialogFragment implements View.OnClickListener{
-    
+
     private LocationDuration locDuration, cowntdownTimer;
     private Locator locator;
     private Integer[] spinnerItems;

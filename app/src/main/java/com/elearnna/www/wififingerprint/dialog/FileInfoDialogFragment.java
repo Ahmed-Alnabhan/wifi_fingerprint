@@ -7,6 +7,7 @@ import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -23,9 +24,11 @@ import butterknife.ButterKnife;
 
 public class FileInfoDialogFragment extends DialogFragment {private int duration;
 
-    long currentTick;
+    private long currentTick;
+    private String[] spinnerFileTypeItems;
+
     @BindView(R.id.spinner_file_type_value)
-    Spinner spinnerSaveAs;
+    Spinner spinnerFileTypes;
 
     @BindView(R.id.et_file_name_value)
     EditText etFileName;
@@ -72,6 +75,10 @@ public class FileInfoDialogFragment extends DialogFragment {private int duration
         setStyle(DialogFragment.STYLE_NORMAL, R.style.CustomDialog);
         View view = inflater.inflate(R.layout.file_properties_layout, container);
         ButterKnife.bind(this, view);
+
+        // Set Spinner items
+        setSpinnerItems();
+
         disableControls();
         if (savedInstanceState == null) {
             duration = getArguments().getInt("timer");
@@ -101,7 +108,7 @@ public class FileInfoDialogFragment extends DialogFragment {private int duration
     }
 
     private void disableControls() {
-        spinnerSaveAs.setEnabled(false);
+        spinnerFileTypes.setEnabled(false);
         etFileName.setEnabled(false);
         txtDefaultFileLocation.setEnabled(false);
         btnBrowse.setEnabled(false);
@@ -111,7 +118,7 @@ public class FileInfoDialogFragment extends DialogFragment {private int duration
     }
 
     private void enableControls() {
-        spinnerSaveAs.setEnabled(true);
+        spinnerFileTypes.setEnabled(true);
         etFileName.setEnabled(true);
         txtDefaultFileLocation.setEnabled(true);
         btnBrowse.setEnabled(true);
@@ -124,5 +131,18 @@ public class FileInfoDialogFragment extends DialogFragment {private int duration
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putLong("currentTick",currentTick);
+    }
+
+    /**
+     * Fill out the spinner with the file types
+     */
+    private void setSpinnerItems(){
+        spinnerFileTypeItems = new String[]{"JSON", "XML", "CSV"};
+        String defaultSpinnerValue = spinnerFileTypeItems[0];
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_dropdown_item, spinnerFileTypeItems);
+        int spinnerPosition = adapter.getPosition(defaultSpinnerValue);
+        spinnerFileTypes.setSelection(spinnerPosition);
+        spinnerFileTypes.setAdapter(adapter);
     }
 }

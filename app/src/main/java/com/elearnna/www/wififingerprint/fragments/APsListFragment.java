@@ -187,7 +187,7 @@ public class APsListFragment extends Fragment implements APsListView, APsAdapter
                 if (Build.VERSION.SDK_INT >= 21) {
                     txtChennel.setText("Channel: " + Utils.convertFrequencyToChannel(wifiInfo.getFrequency()));
                 } else {
-                    txtChennel.setText("Channel: " + Constants.UNKNOWN);
+                    txtChennel.setText("Channel: " + Constants.NOT_APPLICABLE);
                 }
                 txtMAC.setText("MAC: " + Utils.getMacAddr());
 
