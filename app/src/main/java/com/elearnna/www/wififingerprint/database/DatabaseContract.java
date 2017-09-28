@@ -10,6 +10,7 @@ public class DatabaseContract {
     public static final class APEntry implements BaseColumns {
         public static final String TABLE_AP = "ap";
         public static final String COLUMN_AP_ID = "id";
+        public static final String COLUMN_LOCATION = "location";
         public static final String COLUMN_SSID = "ssid";
         public static final String COLUMN_RSSI = "rssi";
         public static final String COLUMN_FREQUENCY = "frequency";
@@ -41,19 +42,6 @@ public class DatabaseContract {
         public static final String COLUMN_NAME = "name";
         public static final String COLUMN_FILE_LOCATION = "location";
         public static final String COLUMN_TYPE = "type";
-    }
-
-    public static final class PositionEntry implements BaseColumns {
-        public static final String TABLE_POSITION = "position";
-        public static final String COLUMN_POSITION_ID = "id";
-        public static final String COLUMN_POSITION_NAME = "name";
-    }
-
-    public static final class APPositionEntry implements BaseColumns {
-        public static final String TABLE_AP_POSITION = "ap_position";
-        public static final String COLUMN_AP_POSITION_ID = "id";
-        public static final String COLUMN_POSITION_ID = "position_id";
-        public static final String COLUMN_AP_ID = "ap_id";
     }
 
 }

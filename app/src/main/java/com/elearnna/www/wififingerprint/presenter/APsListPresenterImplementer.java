@@ -10,6 +10,7 @@ import android.os.Build;
 import android.os.Handler;
 
 import com.elearnna.www.wififingerprint.app.Constants;
+import com.elearnna.www.wififingerprint.app.Utils;
 import com.elearnna.www.wififingerprint.model.AP;
 import com.elearnna.www.wififingerprint.view.APsListView;
 
@@ -37,12 +38,6 @@ public class APsListPresenterImplementer implements APsListPresenter{
         this.mContext = context;
     }
 
-    private void readWifiNetworks(int duration) {
-        wifiManager.setWifiEnabled(true);
-        wifiManager.startScan();
-        handler.postDelayed(runnable, duration);
-    }
-
     @Override
     public void setAPsListView(APsListView view) {
         aPsListView = view;
@@ -60,7 +55,7 @@ public class APsListPresenterImplementer implements APsListPresenter{
         runnable = new Runnable(){
             @Override
             public void run() {
-                readWifiNetworks(5000);
+                Utils.readWifiNetworks(5000, wifiManager, handler, runnable);
             }
         };
         runnable.run();
@@ -80,7 +75,7 @@ public class APsListPresenterImplementer implements APsListPresenter{
             for(ScanResult sr : wifiAPsList){
                 ap = new AP();
                 ap.setSsid(sr.SSID);
-                ap.setChennel(sr.frequency);
+                ap.setChannel(Utils.convertFrequencyToChannel(sr.frequency));
                 ap.setFrequency(sr.frequency);
                 ap.setMacAddress(sr.BSSID);
                 ap.setRssi(sr.level);

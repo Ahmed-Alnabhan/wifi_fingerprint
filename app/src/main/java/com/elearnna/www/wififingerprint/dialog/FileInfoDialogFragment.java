@@ -1,9 +1,18 @@
 package com.elearnna.www.wififingerprint.dialog;
 
+import android.content.BroadcastReceiver;
+import android.content.ContentValues;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.Uri;
+import android.net.wifi.ScanResult;
+import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +23,12 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.elearnna.www.wififingerprint.R;
+import com.elearnna.www.wififingerprint.app.Constants;
+import com.elearnna.www.wififingerprint.app.Utils;
+import com.elearnna.www.wififingerprint.model.AP;
+import com.elearnna.www.wififingerprint.provider.APContentProvider;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -49,14 +64,23 @@ public class FileInfoDialogFragment extends DialogFragment {private int duration
     @BindView(R.id.btn_save_file)
     Button btnSave;
 
+    private IntentFilter intentFilter;
+    private WifiManager wifiManager;
+    private AP ap;
+    private WiFiBroadcastReceiver wiFiBroadcastReceiver;
+    private List<ScanResult> wifiAPsList;
+    private String location;
+    private Context mContext;
+
     public FileInfoDialogFragment() {
     }
 
-    public static FileInfoDialogFragment newInstance(String title, int timer) {
+    public static FileInfoDialogFragment newInstance(String title, int timer, String location) {
         FileInfoDialogFragment frag = new FileInfoDialogFragment();
         Bundle args = new Bundle();
         args.putString("title", title);
         args.putInt("timer", timer);
+        args.putString("location", location);
         frag.setArguments(args);
         return frag;
     }
@@ -76,6 +100,9 @@ public class FileInfoDialogFragment extends DialogFragment {private int duration
         View view = inflater.inflate(R.layout.file_properties_layout, container);
         ButterKnife.bind(this, view);
 
+        // Get the current location
+        location = getArguments().getString("location");
+
         // Set Spinner items
         setSpinnerItems();
 
@@ -86,6 +113,23 @@ public class FileInfoDialogFragment extends DialogFragment {private int duration
             duration = (int)savedInstanceState.getLong("currentTick");
         }
         startTimer();
+
+        // Set OnClickListener for the cancel button
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dismiss();
+            }
+        });
+
+        // Set OnClickListener for the Save button
+        btnSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dismiss();
+                showFileSavingResultDialog();
+            }
+        });
         return view;
     }
 
@@ -96,6 +140,7 @@ public class FileInfoDialogFragment extends DialogFragment {private int duration
             public void onTick(long l) {
                 currentTick = l / 1000;
                 txtCountDownTimer.setText(String.valueOf(currentTick));
+                readAPInfo();
             }
 
             @Override
@@ -144,5 +189,63 @@ public class FileInfoDialogFragment extends DialogFragment {private int duration
         int spinnerPosition = adapter.getPosition(defaultSpinnerValue);
         spinnerFileTypes.setSelection(spinnerPosition);
         spinnerFileTypes.setAdapter(adapter);
+    }
+    private void showFileSavingResultDialog() {
+        FragmentManager fm = getActivity().getSupportFragmentManager();
+        FileStoringResultDF fileInfoDialogFragment = FileStoringResultDF.newInstance("File Saving Result");
+        fileInfoDialogFragment.show(fm, "saving result");
+    }
+
+    private void readAPInfo(){
+        intentFilter = new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION);
+        wifiManager = (WifiManager) getContext().getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+        wiFiBroadcastReceiver = new WiFiBroadcastReceiver();
+        getContext().getApplicationContext().registerReceiver(wiFiBroadcastReceiver, intentFilter);
+        wifiManager.startScan();
+    }
+
+    private class WiFiBroadcastReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            mContext = context;
+            wifiAPsList = wifiManager.getScanResults();
+            for(ScanResult sr : wifiAPsList){
+                ap = new AP();
+                ap.setSsid(sr.SSID);
+                ap.setLocation(location);
+                ap.setChannel(Utils.convertFrequencyToChannel(sr.frequency));
+                ap.setFrequency(sr.frequency);
+                ap.setMacAddress(sr.BSSID);
+                ap.setRssi(sr.level);
+                ap.setSecurityProtocol(sr.capabilities);
+                if(sr.capabilities != null){
+                    ap.setLocked(1);
+                } else {
+                    ap.setLocked(0);
+                }
+                ap.setTime(sr.timestamp);
+                writeAPInfoToDB(ap);
+            }
+        }
+    }
+
+    private void writeAPInfoToDB(AP ap) {
+        // Create a new map of values
+        ContentValues movieValues = new ContentValues();
+        movieValues.put(APContentProvider.location, ap.getLocation());
+        movieValues.put(APContentProvider.rssi, ap.getRssi());
+        movieValues.put(APContentProvider.ssid, ap.getSsid());
+        movieValues.put(APContentProvider.channel, ap.getChannel());
+        movieValues.put(APContentProvider.frequency, ap.getFrequency());
+        movieValues.put(APContentProvider.ipAddress, "");
+        movieValues.put(APContentProvider.isLocked, ap.isLocked());
+        movieValues.put(APContentProvider.securtiyProtocol, ap.getSecurityProtocol());
+        movieValues.put(APContentProvider.apManufacturer, ap.getManufacturer());
+        movieValues.put(APContentProvider.macAddress, ap.getMacAddress());
+        movieValues.put(APContentProvider.time, ap.getTime());
+
+        //long newRowId = mDb.insert(MoviesContract.MoviesEntry.TABLE_NAME, null, movieValues);
+        Uri uri = mContext.getContentResolver().insert(Constants.APS_CONTENT_URL, movieValues);
     }
 }

@@ -175,14 +175,22 @@ public class Constants {
     /**
      * APContentProvider constants
      */
-    public static final String AP_PROVIDER_NAME = "com.elearnna.www.wififingerprint.provider.APContentProvider";
-    public static final String URL = "content://" + AP_PROVIDER_NAME + "/apscp";
-    public static final Uri CONTENT_URL = Uri.parse(URL);
+    public static final String PROVIDER_NAME = "com.elearnna.www.wififingerprint.provider.APContentProvider";
+    public static final String APS_URL = "content://" + PROVIDER_NAME + "/apscp";
+    public static final String FILES_URL = "content://" + PROVIDER_NAME + "/filescp";
+    public static final String DEVICE_URL = "content://" + PROVIDER_NAME + "/devicecp";
+
+
+    public static final Uri APS_CONTENT_URL = Uri.parse(APS_URL);
+    public static final Uri FILES_CONTENT_URL = Uri.parse(FILES_URL);
+    public static final Uri DEVICE_CONTENT_URL = Uri.parse(DEVICE_URL);
+
+
 
     /**
      * Database constants
      */
     public static final String DATABASE_NAME = "wifi_fingerprint.db";
-    public static final int DATABASE_VERSION = 1;
+    public static final int DATABASE_VERSION = 2;
 
 }

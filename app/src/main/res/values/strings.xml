@@ -63,4 +63,6 @@
     <string name="default_file_location_value">a/b/folderXYZ</string>
     <string name="change_file_location">New File Location:</string>
     <string name="browse">Browse</string>
+    <string name="file_saved_success">Your file has been saved successfully</string>
+    <string name="ok">OK</string>
 </resources>

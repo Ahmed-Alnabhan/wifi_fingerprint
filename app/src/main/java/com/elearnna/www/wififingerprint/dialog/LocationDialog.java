@@ -25,7 +25,7 @@ import butterknife.ButterKnife;
 
 public class LocationDialog extends DialogFragment implements View.OnClickListener{
 
-    private LocationDuration locDuration, cowntdownTimer;
+    private LocationDuration locDuration;
     private Locator locator;
     private Integer[] spinnerItems;
 
@@ -100,7 +100,7 @@ public class LocationDialog extends DialogFragment implements View.OnClickListen
 
     private void showFileInfoDialog() {
         FragmentManager fm = getActivity().getSupportFragmentManager();
-        FileInfoDialogFragment fileInfoDialogFragment = FileInfoDialogFragment.newInstance("Enter File Info", locator.getDuration());
+        FileInfoDialogFragment fileInfoDialogFragment = FileInfoDialogFragment.newInstance("Enter File Info", locator.getDuration(), locator.getLocation());
         fileInfoDialogFragment.show(fm, "timer");
     }
 }

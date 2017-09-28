@@ -42,7 +42,7 @@ public class APsAdapter extends RecyclerView.Adapter<APsListViewHolder>{
     @Override
     public void onBindViewHolder(APsListViewHolder holder, int position) {
         ap = listOfAPs.get(position);
-        int freq = ap.getChennel();
+        int freq = ap.getChannel();
         int channel = Utils.convertFrequencyToChannel(freq);
         int rssi = ap.getRssi();
 

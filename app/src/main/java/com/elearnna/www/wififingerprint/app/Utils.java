@@ -3,6 +3,8 @@ package com.elearnna.www.wififingerprint.app;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Typeface;
+import android.net.wifi.WifiManager;
+import android.os.Handler;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.TextViewCompat;
 import android.util.Log;
@@ -327,5 +329,12 @@ public class Utils {
         }
         tv.setTypeface(font);
     }
+
+    public static void readWifiNetworks(int duration, WifiManager wifiManager, Handler handler, Runnable runnable) {
+        wifiManager.setWifiEnabled(true);
+        wifiManager.startScan();
+        handler.postDelayed(runnable, duration);
+    }
+
 
 }

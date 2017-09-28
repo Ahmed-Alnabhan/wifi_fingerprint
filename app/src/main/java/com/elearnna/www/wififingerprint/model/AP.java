@@ -9,17 +9,18 @@ import android.os.Parcelable;
 
 public class AP implements Parcelable {
     private String id;
+    private String location;
     private String ssid;
     private int rssi;
     private int frequency;
     private String macAddress;
-    private int chennel;
+    private int channel;
     private int isLocked;
     private String manufacturer;
     private String securityProtocol;
     private String ipAddress;
     private int isConnected;
-    private String time;
+    private long time;
 
     public String getId() {
         return id;
@@ -61,12 +62,12 @@ public class AP implements Parcelable {
         this.macAddress = macAddress;
     }
 
-    public int getChennel() {
-        return chennel;
+    public int getChannel() {
+        return channel;
     }
 
-    public void setChennel(int chennel) {
-        this.chennel = chennel;
+    public void setChannel(int channel) {
+        this.channel = channel;
     }
 
     public int isLocked() {
@@ -109,12 +110,20 @@ public class AP implements Parcelable {
         isConnected = connected;
     }
 
-    public String getTime() {
+    public long getTime() {
         return time;
     }
 
-    public void setTime(String time) {
+    public void setTime(long time) {
         this.time = time;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 
     @Override
@@ -125,17 +134,18 @@ public class AP implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.id);
+        dest.writeString(this.location);
         dest.writeString(this.ssid);
         dest.writeInt(this.rssi);
         dest.writeInt(this.frequency);
         dest.writeString(this.macAddress);
-        dest.writeInt(this.chennel);
+        dest.writeInt(this.channel);
         dest.writeInt(this.isLocked);
         dest.writeString(this.manufacturer);
         dest.writeString(this.securityProtocol);
         dest.writeString(this.ipAddress);
         dest.writeInt(this.isConnected);
-        dest.writeString(this.time);
+        dest.writeLong(this.time);
     }
 
     public AP() {
@@ -143,17 +153,18 @@ public class AP implements Parcelable {
 
     protected AP(Parcel in) {
         this.id = in.readString();
+        this.location = in.readString();
         this.ssid = in.readString();
         this.rssi = in.readInt();
         this.frequency = in.readInt();
         this.macAddress = in.readString();
-        this.chennel = in.readInt();
+        this.channel = in.readInt();
         this.isLocked = in.readInt();
         this.manufacturer = in.readString();
         this.securityProtocol = in.readString();
         this.ipAddress = in.readString();
         this.isConnected = in.readInt();
-        this.time = in.readString();
+        this.time = in.readLong();
     }
 
     public static final Parcelable.Creator<AP> CREATOR = new Parcelable.Creator<AP>() {
