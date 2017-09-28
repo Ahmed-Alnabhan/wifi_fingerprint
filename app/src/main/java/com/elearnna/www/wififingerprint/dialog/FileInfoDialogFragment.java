@@ -5,6 +5,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.database.Cursor;
 import android.net.Uri;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
@@ -13,6 +14,7 @@ import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -147,6 +149,7 @@ public class FileInfoDialogFragment extends DialogFragment {private int duration
             public void onFinish() {
                 txtCountDownTimer.setVisibility(View.GONE);
                 enableControls();
+                readAPInfoFromDB(location);
             }
         }.start();
 
@@ -244,8 +247,23 @@ public class FileInfoDialogFragment extends DialogFragment {private int duration
         movieValues.put(APContentProvider.apManufacturer, ap.getManufacturer());
         movieValues.put(APContentProvider.macAddress, ap.getMacAddress());
         movieValues.put(APContentProvider.time, ap.getTime());
-
-        //long newRowId = mDb.insert(MoviesContract.MoviesEntry.TABLE_NAME, null, movieValues);
         Uri uri = mContext.getContentResolver().insert(Constants.APS_CONTENT_URL, movieValues);
+    }
+
+    private void readAPInfoFromDB(String location){
+        String selection = APContentProvider.location + " LIKE ?";
+        String[] selectionArgs = {location};
+        Cursor cursor = mContext.getContentResolver().query(Constants.APS_CONTENT_URL, null, selection, selectionArgs, null);
+        if (cursor.moveToFirst()) {
+            try {
+                while (cursor.moveToNext()) {
+                    Log.i("APS_RECORDS", cursor.getString(cursor.getColumnIndex("mac_address")));
+                }
+            } finally {
+                cursor.close();
+            }
+        } else {
+
+        }
     }
 }

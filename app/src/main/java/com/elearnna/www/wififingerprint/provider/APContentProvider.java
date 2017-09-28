@@ -79,13 +79,28 @@ public class APContentProvider extends ContentProvider {
 
     @Nullable
     @Override
-    public Cursor query(@NonNull Uri uri, @Nullable String[] strings, @Nullable String s, @Nullable String[] strings1, @Nullable String s1) {
+    public Cursor query(@NonNull Uri uri, @Nullable String[] projection, @Nullable String selection, @Nullable String[] selectionArgs, @Nullable String sortOrder) {
         SQLiteQueryBuilder queryBuilder = new SQLiteQueryBuilder();
-        queryBuilder.setTables(DatabaseContract.APEntry.TABLE_AP);
-        queryBuilder.setTables(DatabaseContract.DeviceEntry.TABLE_DEVICE);
-        queryBuilder.setTables(DatabaseContract.FileEntry.TABLE_FILE);
-
-        return null;
+        int myUri = uriMatcher.match(uri);
+        switch (myUri){
+            case uriAP:
+                queryBuilder.setTables(DatabaseContract.APEntry.TABLE_AP);
+                queryBuilder.setProjectionMap(values);
+                break;
+            case uriFile:
+                queryBuilder.setTables(DatabaseContract.FileEntry.TABLE_FILE);
+                queryBuilder.setProjectionMap(values);
+                break;
+            case uriDevice:
+                queryBuilder.setTables(DatabaseContract.DeviceEntry.TABLE_DEVICE);
+                queryBuilder.setProjectionMap(values);
+                break;
+            default:
+                throw new IllegalArgumentException("Unknown URI: " + uri);
+        }
+        Cursor cursor = queryBuilder.query(mDb, projection, selection, selectionArgs, null, null, sortOrder);
+        cursor.setNotificationUri(getContext().getApplicationContext().getContentResolver(), uri);
+        return cursor;
     }
 
     @Nullable
@@ -136,12 +151,42 @@ public class APContentProvider extends ContentProvider {
     }
 
     @Override
-    public int delete(@NonNull Uri uri, @Nullable String s, @Nullable String[] strings) {
-        return 0;
+    public int delete(@NonNull Uri uri, @Nullable String selection, @Nullable String[] selectionArgs) {
+        int rowsDeleted;
+        switch(uriMatcher.match(uri)){
+            case uriAP:
+                rowsDeleted = mDb.delete(DatabaseContract.APEntry.TABLE_AP, selection, selectionArgs);
+                break;
+            case uriDevice:
+                rowsDeleted = mDb.delete(DatabaseContract.DeviceEntry.TABLE_DEVICE, selection, selectionArgs);
+                break;
+            case uriFile:
+                rowsDeleted = mDb.delete(DatabaseContract.FileEntry.TABLE_FILE, selection, selectionArgs);
+                break;
+            default:
+                throw new IllegalArgumentException("Unknown URI " + uri);
+        }
+        getContext().getContentResolver().notifyChange(uri, null);
+        return rowsDeleted;
     }
 
     @Override
-    public int update(@NonNull Uri uri, @Nullable ContentValues contentValues, @Nullable String s, @Nullable String[] strings) {
-        return 0;
+    public int update(@NonNull Uri uri, @Nullable ContentValues contentValues, @Nullable String selection, @Nullable String[] selectionArgs) {
+        int rowsUpdated;
+        switch(uriMatcher.match(uri)){
+            case uriAP:
+                rowsUpdated = mDb.update(DatabaseContract.APEntry.TABLE_AP, contentValues, selection, selectionArgs);
+                break;
+            case uriDevice:
+                rowsUpdated = mDb.update(DatabaseContract.DeviceEntry.TABLE_DEVICE, contentValues, selection, selectionArgs);
+                break;
+            case uriFile:
+                rowsUpdated = mDb.update(DatabaseContract.FileEntry.TABLE_FILE, contentValues, selection, selectionArgs);
+                break;
+            default:
+                throw new IllegalArgumentException("Unknown URI " + uri);
+        }
+        getContext().getContentResolver().notifyChange(uri, null);
+        return rowsUpdated;
     }
 }
