@@ -42,7 +42,7 @@ public class APsAdapter extends RecyclerView.Adapter<APsListViewHolder>{
     @Override
     public void onBindViewHolder(APsListViewHolder holder, int position) {
         ap = listOfAPs.get(position);
-        int freq = ap.getChannel();
+        int freq = ap.getFrequency();
         int channel = Utils.convertFrequencyToChannel(freq);
         int rssi = ap.getRssi();
 
@@ -69,7 +69,7 @@ public class APsAdapter extends RecyclerView.Adapter<APsListViewHolder>{
         Utils.setTextViewStyle(context, holder.getTxtConnectionStatus(), regular_font, "Small");
 
         // Set the style of the Channel based on the app theme
-        Utils.setTextViewStyle(context, holder.getTxtChennel(), regular_font, "Large");
+        Utils.setTextViewStyle(context, holder.getTxtChannel(), regular_font, "Large");
 
         // Set the style of the MAC based on the app theme
         Utils.setTextViewStyle(context, holder.getTxtMAC(), regular_font, "Large");
@@ -79,7 +79,7 @@ public class APsAdapter extends RecyclerView.Adapter<APsListViewHolder>{
 
         holder.getTxtIPAddress().setText(ap.getIpAddress());
         holder.getTxtConnectionStatus().setText(String.valueOf(ap.isConnected()));
-        holder.getTxtChennel().setText(String.valueOf("Channel: " + channel));
+        holder.getTxtChannel().setText(String.valueOf("Channel: " + channel));
         holder.getTxtMAC().setText("MAC: " + ap.getMacAddress());
         holder.getTxtSignalStrength().setText(String.valueOf(rssi));
         RSSIRepresenter rssiRepresenter = Utils.setWifiImage(rssi, context);

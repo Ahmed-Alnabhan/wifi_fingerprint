@@ -33,7 +33,7 @@ public class APContentProvider extends ContentProvider {
     public static final String channel = "channel";
     public static final String isLocked = "is_locked";
     public static final String apManufacturer = "manufacturer";
-    public static final String securtiyProtocol = "security_protocol";
+    public static final String securityProtocol = "security_protocol";
     public static final String ipAddress = "ip_address";
     public static final String time = "time";
 
@@ -44,7 +44,7 @@ public class APContentProvider extends ContentProvider {
     public static final String device = "device";
     public static final String product = "product";
     public static final String os = "os";
-    public static final String osVesrion = "os_version";
+    public static final String osVersion = "os_verion";
     public static final String apiLevel = "api_level";
 
     // Define fields of File table

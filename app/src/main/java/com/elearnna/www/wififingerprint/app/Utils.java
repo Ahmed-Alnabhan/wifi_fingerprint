@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.net.wifi.WifiManager;
+import android.os.Build;
 import android.os.Handler;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.TextViewCompat;
@@ -11,6 +12,7 @@ import android.util.Log;
 import android.widget.TextView;
 
 import com.elearnna.www.wififingerprint.R;
+import com.elearnna.www.wififingerprint.model.Device;
 
 import java.net.NetworkInterface;
 import java.util.Collections;
@@ -336,5 +338,16 @@ public class Utils {
         handler.postDelayed(runnable, duration);
     }
 
-
+    public static Device readDeviceInfo(){
+        Device device = new Device();
+        device.setManufacturer(Build.MANUFACTURER);
+        device.setBrand(Build.BRAND);
+        device.setDevice(Build.DEVICE);
+        device.setModel(Build.MODEL);
+        device.setProduct(Build.PRODUCT);
+        device.setOs("Android");
+        device.setApiLevel(Build.VERSION.SDK_INT);
+        device.setOsVersion(Build.VERSION.RELEASE);
+        return device;
+    }
 }

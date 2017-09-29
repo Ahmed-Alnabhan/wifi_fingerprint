@@ -1,10 +1,12 @@
 package com.elearnna.www.wififingerprint.fragments;
 
 import android.Manifest;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Build;
@@ -40,9 +42,11 @@ import com.elearnna.www.wififingerprint.app.RSSIRepresenter;
 import com.elearnna.www.wififingerprint.app.Utils;
 import com.elearnna.www.wififingerprint.dialog.LocationDuration;
 import com.elearnna.www.wififingerprint.model.AP;
+import com.elearnna.www.wififingerprint.model.Device;
 import com.elearnna.www.wififingerprint.model.Locator;
 import com.elearnna.www.wififingerprint.presenter.APsListPresenter;
 import com.elearnna.www.wififingerprint.presenter.APsListPresenterImplementer;
+import com.elearnna.www.wififingerprint.provider.APContentProvider;
 import com.elearnna.www.wififingerprint.view.APsListView;
 
 import java.util.List;
@@ -64,6 +68,7 @@ public class APsListFragment extends Fragment implements APsListView, APsAdapter
     private FragmentManager fragmentManager;
     private Context context;
     private Intent intent;
+    private boolean deviceInfoIsRead;
 
     public APsListFragment() {
     }
@@ -81,7 +86,7 @@ public class APsListFragment extends Fragment implements APsListView, APsAdapter
     TextView txtConnectionStatus;
 
     @BindView(R.id.tv_channel)
-    TextView txtChennel;
+    TextView txtChannel;
 
     @BindView(R.id.tv_mac_address)
     TextView txtMAC;
@@ -119,6 +124,9 @@ public class APsListFragment extends Fragment implements APsListView, APsAdapter
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_aps_list, container, false);
         ButterKnife.bind(this, view);
+
+        // Write device info to the database
+        readDeviceInfoOnce();
         state = new Bundle();
         bundle = new Bundle();
         mTwoPane = false;
@@ -139,7 +147,7 @@ public class APsListFragment extends Fragment implements APsListView, APsAdapter
         Utils.setTextViewStyle(getActivity(), txtConnectionStatus, regular_font, "Small");
 
         // Set the style of the Channel based on the app theme
-        Utils.setTextViewStyle(getActivity(), txtChennel, regular_font, "Large");
+        Utils.setTextViewStyle(getActivity(), txtChannel, regular_font, "Large");
 
         // Set the style of the MAC based on the app theme
         Utils.setTextViewStyle(getActivity(), txtMAC, regular_font, "Large");
@@ -185,9 +193,9 @@ public class APsListFragment extends Fragment implements APsListView, APsAdapter
                 String ipAddress = String.format("%d.%d.%d.%d", (ip & 0xff), (ip >> 8 & 0xff), (ip >> 16 & 0xff), (ip >> 24 & 0xff));
                 txtIPAddress.setText("IP: " + ipAddress);
                 if (Build.VERSION.SDK_INT >= 21) {
-                    txtChennel.setText("Channel: " + Utils.convertFrequencyToChannel(wifiInfo.getFrequency()));
+                    txtChannel.setText("Channel: " + Utils.convertFrequencyToChannel(wifiInfo.getFrequency()));
                 } else {
-                    txtChennel.setText("Channel: " + Constants.NOT_APPLICABLE);
+                    txtChannel.setText("Channel: " + Constants.NOT_APPLICABLE);
                 }
                 txtMAC.setText("MAC: " + Utils.getMacAddr());
 
@@ -317,5 +325,35 @@ public class APsListFragment extends Fragment implements APsListView, APsAdapter
     @Override
     public void getLocationandDuration(Locator locator) {
         Log.i("Locator Content: ", locator.getLocation() + " ,,, " + locator.getDuration());
+    }
+
+    /**
+     * Write device info to the database using the content provider
+     */
+    private void writeDeviceInfoToDB(Device device){
+        // Create a new map of values
+        ContentValues deviceValues = new ContentValues();
+        deviceValues.put(APContentProvider.deviceManufacturer, device.getManufacturer());
+        deviceValues.put(APContentProvider.brand, device.getBrand());
+        deviceValues.put(APContentProvider.device, device.getDevice());
+        deviceValues.put(APContentProvider.model, device.getModel());
+        deviceValues.put(APContentProvider.product, device.getProduct());
+        deviceValues.put(APContentProvider.os, device.getOs());
+        deviceValues.put(APContentProvider.osVersion, device.getOsVersion());
+        deviceValues.put(APContentProvider.apiLevel, device.getApiLevel());
+        Uri uri = getActivity().getContentResolver().insert(Constants.DEVICE_CONTENT_URL, deviceValues);
+    }
+
+    // Read the device info and write them to the database only once
+    private synchronized void readDeviceInfoOnce(){
+        if (deviceInfoIsRead){
+            return;
+        } else {
+            Device device = Utils.readDeviceInfo();
+            if (device != null) {
+                writeDeviceInfoToDB(device);
+                deviceInfoIsRead = false;
+            }
+        }
     }
 }

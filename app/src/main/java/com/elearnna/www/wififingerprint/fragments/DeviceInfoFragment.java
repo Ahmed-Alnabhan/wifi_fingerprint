@@ -3,6 +3,7 @@ package com.elearnna.www.wififingerprint.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,7 @@ import butterknife.ButterKnife;
  */
 public class DeviceInfoFragment extends Fragment implements DeviceInfoView{
     private DeviceInfoPresenter deviceInfoPresenter;
+    private LoaderManager loaderManager;
 
     // Butterknife definitions
     @BindView(R.id.device_info_manufacturer_value)
@@ -59,7 +61,8 @@ public class DeviceInfoFragment extends Fragment implements DeviceInfoView{
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_device_info, container, false);
         ButterKnife.bind(this, view);
-        deviceInfoPresenter = new DeviceInfoPresenterImplementer();
+        loaderManager = getLoaderManager();
+        deviceInfoPresenter = new DeviceInfoPresenterImplementer(getContext(), loaderManager);
         deviceInfoPresenter.setDeviceInfoView(this);
         deviceInfoPresenter.getDeviceInfo();
         return view;

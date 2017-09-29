@@ -35,7 +35,7 @@ public class APsListViewHolder extends RecyclerView.ViewHolder implements View.O
     TextView txtConnectionStatus;
 
     @BindView(R.id.tv_channel)
-    TextView txtChennel;
+    TextView txtChannel;
 
     @BindView(R.id.tv_mac_address)
     TextView txtMAC;
@@ -78,8 +78,8 @@ public class APsListViewHolder extends RecyclerView.ViewHolder implements View.O
         return txtConnectionStatus;
     }
 
-    public TextView getTxtChennel() {
-        return txtChennel;
+    public TextView getTxtChannel() {
+        return txtChannel;
     }
 
     public TextView getTxtMAC() {

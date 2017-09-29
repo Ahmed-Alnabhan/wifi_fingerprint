@@ -235,19 +235,19 @@ public class FileInfoDialogFragment extends DialogFragment {private int duration
 
     private void writeAPInfoToDB(AP ap) {
         // Create a new map of values
-        ContentValues movieValues = new ContentValues();
-        movieValues.put(APContentProvider.location, ap.getLocation());
-        movieValues.put(APContentProvider.rssi, ap.getRssi());
-        movieValues.put(APContentProvider.ssid, ap.getSsid());
-        movieValues.put(APContentProvider.channel, ap.getChannel());
-        movieValues.put(APContentProvider.frequency, ap.getFrequency());
-        movieValues.put(APContentProvider.ipAddress, "");
-        movieValues.put(APContentProvider.isLocked, ap.isLocked());
-        movieValues.put(APContentProvider.securtiyProtocol, ap.getSecurityProtocol());
-        movieValues.put(APContentProvider.apManufacturer, ap.getManufacturer());
-        movieValues.put(APContentProvider.macAddress, ap.getMacAddress());
-        movieValues.put(APContentProvider.time, ap.getTime());
-        Uri uri = mContext.getContentResolver().insert(Constants.APS_CONTENT_URL, movieValues);
+        ContentValues apValues = new ContentValues();
+        apValues.put(APContentProvider.location, ap.getLocation());
+        apValues.put(APContentProvider.rssi, ap.getRssi());
+        apValues.put(APContentProvider.ssid, ap.getSsid());
+        apValues.put(APContentProvider.channel, ap.getChannel());
+        apValues.put(APContentProvider.frequency, ap.getFrequency());
+        apValues.put(APContentProvider.ipAddress, "");
+        apValues.put(APContentProvider.isLocked, ap.isLocked());
+        apValues.put(APContentProvider.securityProtocol, ap.getSecurityProtocol());
+        apValues.put(APContentProvider.apManufacturer, ap.getManufacturer());
+        apValues.put(APContentProvider.macAddress, ap.getMacAddress());
+        apValues.put(APContentProvider.time, ap.getTime());
+        Uri uri = mContext.getContentResolver().insert(Constants.APS_CONTENT_URL, apValues);
     }
 
     private void readAPInfoFromDB(String location){
@@ -262,8 +262,6 @@ public class FileInfoDialogFragment extends DialogFragment {private int duration
             } finally {
                 cursor.close();
             }
-        } else {
-
         }
     }
 }
