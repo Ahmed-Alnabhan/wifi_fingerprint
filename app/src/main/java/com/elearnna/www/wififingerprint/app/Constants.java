@@ -150,6 +150,12 @@ public class Constants {
     public static final String UNKNOWN = "Unknown";
     public static final String NOT_APPLICABLE = "n/a";
 
+
+    public static final String EXECUTED_ONCE = "executedOnce";
+    public static final String JSON_TYPE = "JSON";
+    public static final String XML_TYPE = "XML";
+    public static final String CSV_TYPE = "CSV";
+
     public static int MIN_5_GHZ_FREQUENCY = 5180;
     public static int MAX_5_GHZ_FREQUENCY =  5809;
     public static int MIN_2_4_GHZ_FREQUENCY = 2412;

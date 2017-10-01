@@ -3,6 +3,9 @@ package com.elearnna.www.wififingerprint.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Ahmed on 9/6/2017.
  */
@@ -12,6 +15,7 @@ public class AP implements Parcelable {
     private String location;
     private String ssid;
     private int rssi;
+    private List<Integer> rssiList;
     private int frequency;
     private String macAddress;
     private int channel;
@@ -126,6 +130,14 @@ public class AP implements Parcelable {
         this.location = location;
     }
 
+    public List<Integer> getRssiList() {
+        return rssiList;
+    }
+
+    public void setRssiList(List<Integer> rssiList) {
+        this.rssiList = rssiList;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -137,6 +149,7 @@ public class AP implements Parcelable {
         dest.writeString(this.location);
         dest.writeString(this.ssid);
         dest.writeInt(this.rssi);
+        dest.writeList(this.rssiList);
         dest.writeInt(this.frequency);
         dest.writeString(this.macAddress);
         dest.writeInt(this.channel);
@@ -156,6 +169,8 @@ public class AP implements Parcelable {
         this.location = in.readString();
         this.ssid = in.readString();
         this.rssi = in.readInt();
+        this.rssiList = new ArrayList<>();
+        in.readList(this.rssiList, Integer.class.getClassLoader());
         this.frequency = in.readInt();
         this.macAddress = in.readString();
         this.channel = in.readInt();

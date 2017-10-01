@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Typeface;
 import android.net.Uri;
@@ -20,6 +21,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.preference.PreferenceManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -68,7 +70,6 @@ public class APsListFragment extends Fragment implements APsListView, APsAdapter
     private FragmentManager fragmentManager;
     private Context context;
     private Intent intent;
-    private boolean deviceInfoIsRead;
 
     public APsListFragment() {
     }
@@ -112,7 +113,6 @@ public class APsListFragment extends Fragment implements APsListView, APsAdapter
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
     }
 
@@ -125,8 +125,16 @@ public class APsListFragment extends Fragment implements APsListView, APsAdapter
         View view = inflater.inflate(R.layout.fragment_aps_list, container, false);
         ButterKnife.bind(this, view);
 
-        // Write device info to the database
-        readDeviceInfoOnce();
+        // Write device info to the database once
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        if(!sharedPreferences.getBoolean(Constants.EXECUTED_ONCE, false)){
+            readDeviceInfoOnce();
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putBoolean(Constants.EXECUTED_ONCE, true);
+            editor.commit();
+        }
+
+
         state = new Bundle();
         bundle = new Bundle();
         mTwoPane = false;
@@ -346,14 +354,9 @@ public class APsListFragment extends Fragment implements APsListView, APsAdapter
 
     // Read the device info and write them to the database only once
     private synchronized void readDeviceInfoOnce(){
-        if (deviceInfoIsRead){
-            return;
-        } else {
-            Device device = Utils.readDeviceInfo();
-            if (device != null) {
-                writeDeviceInfoToDB(device);
-                deviceInfoIsRead = false;
-            }
+        Device device = Utils.readDeviceInfo();
+        if (device != null) {
+            writeDeviceInfoToDB(device);
         }
     }
 }

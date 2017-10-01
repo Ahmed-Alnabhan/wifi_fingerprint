@@ -14,6 +14,8 @@ import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.Loader;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,7 +29,9 @@ import android.widget.TextView;
 import com.elearnna.www.wififingerprint.R;
 import com.elearnna.www.wififingerprint.app.Constants;
 import com.elearnna.www.wififingerprint.app.Utils;
+import com.elearnna.www.wififingerprint.loader.FingerprintLoader;
 import com.elearnna.www.wififingerprint.model.AP;
+import com.elearnna.www.wififingerprint.model.Fingerprint;
 import com.elearnna.www.wififingerprint.provider.APContentProvider;
 
 import java.util.List;
@@ -39,10 +43,22 @@ import butterknife.ButterKnife;
  * Created by Ahmed on 9/25/2017.
  */
 
-public class FileInfoDialogFragment extends DialogFragment {private int duration;
+public class FileInfoDialogFragment extends DialogFragment{
 
+    private int duration;
     private long currentTick;
     private String[] spinnerFileTypeItems;
+    private Fingerprint fingerprint;
+    private LoaderManager.LoaderCallbacks<Fingerprint> mLoader;
+
+    private IntentFilter intentFilter;
+    private WifiManager wifiManager;
+    private AP ap;
+    private WiFiBroadcastReceiver wiFiBroadcastReceiver;
+    private List<ScanResult> wifiAPsList;
+    private String location;
+    private Context mContext;
+    private String selectedFileType;
 
     @BindView(R.id.spinner_file_type_value)
     Spinner spinnerFileTypes;
@@ -66,14 +82,6 @@ public class FileInfoDialogFragment extends DialogFragment {private int duration
     @BindView(R.id.btn_save_file)
     Button btnSave;
 
-    private IntentFilter intentFilter;
-    private WifiManager wifiManager;
-    private AP ap;
-    private WiFiBroadcastReceiver wiFiBroadcastReceiver;
-    private List<ScanResult> wifiAPsList;
-    private String location;
-    private Context mContext;
-
     public FileInfoDialogFragment() {
     }
 
@@ -91,7 +99,8 @@ public class FileInfoDialogFragment extends DialogFragment {private int duration
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         String title = getArguments().getString("title");
-
+        // Create loader manager
+        //loaderManager = getLoaderManager();
         // Set a title to the dialog
         getDialog().setTitle(title);
 
@@ -104,6 +113,25 @@ public class FileInfoDialogFragment extends DialogFragment {private int duration
 
         // Get the current location
         location = getArguments().getString("location");
+
+        // Define the loader
+        mLoader = new LoaderManager.LoaderCallbacks<Fingerprint>() {
+            @Override
+            public Loader<Fingerprint> onCreateLoader(int id, Bundle args) {
+                fingerprint = new Fingerprint();
+                return new FingerprintLoader(getActivity(), location);
+            }
+
+            @Override
+            public void onLoadFinished(Loader<Fingerprint> loader, Fingerprint data) {
+                fingerprint = data;
+            }
+
+            @Override
+            public void onLoaderReset(Loader<Fingerprint> loader) {
+
+            }
+        };
 
         // Set Spinner items
         setSpinnerItems();
@@ -129,6 +157,7 @@ public class FileInfoDialogFragment extends DialogFragment {private int duration
             @Override
             public void onClick(View view) {
                 dismiss();
+                createFile();
                 showFileSavingResultDialog();
             }
         });
@@ -150,6 +179,7 @@ public class FileInfoDialogFragment extends DialogFragment {private int duration
                 txtCountDownTimer.setVisibility(View.GONE);
                 enableControls();
                 readAPInfoFromDB(location);
+                getLoaderManager().initLoader(1, null, mLoader).forceLoad();
             }
         }.start();
 
@@ -185,7 +215,7 @@ public class FileInfoDialogFragment extends DialogFragment {private int duration
      * Fill out the spinner with the file types
      */
     private void setSpinnerItems(){
-        spinnerFileTypeItems = new String[]{"JSON", "XML", "CSV"};
+        spinnerFileTypeItems = new String[]{Constants.JSON_TYPE, Constants.XML_TYPE, Constants.CSV_TYPE};
         String defaultSpinnerValue = spinnerFileTypeItems[0];
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_dropdown_item, spinnerFileTypeItems);
@@ -206,6 +236,7 @@ public class FileInfoDialogFragment extends DialogFragment {private int duration
         getContext().getApplicationContext().registerReceiver(wiFiBroadcastReceiver, intentFilter);
         wifiManager.startScan();
     }
+
 
     private class WiFiBroadcastReceiver extends BroadcastReceiver {
 
@@ -253,7 +284,7 @@ public class FileInfoDialogFragment extends DialogFragment {private int duration
     private void readAPInfoFromDB(String location){
         String selection = APContentProvider.location + " LIKE ?";
         String[] selectionArgs = {location};
-        Cursor cursor = mContext.getContentResolver().query(Constants.APS_CONTENT_URL, null, selection, selectionArgs, null);
+        Cursor cursor = getActivity().getContentResolver().query(Constants.APS_CONTENT_URL, null, selection, selectionArgs, null);
         if (cursor.moveToFirst()) {
             try {
                 while (cursor.moveToNext()) {
@@ -264,4 +295,30 @@ public class FileInfoDialogFragment extends DialogFragment {private int duration
             }
         }
     }
+
+    private boolean createFile(){
+        selectedFileType = spinnerFileTypes.getSelectedItem().toString();
+        boolean fileCreated = false;
+        if (selectedFileType.equals(Constants.JSON_TYPE)){
+            fileCreated = createJSONFile();
+        } else if (selectedFileType.equals(Constants.XML_TYPE)){
+            fileCreated = createXMLFile();
+        } else if (selectedFileType.equals(Constants.CSV_TYPE)){
+            fileCreated = createCSVFile();
+        }
+        return fileCreated;
+    }
+    
+    private boolean createJSONFile(){
+        return true;
+    }
+
+    private boolean createXMLFile(){
+        return true;
+    }
+
+    private boolean createCSVFile(){
+        return true;
+    }
+    
 }
