@@ -33,6 +33,9 @@ import com.elearnna.www.wififingerprint.loader.FingerprintLoader;
 import com.elearnna.www.wififingerprint.model.AP;
 import com.elearnna.www.wififingerprint.model.Fingerprint;
 import com.elearnna.www.wififingerprint.provider.APContentProvider;
+import com.google.gson.FieldNamingPolicy;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.util.List;
 
@@ -157,7 +160,7 @@ public class FileInfoDialogFragment extends DialogFragment{
             @Override
             public void onClick(View view) {
                 dismiss();
-                createFile();
+                createFile(fingerprint);
                 showFileSavingResultDialog();
             }
         });
@@ -296,28 +299,40 @@ public class FileInfoDialogFragment extends DialogFragment{
         }
     }
 
-    private boolean createFile(){
+    private boolean createFile(Fingerprint fp){
         selectedFileType = spinnerFileTypes.getSelectedItem().toString();
         boolean fileCreated = false;
         if (selectedFileType.equals(Constants.JSON_TYPE)){
-            fileCreated = createJSONFile();
+            fileCreated = createJSONFile(fp);
         } else if (selectedFileType.equals(Constants.XML_TYPE)){
-            fileCreated = createXMLFile();
+            fileCreated = createXMLFile(fp);
         } else if (selectedFileType.equals(Constants.CSV_TYPE)){
-            fileCreated = createCSVFile();
+            fileCreated = createCSVFile(fp);
         }
         return fileCreated;
     }
     
-    private boolean createJSONFile(){
+    private boolean createJSONFile(Fingerprint fp){
+        Gson gson = new GsonBuilder()
+                .disableHtmlEscaping()
+                .setPrettyPrinting()
+                .setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE)
+                .serializeNulls()
+                .create();
+        if (fp != null) {
+            String jsonString = gson.toJson(fp);
+            Log.i("FingerPrint JSON: ", jsonString);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private boolean createXMLFile(Fingerprint fp){
         return true;
     }
 
-    private boolean createXMLFile(){
-        return true;
-    }
-
-    private boolean createCSVFile(){
+    private boolean createCSVFile(Fingerprint fp){
         return true;
     }
     
