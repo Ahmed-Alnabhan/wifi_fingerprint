@@ -316,7 +316,7 @@ public class FileInfoDialogFragment extends DialogFragment{
         Gson gson = new GsonBuilder()
                 .disableHtmlEscaping()
                 .setPrettyPrinting()
-                .setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE)
+                .setFieldNamingPolicy(FieldNamingPolicy.IDENTITY)
                 .serializeNulls()
                 .create();
         if (fp != null) {

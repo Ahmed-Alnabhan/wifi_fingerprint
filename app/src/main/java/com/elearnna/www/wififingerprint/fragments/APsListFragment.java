@@ -12,6 +12,7 @@ import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Parcelable;
 import android.support.annotation.NonNull;
@@ -51,6 +52,7 @@ import com.elearnna.www.wififingerprint.presenter.APsListPresenterImplementer;
 import com.elearnna.www.wififingerprint.provider.APContentProvider;
 import com.elearnna.www.wififingerprint.view.APsListView;
 
+import java.io.File;
 import java.util.List;
 
 import butterknife.BindView;
@@ -134,6 +136,8 @@ public class APsListFragment extends Fragment implements APsListView, APsAdapter
             editor.commit();
         }
 
+        // Create default wifi fingerprint directory path
+        createDefaultDirectoryPath();
 
         state = new Bundle();
         bundle = new Bundle();
@@ -358,5 +362,18 @@ public class APsListFragment extends Fragment implements APsListView, APsAdapter
         if (device != null) {
             writeDeviceInfoToDB(device);
         }
+    }
+
+    // Create Default directory path to save files
+    private void createDefaultDirectoryPath() {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        File fingerprintDirectory = new File(Environment.getExternalStorageDirectory() + "/Wifi_Fingerprint");
+
+        if (!fingerprintDirectory.exists()){
+            fingerprintDirectory.mkdir();
+        }
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(Constants.DEFAULT_DIRECTORY_PATH, String.valueOf(fingerprintDirectory));
+        editor.commit();
     }
 }
