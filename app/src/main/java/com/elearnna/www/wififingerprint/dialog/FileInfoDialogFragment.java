@@ -5,6 +5,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
 import android.net.wifi.ScanResult;
@@ -16,6 +17,9 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
+import android.support.v7.preference.PreferenceManager;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,6 +41,10 @@ import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Writer;
 import java.util.List;
 
 import butterknife.BindView;
@@ -47,21 +55,6 @@ import butterknife.ButterKnife;
  */
 
 public class FileInfoDialogFragment extends DialogFragment{
-
-    private int duration;
-    private long currentTick;
-    private String[] spinnerFileTypeItems;
-    private Fingerprint fingerprint;
-    private LoaderManager.LoaderCallbacks<Fingerprint> mLoader;
-
-    private IntentFilter intentFilter;
-    private WifiManager wifiManager;
-    private AP ap;
-    private WiFiBroadcastReceiver wiFiBroadcastReceiver;
-    private List<ScanResult> wifiAPsList;
-    private String location;
-    private Context mContext;
-    private String selectedFileType;
 
     @BindView(R.id.spinner_file_type_value)
     Spinner spinnerFileTypes;
@@ -85,6 +78,24 @@ public class FileInfoDialogFragment extends DialogFragment{
     @BindView(R.id.btn_save_file)
     Button btnSave;
 
+
+    private int duration;
+    private long currentTick;
+    private String[] spinnerFileTypeItems;
+    private Fingerprint fingerprint;
+    private LoaderManager.LoaderCallbacks<Fingerprint> mLoader;
+
+    private IntentFilter intentFilter;
+    private WifiManager wifiManager;
+    private AP ap;
+    private WiFiBroadcastReceiver wiFiBroadcastReceiver;
+    private List<ScanResult> wifiAPsList;
+    private String location;
+    private Context mContext;
+    private String selectedFileType;
+    private String fileName;
+    private String fullFileName;
+
     public FileInfoDialogFragment() {
     }
 
@@ -102,8 +113,7 @@ public class FileInfoDialogFragment extends DialogFragment{
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         String title = getArguments().getString("title");
-        // Create loader manager
-        //loaderManager = getLoaderManager();
+
         // Set a title to the dialog
         getDialog().setTitle(title);
 
@@ -113,6 +123,31 @@ public class FileInfoDialogFragment extends DialogFragment{
         setStyle(DialogFragment.STYLE_NORMAL, R.style.CustomDialog);
         View view = inflater.inflate(R.layout.file_properties_layout, container);
         ButterKnife.bind(this, view);
+
+        // disable the save button
+        disableSaveButton();
+
+        // disable the save button unless the file name edit text is not empty
+        etFileName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (charSequence.length() != 0){
+                    enableSaveButton();
+                } else {
+                    disableSaveButton();
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
 
         // Get the current location
         location = getArguments().getString("location");
@@ -159,9 +194,11 @@ public class FileInfoDialogFragment extends DialogFragment{
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                fileName = etFileName.getText().toString();
                 dismiss();
-                createFile(fingerprint);
-                showFileSavingResultDialog();
+                boolean fileCreatedSuccessfully = createFile(fingerprint);
+                showFileSavingResultDialog(fileCreatedSuccessfully);
+
             }
         });
         return view;
@@ -194,8 +231,7 @@ public class FileInfoDialogFragment extends DialogFragment{
         txtDefaultFileLocation.setEnabled(false);
         btnBrowse.setEnabled(false);
         btnBrowse.setClickable(false);
-        btnSave.setEnabled(false);
-        btnSave.setClickable(false);
+        disableSaveButton();
     }
 
     private void enableControls() {
@@ -204,8 +240,6 @@ public class FileInfoDialogFragment extends DialogFragment{
         txtDefaultFileLocation.setEnabled(true);
         btnBrowse.setEnabled(true);
         btnBrowse.setClickable(true);
-        btnSave.setEnabled(true);
-        btnSave.setClickable(true);
     }
 
     @Override
@@ -226,9 +260,9 @@ public class FileInfoDialogFragment extends DialogFragment{
         spinnerFileTypes.setSelection(spinnerPosition);
         spinnerFileTypes.setAdapter(adapter);
     }
-    private void showFileSavingResultDialog() {
+    private void showFileSavingResultDialog(boolean isFileCreatedSuccessfully) {
         FragmentManager fm = getActivity().getSupportFragmentManager();
-        FileStoringResultDF fileInfoDialogFragment = FileStoringResultDF.newInstance("File Saving Result");
+        FileStoringResultDF fileInfoDialogFragment = FileStoringResultDF.newInstance("File Saving Result", isFileCreatedSuccessfully, fullFileName);
         fileInfoDialogFragment.show(fm, "saving result");
     }
 
@@ -313,6 +347,8 @@ public class FileInfoDialogFragment extends DialogFragment{
     }
     
     private boolean createJSONFile(Fingerprint fp){
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        String filePath = sharedPreferences.getString(Constants.DEFAULT_DIRECTORY_PATH, Constants.DEFAULT_DIRECTORY_PATH);
         Gson gson = new GsonBuilder()
                 .disableHtmlEscaping()
                 .setPrettyPrinting()
@@ -321,6 +357,15 @@ public class FileInfoDialogFragment extends DialogFragment{
                 .create();
         if (fp != null) {
             String jsonString = gson.toJson(fp);
+            File fullFileName = new File(filePath + "/" + fileName + ".json");
+            Writer fileWriter = null;
+            try {
+                fileWriter = new FileWriter(fullFileName, true);
+                fileWriter.write(jsonString);
+                fileWriter.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             Log.i("FingerPrint JSON: ", jsonString);
             return true;
         } else {
@@ -335,5 +380,14 @@ public class FileInfoDialogFragment extends DialogFragment{
     private boolean createCSVFile(Fingerprint fp){
         return true;
     }
-    
+
+    private void disableSaveButton() {
+        btnSave.setEnabled(false);
+        btnSave.setClickable(false);
+    }
+
+    private void enableSaveButton() {
+        btnSave.setEnabled(true);
+        btnSave.setClickable(true);
+    }
 }

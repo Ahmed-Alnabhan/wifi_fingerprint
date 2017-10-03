@@ -42,13 +42,9 @@ public class FingerprintLoader extends AsyncTaskLoader<Fingerprint> {
         Fingerprint fingerprint = new Fingerprint();
         Device device = new Device();
         List<AP> aps = new ArrayList<>();
-        //List<Integer> rssiList;
         String selection = APContentProvider.location + " LIKE ? ";
         String[] selectionArgs = {location};
-        //HashMap<String, String> macs = new HashMap<>();
 
-        // Add location to the Fingerprint object
-        fingerprint.setLocation(location);
         Cursor apsCursor = getContext().getContentResolver().query(Constants.APS_CONTENT_URL, null, selection, selectionArgs, null);
         Cursor deviceCursor = getContext().getContentResolver().query(Constants.DEVICE_CONTENT_URL, null, null, null, null);
         if (deviceCursor.moveToFirst()){
@@ -67,9 +63,6 @@ public class FingerprintLoader extends AsyncTaskLoader<Fingerprint> {
                 deviceCursor.close();
             }
         }
-
-        // Add device object to the Fingerprint object
-        fingerprint.setDevice(device);
 
         if (apsCursor.moveToFirst()){
             AP ap;
@@ -110,6 +103,11 @@ public class FingerprintLoader extends AsyncTaskLoader<Fingerprint> {
                 apsCursor.close();
             }
         }
+        // Add device object to the Fingerprint object
+        fingerprint.setDevice(device);
+
+        // Add location to the Fingerprint object
+        fingerprint.setLocation(location);
         fingerprint.setAps(aps);
         return fingerprint;
     }

@@ -19,10 +19,12 @@ public class FileStoringResultDF extends DialogFragment {
     public FileStoringResultDF() {
     }
 
-    public static FileStoringResultDF newInstance(String title) {
+    public static FileStoringResultDF newInstance(String title, boolean isFileCreated, String fullFileName) {
         FileStoringResultDF frag = new FileStoringResultDF();
         Bundle args = new Bundle();
         args.putString("title", title);
+        args.putBoolean("isCreated", isFileCreated);
+        args.putString("fullFileName", fullFileName);
         frag.setArguments(args);
         return frag;
     }
