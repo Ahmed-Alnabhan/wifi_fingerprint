@@ -75,7 +75,7 @@ public class FingerprintLoader extends AsyncTaskLoader<Fingerprint> {
                     apManufacturer = apsCursor.getString(apsCursor.getColumnIndex(APContentProvider.apManufacturer));
                     securityProtocol = apsCursor.getString(apsCursor.getColumnIndex(APContentProvider.securityProtocol));
                     ipAddress = apsCursor.getString(apsCursor.getColumnIndex(APContentProvider.ipAddress));
-                    time = apsCursor.getString(apsCursor.getColumnIndex(APContentProvider.ipAddress));
+                    time = apsCursor.getString(apsCursor.getColumnIndex(APContentProvider.time));
                     rssi = apsCursor.getInt(apsCursor.getColumnIndex(APContentProvider.rssi));
                     mac = apsCursor.getString(apsCursor.getColumnIndex(APContentProvider.macAddress));
 
@@ -126,6 +126,7 @@ public class FingerprintLoader extends AsyncTaskLoader<Fingerprint> {
         List<Integer> array = new ArrayList<>();
         array.add(ap.getRssi());
         ap.setRssiList(array);
+        ap.setTime(time);
         return ap;
     }
 }

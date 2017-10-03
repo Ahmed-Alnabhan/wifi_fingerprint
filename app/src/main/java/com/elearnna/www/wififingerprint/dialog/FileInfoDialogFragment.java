@@ -45,6 +45,10 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
@@ -95,6 +99,7 @@ public class FileInfoDialogFragment extends DialogFragment{
     private String selectedFileType;
     private String fileName;
     private String fullFileName;
+    private DateFormat dateFormat;
 
     public FileInfoDialogFragment() {
     }
@@ -123,6 +128,9 @@ public class FileInfoDialogFragment extends DialogFragment{
         setStyle(DialogFragment.STYLE_NORMAL, R.style.CustomDialog);
         View view = inflater.inflate(R.layout.file_properties_layout, container);
         ButterKnife.bind(this, view);
+
+        // Set Date format
+        dateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
 
         // disable the save button
         disableSaveButton();
@@ -295,7 +303,9 @@ public class FileInfoDialogFragment extends DialogFragment{
                 } else {
                     ap.setLocked(0);
                 }
-                ap.setTime(sr.timestamp);
+                Date currentDate = Calendar.getInstance().getTime();
+                String formattedDate = dateFormat.format(currentDate);
+                ap.setTime(formattedDate);
                 writeAPInfoToDB(ap);
             }
         }

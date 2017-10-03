@@ -24,7 +24,7 @@ public class AP implements Parcelable {
     private String securityProtocol;
     private String ipAddress;
     private int isConnected;
-    private long time;
+    private String time;
 
     public String getId() {
         return id;
@@ -114,11 +114,11 @@ public class AP implements Parcelable {
         isConnected = connected;
     }
 
-    public long getTime() {
+    public String getTime() {
         return time;
     }
 
-    public void setTime(long time) {
+    public void setTime(String time) {
         this.time = time;
     }
 
@@ -158,7 +158,7 @@ public class AP implements Parcelable {
         dest.writeString(this.securityProtocol);
         dest.writeString(this.ipAddress);
         dest.writeInt(this.isConnected);
-        dest.writeLong(this.time);
+        dest.writeString(this.time);
     }
 
     public AP() {
@@ -179,7 +179,7 @@ public class AP implements Parcelable {
         this.securityProtocol = in.readString();
         this.ipAddress = in.readString();
         this.isConnected = in.readInt();
-        this.time = in.readLong();
+        this.time = in.readString();
     }
 
     public static final Parcelable.Creator<AP> CREATOR = new Parcelable.Creator<AP>() {
