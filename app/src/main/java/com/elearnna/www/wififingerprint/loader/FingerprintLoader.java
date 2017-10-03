@@ -49,7 +49,7 @@ public class FingerprintLoader extends AsyncTaskLoader<Fingerprint> {
         Cursor deviceCursor = getContext().getContentResolver().query(Constants.DEVICE_CONTENT_URL, null, null, null, null);
         if (deviceCursor.moveToFirst()){
             try {
-                while (deviceCursor.moveToNext()) {
+                do {
                     device.setManufacturer(deviceCursor.getString(deviceCursor.getColumnIndex(APContentProvider.deviceManufacturer)));
                     device.setModel(deviceCursor.getString(deviceCursor.getColumnIndex(APContentProvider.model)));
                     device.setBrand(deviceCursor.getString(deviceCursor.getColumnIndex(APContentProvider.brand)));
@@ -58,7 +58,7 @@ public class FingerprintLoader extends AsyncTaskLoader<Fingerprint> {
                     device.setOs(deviceCursor.getString(deviceCursor.getColumnIndex(APContentProvider.os)));
                     device.setOsVersion(deviceCursor.getString(deviceCursor.getColumnIndex(APContentProvider.osVersion)));
                     device.setApiLevel(deviceCursor.getInt(deviceCursor.getColumnIndex(APContentProvider.apiLevel)));
-                }
+                } while (deviceCursor.moveToNext());
             } finally {
                 deviceCursor.close();
             }
