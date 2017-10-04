@@ -350,4 +350,5 @@ public class Utils {
         device.setOsVersion(Build.VERSION.RELEASE);
         return device;
     }
+
 }

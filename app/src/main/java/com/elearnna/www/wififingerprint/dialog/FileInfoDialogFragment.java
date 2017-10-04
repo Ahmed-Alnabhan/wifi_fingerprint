@@ -135,6 +135,9 @@ public class FileInfoDialogFragment extends DialogFragment{
         // disable the save button
         disableSaveButton();
 
+        // Get app context
+        mContext = getActivity().getApplicationContext();
+
         // disable the save button unless the file name edit text is not empty
         etFileName.addTextChangedListener(new TextWatcher() {
             @Override
@@ -227,7 +230,9 @@ public class FileInfoDialogFragment extends DialogFragment{
                 txtCountDownTimer.setVisibility(View.GONE);
                 enableControls();
                 readAPInfoFromDB(location);
-                getLoaderManager().initLoader(1, null, mLoader).forceLoad();
+                if (isAdded()) {
+                    getLoaderManager().initLoader(1, null, mLoader).forceLoad();
+                }
             }
         }.start();
 
@@ -276,9 +281,9 @@ public class FileInfoDialogFragment extends DialogFragment{
 
     private void readAPInfo(){
         intentFilter = new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION);
-        wifiManager = (WifiManager) getContext().getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+        wifiManager = (WifiManager) mContext.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
         wiFiBroadcastReceiver = new WiFiBroadcastReceiver();
-        getContext().getApplicationContext().registerReceiver(wiFiBroadcastReceiver, intentFilter);
+        mContext.registerReceiver(wiFiBroadcastReceiver, intentFilter);
         wifiManager.startScan();
     }
 
@@ -331,7 +336,7 @@ public class FileInfoDialogFragment extends DialogFragment{
     private void readAPInfoFromDB(String location){
         String selection = APContentProvider.location + " LIKE ?";
         String[] selectionArgs = {location};
-        Cursor cursor = getActivity().getContentResolver().query(Constants.APS_CONTENT_URL, null, selection, selectionArgs, null);
+        Cursor cursor = mContext.getContentResolver().query(Constants.APS_CONTENT_URL, null, selection, selectionArgs, null);
         if (cursor.moveToFirst()) {
             try {
                 while (cursor.moveToNext()) {

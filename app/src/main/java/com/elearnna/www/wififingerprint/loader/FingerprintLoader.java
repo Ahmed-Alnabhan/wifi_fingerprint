@@ -115,6 +115,7 @@ public class FingerprintLoader extends AsyncTaskLoader<Fingerprint> {
     private AP createAPobject() {
         AP ap = new AP();
         ap.setSsid(ssid);
+        ap.setLocation(location);
         ap.setManufacturer(apManufacturer);
         ap.setChannel(channel);
         ap.setFrequency(frequency);
