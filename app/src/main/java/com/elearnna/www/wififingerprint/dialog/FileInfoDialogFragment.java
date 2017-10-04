@@ -24,10 +24,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.elearnna.www.wififingerprint.R;
@@ -60,8 +58,8 @@ import butterknife.ButterKnife;
 
 public class FileInfoDialogFragment extends DialogFragment{
 
-    @BindView(R.id.spinner_file_type_value)
-    Spinner spinnerFileTypes;
+    @BindView(R.id.txt_file_type_value)
+    TextView txtFileType;
 
     @BindView(R.id.et_file_name_value)
     EditText etFileName;
@@ -100,6 +98,7 @@ public class FileInfoDialogFragment extends DialogFragment{
     private String fileName;
     private String fullFileName;
     private DateFormat dateFormat;
+    private com.elearnna.www.wififingerprint.model.File myFile;
 
     public FileInfoDialogFragment() {
     }
@@ -182,9 +181,6 @@ public class FileInfoDialogFragment extends DialogFragment{
             }
         };
 
-        // Set Spinner items
-        setSpinnerItems();
-
         disableControls();
         if (savedInstanceState == null) {
             duration = getArguments().getInt("timer");
@@ -210,17 +206,23 @@ public class FileInfoDialogFragment extends DialogFragment{
                 boolean fileCreatedSuccessfully = createFile(fingerprint);
                 showFileSavingResultDialog(fileCreatedSuccessfully);
 
+                // If the file is created successfully, save info in the database
+                if (fileCreatedSuccessfully) {
+                    saveFileInfoInDB();
+                }
+
             }
         });
         return view;
     }
 
+
     private void startTimer() {
         txtCountDownTimer.setVisibility(View.VISIBLE);
-        new CountDownTimer(duration * 1000, 1000) {
+        new CountDownTimer(duration * Constants.ONE_SECOND, Constants.ONE_SECOND) {
             @Override
             public void onTick(long l) {
-                currentTick = l / 1000;
+                currentTick = l / Constants.ONE_SECOND;
                 txtCountDownTimer.setText(String.valueOf(currentTick));
                 readAPInfo();
             }
@@ -239,7 +241,7 @@ public class FileInfoDialogFragment extends DialogFragment{
     }
 
     private void disableControls() {
-        spinnerFileTypes.setEnabled(false);
+        txtFileType.setEnabled(false);
         etFileName.setEnabled(false);
         txtDefaultFileLocation.setEnabled(false);
         btnBrowse.setEnabled(false);
@@ -248,7 +250,7 @@ public class FileInfoDialogFragment extends DialogFragment{
     }
 
     private void enableControls() {
-        spinnerFileTypes.setEnabled(true);
+        txtFileType.setEnabled(true);
         etFileName.setEnabled(true);
         txtDefaultFileLocation.setEnabled(true);
         btnBrowse.setEnabled(true);
@@ -261,18 +263,6 @@ public class FileInfoDialogFragment extends DialogFragment{
         outState.putLong("currentTick",currentTick);
     }
 
-    /**
-     * Fill out the spinner with the file types
-     */
-    private void setSpinnerItems(){
-        spinnerFileTypeItems = new String[]{Constants.JSON_TYPE, Constants.XML_TYPE, Constants.CSV_TYPE};
-        String defaultSpinnerValue = spinnerFileTypeItems[0];
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_spinner_dropdown_item, spinnerFileTypeItems);
-        int spinnerPosition = adapter.getPosition(defaultSpinnerValue);
-        spinnerFileTypes.setSelection(spinnerPosition);
-        spinnerFileTypes.setAdapter(adapter);
-    }
     private void showFileSavingResultDialog(boolean isFileCreatedSuccessfully) {
         FragmentManager fm = getActivity().getSupportFragmentManager();
         FileStoringResultDF fileInfoDialogFragment = FileStoringResultDF.newInstance("File Saving Result", isFileCreatedSuccessfully, fullFileName);
@@ -349,7 +339,7 @@ public class FileInfoDialogFragment extends DialogFragment{
     }
 
     private boolean createFile(Fingerprint fp){
-        selectedFileType = spinnerFileTypes.getSelectedItem().toString();
+        selectedFileType = txtFileType.getText().toString();
         boolean fileCreated = false;
         if (selectedFileType.equals(Constants.JSON_TYPE)){
             fileCreated = createJSONFile(fp);
@@ -364,6 +354,18 @@ public class FileInfoDialogFragment extends DialogFragment{
     private boolean createJSONFile(Fingerprint fp){
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         String filePath = sharedPreferences.getString(Constants.DEFAULT_DIRECTORY_PATH, Constants.DEFAULT_DIRECTORY_PATH);
+
+        // Set the file location filed in the File object
+        if (!filePath.isEmpty() && filePath != null) {
+            myFile.setLocation(filePath);
+        }
+        // Set the file name field in the File object
+        if (!fileName.isEmpty() && fileName != null) {
+            myFile.setName(fileName);
+        }
+        // Set the file type field in the file
+        myFile.setType(Constants.JSON_TYPE);
+
         Gson gson = new GsonBuilder()
                 .disableHtmlEscaping()
                 .setPrettyPrinting()
@@ -404,5 +406,15 @@ public class FileInfoDialogFragment extends DialogFragment{
     private void enableSaveButton() {
         btnSave.setEnabled(true);
         btnSave.setClickable(true);
+    }
+
+    private void saveFileInfoInDB() {
+        // Create a new map of file values
+        ContentValues fileValues = new ContentValues();
+        fileValues.put(APContentProvider.file_location, myFile.getLocation());
+        fileValues.put(APContentProvider.type, myFile.getType());
+        fileValues.put(APContentProvider.name, myFile.getName());
+
+        Uri uri = getActivity().getContentResolver().insert(Constants.FILES_CONTENT_URL, fileValues);
     }
 }

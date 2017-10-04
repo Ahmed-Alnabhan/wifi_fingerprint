@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:maxLines="2"
+        tools:text="@string/file_name"
+        android:layout_marginLeft="16dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="16dp"
+        app:layout_constraintRight_toLeftOf="@+id/guideline15"
+        android:layout_marginRight="8dp"
+        android:layout_marginEnd="@dimen/dimen_8_dp"
+        app:layout_constraintHorizontal_bias="0.0" />
+
+    <ImageView
+        android:id="@+id/img_folder_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_folder"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="16dp"
+        app:layout_constraintLeft_toLeftOf="@+id/guideline15" />
+
+    <android.support.constraint.Guideline
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/guideline15"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="166dp" />
+
+    <ImageView
+        android:id="@+id/img_share_file"
+        android:layout_width="@dimen/dimen_24_dp"
+        android:layout_height="0dp"
+        android:src="@drawable/ic_share"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        app:layout_constraintLeft_toLeftOf="@+id/guideline16" />
+
+    <ImageView
+        android:id="@+id/img_divider_bar"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/dimen_32_dp"
+        android:src="@drawable/ic_bar"
+        app:layout_constraintLeft_toRightOf="@+id/img_share_file"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="16dp" />
+
+    <ImageView
+        android:id="@+id/img_delete_file"
+        android:layout_width="@dimen/dimen_24_dp"
+        android:layout_height="0dp"
+        android:src="@drawable/ic_delete"
+        app:layout_constraintLeft_toRightOf="@+id/img_divider_bar"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="16dp" />
+
+    <android.support.constraint.Guideline
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/guideline16"
+        app:layout_constraintGuide_begin="247dp"
+        android:orientation="vertical" />
+</android.support.constraint.ConstraintLayout>

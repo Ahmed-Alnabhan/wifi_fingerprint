@@ -65,4 +65,8 @@
     <string name="browse">Browse</string>
     <string name="file_saved_success">Your file has been saved successfully</string>
     <string name="ok">OK</string>
+    <string name="file_type_json">JSON</string>
+    <string name="actions_title">Actions</string>
+    <string name="file_location_title">Location</string>
+    <string name="file_name_title">File Name</string>
 </resources>
