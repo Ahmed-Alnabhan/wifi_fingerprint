@@ -24,7 +24,7 @@ public class DeviceLoader extends AsyncTaskLoader<Device> {
             Cursor cursor = getContext().getContentResolver().query(Constants.DEVICE_CONTENT_URL, null, null, null, null);
             if (cursor.moveToFirst()) {
                 try {
-                    while (cursor.moveToNext()) {
+                    do {
                         device.setManufacturer(cursor.getString(cursor.getColumnIndex(APContentProvider.deviceManufacturer)));
                         device.setModel(cursor.getString(cursor.getColumnIndex(APContentProvider.model)));
                         device.setBrand(cursor.getString(cursor.getColumnIndex(APContentProvider.brand)));
@@ -33,7 +33,7 @@ public class DeviceLoader extends AsyncTaskLoader<Device> {
                         device.setOs(cursor.getString(cursor.getColumnIndex(APContentProvider.os)));
                         device.setOsVersion(cursor.getString(cursor.getColumnIndex(APContentProvider.osVersion)));
                         device.setApiLevel(cursor.getInt(cursor.getColumnIndex(APContentProvider.apiLevel)));
-                    }
+                    } while (cursor.moveToNext());
                 } finally {
                     cursor.close();
                 }
