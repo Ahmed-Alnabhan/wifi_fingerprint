@@ -46,7 +46,7 @@
         app:layout_constraintVertical_bias="0.457" />
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_stored_aps_list"
+        android:id="@+id/rv_stored_files_list"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"

@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,10 +27,6 @@ import butterknife.ButterKnife;
 
 public class LocationDialog extends DialogFragment implements View.OnClickListener{
 
-    private LocationDuration locDuration;
-    private Locator locator;
-    private Integer[] spinnerItems;
-
     @BindView(R.id.scanning_duration_spinner)
     Spinner spinScanningDuration;
 
@@ -40,6 +38,11 @@ public class LocationDialog extends DialogFragment implements View.OnClickListen
 
     @BindView(R.id.save_location_dialog)
     Button btnSaveLocationDialog;
+
+    private LocationDuration locDuration;
+    private Locator locator;
+    private Integer[] spinnerItems;
+
     public LocationDialog() {
 
     }
@@ -71,10 +74,36 @@ public class LocationDialog extends DialogFragment implements View.OnClickListen
         spinnerItems = new Integer[]{5,10,15,20,25};
         Integer defaultSpinnerValue = spinnerItems[0];
 
+        // Disable the save button when the view is created
+        disableSaveButton();
+
         ArrayAdapter<Integer> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, spinnerItems);
         int spinnerPosition = adapter.getPosition(defaultSpinnerValue);
         spinScanningDuration.setSelection(spinnerPosition);
         spinScanningDuration.setAdapter(adapter);
+
+        // disable the save button unless the file name edit text is not empty
+        etLocationName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (charSequence.length() != 0){
+                    enableSaveButton();
+                } else {
+                    disableSaveButton();
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
 
         btnCancelLocationDialog.setOnClickListener(this);
         btnSaveLocationDialog.setOnClickListener(this);
@@ -102,5 +131,15 @@ public class LocationDialog extends DialogFragment implements View.OnClickListen
         FragmentManager fm = getActivity().getSupportFragmentManager();
         FileInfoDialogFragment fileInfoDialogFragment = FileInfoDialogFragment.newInstance("Enter File Info", locator.getDuration(), locator.getLocation());
         fileInfoDialogFragment.show(fm, "timer");
+    }
+
+    private void enableSaveButton() {
+        btnSaveLocationDialog.setEnabled(true);
+        btnSaveLocationDialog.setClickable(true);
+    }
+
+    private void disableSaveButton() {
+        btnSaveLocationDialog.setEnabled(false);
+        btnSaveLocationDialog.setEnabled(false);
     }
 }

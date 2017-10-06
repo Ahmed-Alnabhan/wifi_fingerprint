@@ -59,6 +59,8 @@
             android:name=".provider.APContentProvider"
             android:exported="true"
             android:multiprocess="true"/>
+
+        <service android:name=".service.APsFingerprintService"/>
     </application>
 
 </manifest>

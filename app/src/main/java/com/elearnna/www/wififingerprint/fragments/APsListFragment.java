@@ -61,21 +61,6 @@ import butterknife.ButterKnife;
 
 public class APsListFragment extends Fragment implements APsListView, APsAdapterOnClickHandler, LocationDuration{
 
-    private static final String RECYCLER_STATE = "recycler.state";
-    private APsListPresenter aPsListPresenter;
-    private WifiManager wifiManager;
-    private WifiInfo wifiInfo;
-    private Bundle state, bundle;
-    private Handler handler;
-    private Runnable runnable;
-    private boolean mTwoPane;
-    private FragmentManager fragmentManager;
-    private Context context;
-    private Intent intent;
-
-    public APsListFragment() {
-    }
-
     @BindView(R.id.wifi_image)
     ImageView wifiImage;
 
@@ -111,6 +96,22 @@ public class APsListFragment extends Fragment implements APsListView, APsAdapter
 
     @BindView(R.id.ap_item_layout)
     FrameLayout apItemLayout;
+
+    private static final String RECYCLER_STATE = "recycler.state";
+    private APsListPresenter aPsListPresenter;
+    private WifiManager wifiManager;
+    private WifiInfo wifiInfo;
+    private Bundle state, bundle;
+    private Handler handler;
+    private Runnable runnable;
+    private boolean mTwoPane;
+    private FragmentManager fragmentManager;
+    private Context context;
+    private Intent intent;
+
+    public APsListFragment() {
+    }
+
 
 
     @Override
