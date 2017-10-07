@@ -58,7 +58,6 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-
 public class APsListFragment extends Fragment implements APsListView, APsAdapterOnClickHandler, LocationDuration{
 
     @BindView(R.id.wifi_image)
@@ -97,7 +96,6 @@ public class APsListFragment extends Fragment implements APsListView, APsAdapter
     @BindView(R.id.ap_item_layout)
     FrameLayout apItemLayout;
 
-    private static final String RECYCLER_STATE = "recycler.state";
     private APsListPresenter aPsListPresenter;
     private WifiManager wifiManager;
     private WifiInfo wifiInfo;
@@ -260,7 +258,7 @@ public class APsListFragment extends Fragment implements APsListView, APsAdapter
     public void displayAPsList(List<AP> APsList) {
         // Restore the RecyclerView scroll position every time a new reading is displayed
         if (APsList != null) {
-            apsLoadingProgressBar.setVisibility(View.GONE);
+            hideAPsLoading();
             onSaveInstanceState(state);
             rvAPsList.setAdapter(new APsAdapter(APsList, getContext(), this));
             rvAPsList.getAdapter().notifyDataSetChanged();
@@ -299,21 +297,20 @@ public class APsListFragment extends Fragment implements APsListView, APsAdapter
 
     @Override
     public void hideAPsLoading() {
-
+        apsLoadingProgressBar.setVisibility(View.GONE);
     }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putParcelable(RECYCLER_STATE, rvAPsList.getLayoutManager().onSaveInstanceState());
+        outState.putParcelable(Constants.RECYCLER_STATE, rvAPsList.getLayoutManager().onSaveInstanceState());
     }
 
     @Override
     public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
         super.onViewStateRestored(savedInstanceState);
-        if(savedInstanceState != null)
-        {
-            Parcelable savedRecyclerLayoutState = savedInstanceState.getParcelable(RECYCLER_STATE);
+        if(savedInstanceState != null){
+            Parcelable savedRecyclerLayoutState = savedInstanceState.getParcelable(Constants.RECYCLER_STATE);
             rvAPsList.getLayoutManager().onRestoreInstanceState(savedRecyclerLayoutState);
         }
     }

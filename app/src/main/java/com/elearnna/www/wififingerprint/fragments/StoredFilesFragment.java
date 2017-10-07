@@ -2,6 +2,8 @@ package com.elearnna.www.wififingerprint.fragments;
 
 
 import android.os.Bundle;
+import android.os.Parcelable;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,6 +15,7 @@ import android.widget.ProgressBar;
 
 import com.elearnna.www.wififingerprint.R;
 import com.elearnna.www.wififingerprint.adapter.StoredFilesAdapter;
+import com.elearnna.www.wififingerprint.app.Constants;
 import com.elearnna.www.wififingerprint.model.File;
 import com.elearnna.www.wififingerprint.presenter.StoredFilesPresenter;
 import com.elearnna.www.wififingerprint.presenter.StoredFilesPresenterImplementer;
@@ -36,6 +39,8 @@ public class StoredFilesFragment extends Fragment implements StoredFilesView{
 
     private StoredFilesPresenter storedFilesPresenter;
     private LoaderManager loaderManager;
+    private Bundle savedInstance, state;
+    private StoredFilesAdapter storedFilesAdapter;
 
     public StoredFilesFragment() {
         // Required empty public constructor
@@ -48,6 +53,13 @@ public class StoredFilesFragment extends Fragment implements StoredFilesView{
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_stored_files, container, false);
         ButterKnife.bind(this, view);
+
+        // Show APs loading progress bar
+        showAPsLoading();
+
+        savedInstance = savedInstanceState;
+        state = new Bundle();
+
         loaderManager = getLoaderManager();
         rvStoredFilesList.setLayoutManager(new LinearLayoutManager(getContext()));
         storedFilesPresenter = new StoredFilesPresenterImplementer(loaderManager, getContext());
@@ -59,9 +71,22 @@ public class StoredFilesFragment extends Fragment implements StoredFilesView{
     @Override
     public void displayFilesList(List<File> filesList) {
         if (filesList != null) {
-            rvStoredFilesList.setAdapter(new StoredFilesAdapter(filesList, getContext()));
+            onSaveInstanceState(state);
+            storedFilesAdapter= new StoredFilesAdapter(filesList, getContext());
+            rvStoredFilesList.setAdapter(storedFilesAdapter);
             rvStoredFilesList.getAdapter().notifyDataSetChanged();
+            onViewStateRestored(state);
+
+        } else {
+            onSaveInstanceState(state);
+            //storedFilesAdapter= new StoredFilesAdapter(filesList, getContext());
+            //rvStoredFilesList.setAdapter(storedFilesAdapter);
+            //rvStoredFilesList.getAdapter().notifyDataSetChanged();
+            onViewStateRestored(state);
         }
+
+        // Hide APs loading progress bar
+        hideAPsLoading();
     }
 
     @Override
@@ -71,11 +96,26 @@ public class StoredFilesFragment extends Fragment implements StoredFilesView{
 
     @Override
     public void showAPsLoading() {
-
+        pbStoredFilesList.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void hideAPsLoading() {
+        pbStoredFilesList.setVisibility(View.GONE);
+    }
 
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelable(Constants.RECYCLER_STATE, rvStoredFilesList.getLayoutManager().onSaveInstanceState());
+    }
+
+    @Override
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
+        if(savedInstanceState != null){
+            Parcelable savedRecyclerLayoutState = savedInstanceState.getParcelable(Constants.RECYCLER_STATE);
+            rvStoredFilesList.getLayoutManager().onRestoreInstanceState(savedRecyclerLayoutState);
+        }
     }
 }

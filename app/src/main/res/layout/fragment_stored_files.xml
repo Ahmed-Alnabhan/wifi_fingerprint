@@ -8,6 +8,7 @@
     tools:context="com.elearnna.www.wififingerprint.fragments.StoredFilesFragment">
 
     <FrameLayout
+        android:id="@+id/stored_files_header"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:paddingBottom="@dimen/dimen_16_dp"
