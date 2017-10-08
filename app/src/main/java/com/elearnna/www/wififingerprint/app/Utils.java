@@ -2,11 +2,14 @@ package com.elearnna.www.wififingerprint.app;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Handler;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.FileProvider;
 import android.support.v4.widget.TextViewCompat;
 import android.util.Log;
 import android.widget.TextView;
@@ -349,6 +352,22 @@ public class Utils {
         device.setApiLevel(Build.VERSION.SDK_INT);
         device.setOsVersion(Build.VERSION.RELEASE);
         return device;
+    }
+
+    /**
+     * This method shares the selected file with other apps
+     */
+    public static void shareFile(java.io.File filePath, Context context) {
+        String pm = context.getApplicationContext().getPackageName();
+        Uri selectedUri = FileProvider.getUriForFile(context, pm + ".provider.GenericFileProvider", filePath);
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("*/*");
+        intent.putExtra(Intent.EXTRA_STREAM, selectedUri);
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+
+        context.startActivity(Intent.createChooser(intent, "Share file"));
+
+
     }
 
 }

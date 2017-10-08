@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.elearnna.www.wififingerprint.R;
+import com.elearnna.www.wififingerprint.app.Utils;
 import com.elearnna.www.wififingerprint.model.File;
 import com.elearnna.www.wififingerprint.view.StoredFilesViewHolder;
 
@@ -46,27 +47,26 @@ public class StoredFilesAdapter extends RecyclerView.Adapter<StoredFilesViewHold
         holder.getImgFolderLocation().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showFileLocation(filePath);
+                showFileContent(filePath);
             }
         });
 
-        // Set OnClickListenenr of the Share button
+        // Set OnClickListener of the Share button
         holder.getImgShareStoredFile().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Utils.shareFile(filePath, context);
             }
         });
     }
 
-    private void showFileLocation(java.io.File filePath) {
+    private void showFileContent(java.io.File filePath) {
         String pm = context.getApplicationContext().getPackageName();
         Uri selectedUri = FileProvider.getUriForFile(context, pm + ".provider.GenericFileProvider", filePath);
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.setDataAndType(selectedUri, "text/*");
         intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-        if (intent.resolveActivityInfo(context.getPackageManager(), 0) != null)
-        {
+        if (intent.resolveActivityInfo(context.getPackageManager(), 0) != null){
         context.startActivity(intent);
         } else {
             Toast.makeText(context, "There is no text reader app installed on your device. Please install one", Toast.LENGTH_LONG).show();
