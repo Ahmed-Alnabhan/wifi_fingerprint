@@ -10,7 +10,8 @@ import java.util.List;
 
 public interface StoredFilesView {
     void displayFilesList(List<File> DevicesList);
-    void displayErrorMessage();
+    void displayNoFilesMessage();
+    void hideNoFilesMessage();
     void showAPsLoading();
     void hideAPsLoading();
 }

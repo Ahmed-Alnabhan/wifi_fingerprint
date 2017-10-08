@@ -67,9 +67,10 @@
     <string name="ok">OK</string>
     <string name="file_type_json">JSON</string>
     <string name="actions_title">Actions</string>
-    <string name="file_location_title">Location</string>
+    <string name="file_content_title">Content</string>
     <string name="file_name_title">File Name</string>
     <string name="delete_dialog_title">Delete</string>
     <string name="delete_message">Do you want to Delete</string>
     <string name="file_has_been_deleted">File has been deleted!</string>
+    <string name="no_stored_files_message">There are no stored files to display</string>
 </resources>

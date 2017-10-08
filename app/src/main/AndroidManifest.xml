@@ -48,6 +48,7 @@
         <activity
             android:name=".activities.StoredFiles"
             android:label="@string/stored_files_activity_title"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:parentActivityName=".activities.APsList" />
         <activity
             android:name=".activities.Settings"

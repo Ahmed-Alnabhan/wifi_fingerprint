@@ -8,10 +8,12 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.elearnna.www.wififingerprint.R;
 import com.elearnna.www.wififingerprint.adapter.StoredFilesAdapter;
@@ -36,6 +38,12 @@ public class StoredFilesFragment extends Fragment implements StoredFilesView{
 
     @BindView(R.id.stored_files_loading_pb)
     ProgressBar pbStoredFilesList;
+
+    @BindView(R.id.txt_no_stored_files)
+    TextView txtNoStoredFilesMessage;
+
+    @BindView(R.id.stored_files_header)
+    ViewGroup vgFilesHesder;
 
     private StoredFilesPresenter storedFilesPresenter;
     private LoaderManager loaderManager;
@@ -70,7 +78,10 @@ public class StoredFilesFragment extends Fragment implements StoredFilesView{
 
     @Override
     public void displayFilesList(List<File> filesList) {
-        if (filesList != null) {
+        if (filesList.size() > 0) {
+            vgFilesHesder.setVisibility(View.VISIBLE);
+            rvStoredFilesList.setVisibility(View.VISIBLE);
+            hideNoFilesMessage();
             onSaveInstanceState(state);
             storedFilesAdapter= new StoredFilesAdapter(filesList, getContext());
             rvStoredFilesList.setAdapter(storedFilesAdapter);
@@ -78,11 +89,14 @@ public class StoredFilesFragment extends Fragment implements StoredFilesView{
             onViewStateRestored(state);
 
         } else {
-            onSaveInstanceState(state);
+            displayNoFilesMessage();
+            vgFilesHesder.setVisibility(View.GONE);
+            rvStoredFilesList.setVisibility(View.GONE);
+            //onSaveInstanceState(state);
             //storedFilesAdapter= new StoredFilesAdapter(filesList, getContext());
             //rvStoredFilesList.setAdapter(storedFilesAdapter);
             //rvStoredFilesList.getAdapter().notifyDataSetChanged();
-            onViewStateRestored(state);
+            //onViewStateRestored(state);
         }
 
         // Hide APs loading progress bar
@@ -90,8 +104,13 @@ public class StoredFilesFragment extends Fragment implements StoredFilesView{
     }
 
     @Override
-    public void displayErrorMessage() {
+    public void displayNoFilesMessage() {
+        txtNoStoredFilesMessage.setVisibility(View.VISIBLE);
+    }
 
+    @Override
+    public void hideNoFilesMessage() {
+        txtNoStoredFilesMessage.setVisibility(View.GONE);
     }
 
     @Override
@@ -117,5 +136,11 @@ public class StoredFilesFragment extends Fragment implements StoredFilesView{
             Parcelable savedRecyclerLayoutState = savedInstanceState.getParcelable(Constants.RECYCLER_STATE);
             rvStoredFilesList.getLayoutManager().onRestoreInstanceState(savedRecyclerLayoutState);
         }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        Log.i("DESTOYED::::" , "DESTROYED");
     }
 }
