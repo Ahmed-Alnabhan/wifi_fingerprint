@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.v4.content.FileProvider;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,9 +42,11 @@ public class StoredFilesAdapter extends RecyclerView.Adapter<StoredFilesViewHold
     @Override
     public void onBindViewHolder(StoredFilesViewHolder holder, int position) {
         file = filesList.get(position);
-        String fileName = file.getName();
+        final String fileName = file.getName();
         final java.io.File filePath = new java.io.File(file.getLocation() + "/" + fileName + ".json");
         holder.getTxtFileName().setText(fileName);
+
+        // Set OnClickListener of the browse button
         holder.getImgFolderLocation().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -56,6 +59,18 @@ public class StoredFilesAdapter extends RecyclerView.Adapter<StoredFilesViewHold
             @Override
             public void onClick(View view) {
                 Utils.shareFile(filePath, context);
+            }
+        });
+
+        // Set OnClickListener of the Delete button
+        holder.getImgDeleteStoredFile().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                String pm = context.getApplicationContext().getPackageName();
+//                Uri selectedUri = FileProvider.getUriForFile(context, pm + ".provider.GenericFileProvider", filePath);
+                AlertDialog deleteDialog = Utils.showDeleteDialog(filePath, fileName, context);
+                deleteDialog.show();
+
             }
         });
     }

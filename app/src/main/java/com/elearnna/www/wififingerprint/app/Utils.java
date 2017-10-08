@@ -2,6 +2,7 @@ package com.elearnna.www.wififingerprint.app;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.net.Uri;
@@ -11,12 +12,16 @@ import android.os.Handler;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v4.widget.TextViewCompat;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.elearnna.www.wififingerprint.R;
 import com.elearnna.www.wififingerprint.model.Device;
+import com.elearnna.www.wififingerprint.provider.APContentProvider;
 
+import java.io.File;
 import java.net.NetworkInterface;
 import java.util.Collections;
 import java.util.List;
@@ -364,10 +369,63 @@ public class Utils {
         intent.setType("*/*");
         intent.putExtra(Intent.EXTRA_STREAM, selectedUri);
         intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-
         context.startActivity(Intent.createChooser(intent, "Share file"));
+    }
 
+    /**
+     * This method shows the delete confirmation dialog
+     */
+    public static AlertDialog showDeleteDialog(final File filePath, final String fileName, final Context context) {
+        String dialogTitle = context.getResources().getString(R.string.delete_dialog_title);
+        String dialogMessage = context.getResources().getString(R.string.delete_message) + " " + fileName + ".json file?";
+        AlertDialog myQuittingDialogBox = new AlertDialog.Builder(context)
+                //Set dialog title
+                .setTitle(dialogTitle)
+                // Set dialog message
+                .setMessage(dialogMessage)
+                // Set dialog icon
+                .setIcon(R.drawable.ic_delete)
 
+                .setPositiveButton(dialogTitle, new DialogInterface.OnClickListener() {
+
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        boolean isDeleted = deleteFile(filePath, fileName, context);
+                        if (isDeleted) {
+                            Toast.makeText(context, context.getResources().getString(R.string.file_has_been_deleted), Toast.LENGTH_SHORT).show();
+                        }
+                        dialog.dismiss();
+                    }
+
+                })
+                .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+
+                    }
+                })
+                .create();
+        return myQuittingDialogBox;
+
+    }
+
+    private static boolean deleteFile(File filePath, String fileName, Context context) {
+        boolean isDeletedFromDB = false;
+        boolean isDeletedFromFileSystem = false;
+        // Delete file from the database
+        if (fileName != null) {
+            int rowsDeleted = context.getContentResolver().delete(Constants.FILES_CONTENT_URL, APContentProvider.name + "= ?", new String[]{fileName});
+            if (rowsDeleted > 0) {
+                isDeletedFromDB = true;
+            }
+        }
+
+        // Delete file from the file system
+        if (filePath.exists()) {
+            if(filePath.delete()) {
+                isDeletedFromFileSystem = true;
+            }
+        }
+        return isDeletedFromDB && isDeletedFromFileSystem;
     }
 
 }
