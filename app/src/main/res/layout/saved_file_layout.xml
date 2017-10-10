@@ -10,18 +10,37 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/guideline13"
-        app:layout_constraintGuide_begin="192dp"
-        android:orientation="vertical" />
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="192dp" />
 
     <TextView
         android:id="@+id/txt_file_saved_successfully"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/file_saved_success"
+        android:textColor="@color/light_green"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="61dp" />
+        android:layout_marginTop="61dp"
+        app:layout_constraintHorizontal_bias="0.503"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline21" />
+
+    <TextView
+        android:id="@+id/txt_file_saved_failed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/file_saved_failed"
+        android:textColor="@color/red"
+        android:visibility="gone"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="61dp"
+        app:layout_constraintHorizontal_bias="0.503"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline21" />
 
     <ImageView
         android:id="@+id/btn_delete"
@@ -30,11 +49,13 @@
         android:src="@drawable/ic_delete"
         android:layout_marginLeft="8dp"
         app:layout_constraintLeft_toLeftOf="@+id/guideline13"
-        android:layout_marginTop="87dp"
-        app:layout_constraintTop_toBottomOf="@+id/txt_file_saved_successfully"
         android:layout_marginRight="8dp"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintHorizontal_bias="0.236" />
+        app:layout_constraintHorizontal_bias="0.239"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline20"
+        app:layout_constraintTop_toTopOf="@+id/guideline21"
+        android:layout_marginTop="8dp" />
 
     <ImageView
         android:id="@+id/btn_share"
@@ -42,12 +63,14 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginTop="87dp"
         android:src="@drawable/ic_share"
-        app:layout_constraintHorizontal_bias="0.772"
+        app:layout_constraintHorizontal_bias="0.773"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/guideline13"
-        app:layout_constraintTop_toBottomOf="@+id/txt_file_saved_successfully" />
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline20"
+        app:layout_constraintTop_toTopOf="@+id/guideline21"
+        android:layout_marginTop="8dp" />
 
     <Button
         android:id="@+id/btn_ok"
@@ -56,9 +79,22 @@
         android:text="@string/ok"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginTop="292dp"
-        app:layout_constraintTop_toBottomOf="@+id/btn_share"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginBottom="8dp"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="@+id/guideline20"
+        android:layout_marginTop="8dp" />
+
+    <android.support.constraint.Guideline
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/guideline20"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.66" />
+
+    <android.support.constraint.Guideline
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/guideline21"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.33" />
 </android.support.constraint.ConstraintLayout>

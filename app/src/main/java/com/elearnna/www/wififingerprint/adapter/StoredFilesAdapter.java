@@ -66,11 +66,8 @@ public class StoredFilesAdapter extends RecyclerView.Adapter<StoredFilesViewHold
         holder.getImgDeleteStoredFile().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                String pm = context.getApplicationContext().getPackageName();
-//                Uri selectedUri = FileProvider.getUriForFile(context, pm + ".provider.GenericFileProvider", filePath);
                 AlertDialog deleteDialog = Utils.showDeleteDialog(filePath, fileName, context);
                 deleteDialog.show();
-
             }
         });
     }

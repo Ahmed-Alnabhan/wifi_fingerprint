@@ -2,30 +2,34 @@
 <PreferenceScreen
     xmlns:android="http://schemas.android.com/apk/res/android">
     <PreferenceCategory
-        android:title="Configuration">
+        android:title="Configuration"
+        android:key="configuration">
 
         <ListPreference
-            android:key="sort"
-            android:title="Sort By"
-            android:defaultValue="1"
+            android:key="@string/pref_sort_key"
+            android:title="@string/pref_sort_title"
+            android:defaultValue="@string/rssiValue"
+            android:summary="%s"
             android:entries="@array/sortArray"
             android:entryValues="@array/sortValues"/>
 
         <ListPreference
             android:key="band"
             android:title="Band"
-            android:defaultValue="1"
+            android:defaultValue="@string/all_bands"
             android:entries="@array/bandArray"
+            android:summary="%s"
             android:entryValues="@array/bandValues"/>
 
         <ListPreference
             android:key="theme"
             android:title="Theme"
-            android:defaultValue="1"
+            android:defaultValue="@string/dark_value"
+            android:summary="%s"
             android:entries="@array/themeArray"
             android:entryValues="@array/themeValues"/>
 
-        <Preference
+        <EditTextPreference
             android:title="Default Files Location"
             android:key="filesLocation"
             />

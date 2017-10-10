@@ -158,6 +158,7 @@ public class Constants {
     public static final String DEFAULT_DIRECTORY_PATH = "default_dir_path";
     public static final int ONE_SECOND = 1000;
     public static final int DEFAULT_DURATION = 15;
+    public static final String DEFAULT_APS_SORT = "RSSI (Asc)";
 
     public static int MIN_5_GHZ_FREQUENCY = 5180;
     public static int MAX_5_GHZ_FREQUENCY =  5809;

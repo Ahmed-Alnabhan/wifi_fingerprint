@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="sortArray">
-        <item>RSSI (Asc)</item>
-        <item>Alphabetically</item>
+        <item>@string/asc_rssi_sort</item>
+        <item>@string/alphabetically_sort</item>
     </string-array>
 
     <string-array name="sortValues">
@@ -11,9 +11,9 @@
     </string-array>
 
     <string-array name="bandArray">
-        <item>All</item>
-        <item>5GHz</item>
-        <item>2.4GHz</item>
+        <item>@string/all_bands_sort</item>
+        <item>@string/band_5ghz_sort</item>
+        <item>@string/band_2ghz_sort</item>
     </string-array>
 
     <string-array name="bandValues">
@@ -23,8 +23,8 @@
     </string-array>
 
     <string-array name="themeArray">
-        <item>Dark</item>
-        <item>Light</item>
+        <item>@string/sort_dark</item>
+        <item>@string/sort_light</item>
     </string-array>
 
     <string-array name="themeValues">

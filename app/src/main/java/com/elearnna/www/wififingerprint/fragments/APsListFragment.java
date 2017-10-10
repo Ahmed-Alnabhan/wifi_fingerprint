@@ -53,12 +53,13 @@ import com.elearnna.www.wififingerprint.provider.APContentProvider;
 import com.elearnna.www.wififingerprint.view.APsListView;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class APsListFragment extends Fragment implements APsListView, APsAdapterOnClickHandler, LocationDuration{
+public class APsListFragment extends Fragment implements APsListView, APsAdapterOnClickHandler, LocationDuration, SharedPreferences.OnSharedPreferenceChangeListener{
 
     @BindView(R.id.wifi_image)
     ImageView wifiImage;
@@ -106,6 +107,7 @@ public class APsListFragment extends Fragment implements APsListView, APsAdapter
     private FragmentManager fragmentManager;
     private Context context;
     private Intent intent;
+    String band;
 
     public APsListFragment() {
     }
@@ -128,12 +130,16 @@ public class APsListFragment extends Fragment implements APsListView, APsAdapter
 
         // Write device info to the database once
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        band = sharedPreferences.getString(getActivity().getResources().getString(R.string.pref_band_key), getActivity().getResources().getString(R.string.band_default));
         if(!sharedPreferences.getBoolean(Constants.EXECUTED_ONCE, false)){
             readDeviceInfoOnce();
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putBoolean(Constants.EXECUTED_ONCE, true);
-            editor.commit();
+            editor.apply();
         }
+
+        // Register onSharedPreferenceChangeListener
+        PreferenceManager.getDefaultSharedPreferences(getContext()).registerOnSharedPreferenceChangeListener(this);
 
         // Create default wifi fingerprint directory path
         createDefaultDirectoryPath();
@@ -257,13 +263,29 @@ public class APsListFragment extends Fragment implements APsListView, APsAdapter
     @Override
     public void displayAPsList(List<AP> APsList) {
         // Restore the RecyclerView scroll position every time a new reading is displayed
+        List<AP> sortedAPsList = new ArrayList<>();
         if (APsList != null) {
+            sortedAPsList = applyBandSort(APsList);
             hideAPsLoading();
             onSaveInstanceState(state);
-            rvAPsList.setAdapter(new APsAdapter(APsList, getContext(), this));
+            rvAPsList.setAdapter(new APsAdapter(sortedAPsList, getContext(), this));
             rvAPsList.getAdapter().notifyDataSetChanged();
             onViewStateRestored(state);
         }
+    }
+
+    private List<AP> applyBandSort(List<AP> aps) {
+        List<AP> sortedAPs = new ArrayList<>();
+        for(AP ap : aps) {
+            if (band.equals(getActivity().getString(R.string.all_bands))) {
+                sortedAPs.add(ap);
+            } else if (band.equals(getActivity().getString(R.string.five_g_hz)) && (ap.getFrequency() > 5000)) {
+                sortedAPs.add(ap);
+            } else if (band.equals(getActivity().getString(R.string.two_g_hz)) && (ap.getFrequency()) < 5000) {
+                sortedAPs.add(ap);
+            }
+        }
+        return sortedAPs;
     }
 
     private void readConnectedAPPeriodically() {
@@ -372,6 +394,20 @@ public class APsListFragment extends Fragment implements APsListView, APsAdapter
         }
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(Constants.DEFAULT_DIRECTORY_PATH, String.valueOf(fingerprintDirectory));
-        editor.commit();
+        editor.putString(Constants.DEFAULT_APS_SORT, getContext().getResources().getString(R.string.asc_rssi_sort));
+        editor.apply();
+    }
+
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String s) {
+        if (s.equals(getActivity().getResources().getString(R.string.pref_band_key))) {
+            band = sharedPreferences.getString(s, getActivity().getResources().getString(R.string.band_default));
+        }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        PreferenceManager.getDefaultSharedPreferences(getContext()).unregisterOnSharedPreferenceChangeListener(this);
     }
 }

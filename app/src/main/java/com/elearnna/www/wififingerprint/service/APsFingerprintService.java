@@ -11,6 +11,7 @@ import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
 import android.os.Handler;
 import android.support.annotation.Nullable;
+import android.util.Log;
 
 import com.elearnna.www.wififingerprint.app.Constants;
 import com.elearnna.www.wififingerprint.app.Utils;
@@ -45,7 +46,7 @@ public class APsFingerprintService extends IntentService {
     public APsFingerprintService() {
         super(APsFingerprintService.class.getSimpleName());
     }
-
+        int counter1 = 1;
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
         // Set Date format
@@ -64,7 +65,7 @@ public class APsFingerprintService extends IntentService {
 
     private void readAPInfo(){
         intentFilter = new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION);
-        wifiManager = (WifiManager) mContext.getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+        wifiManager = (WifiManager) mContext.getSystemService(Context.WIFI_SERVICE);
         wiFiBroadcastReceiver = new WiFiBroadcastReceiver();
         mContext.registerReceiver(wiFiBroadcastReceiver, intentFilter);
         //wifiManager.startScan();
@@ -72,11 +73,12 @@ public class APsFingerprintService extends IntentService {
         runnable = new Runnable() {
             @Override
             public void run() {
-                if (numberOfReadings == 0) {
+                if (numberOfReadings <= 0) {
                     handler.removeCallbacks(runnable);
                 } else {
                     numberOfReadings--;
                     Utils.readWifiNetworks(1000, wifiManager, handler, runnable);
+                    Log.i("SNANNIG:::: REAAAD", "READ" + counter1++);
                 }
             }
         };
@@ -85,11 +87,13 @@ public class APsFingerprintService extends IntentService {
 
 
     private class WiFiBroadcastReceiver extends BroadcastReceiver {
-
+        int counter = 1;
+        int writen = 1;
         @Override
         public void onReceive(Context context, Intent intent) {
             mContext = context;
             wifiAPsList = wifiManager.getScanResults();
+            Log.i("SNANNIG:::: RECIEVED", "READ" + counter++);
             for(ScanResult sr : wifiAPsList){
                 ap = new AP();
                 ap.setSsid(sr.SSID);
@@ -107,12 +111,12 @@ public class APsFingerprintService extends IntentService {
                 Date currentDate = Calendar.getInstance().getTime();
                 String formattedDate = dateFormat.format(currentDate);
                 ap.setTime(formattedDate);
-                writeAPInfoToDB(ap);
+                writeAPInfoToDB(ap, writen++);
             }
         }
     }
 
-    private void writeAPInfoToDB(AP ap) {
+    private void writeAPInfoToDB(AP ap, int writen) {
         // Create a new map of values
         ContentValues apValues = new ContentValues();
         apValues.put(APContentProvider.location, ap.getLocation());
@@ -127,5 +131,7 @@ public class APsFingerprintService extends IntentService {
         apValues.put(APContentProvider.macAddress, ap.getMacAddress());
         apValues.put(APContentProvider.time, ap.getTime());
         Uri uri = mContext.getContentResolver().insert(Constants.APS_CONTENT_URL, apValues);
+
+        Log.i("SNANNIG:::: WRITTENNN", "READ" + writen);
     }
 }

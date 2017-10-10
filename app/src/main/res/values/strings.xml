@@ -1,13 +1,12 @@
 <resources>
     <string name="app_name">Wifi Fingerprint</string>
 
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="navigation_drawer_open" translatable="false">Open navigation drawer</string>
+    <string name="navigation_drawer_close" translatable="false">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="connection_status">Connected</string>
     <string name="ssid_name">SSID Name</string>
     <string name="ap_ip">192.168.0.1</string>
@@ -25,7 +24,7 @@
     <string name="band">Band:</string>
     <string name="frequency_value">5300 MHz</string>
     <string name="band_value">5GHz</string>
-    <string name="security_protocol_value">[WAP][WAP2]</string>
+    <string name="security_protocol_value" translatable="false">[WAP][WAP2]</string>
     <string name="manufacturer_value">NETGEAR</string>
     <string name="channel_value">112</string>
     <string name="ap_detail_activity_title">AP Detail</string>
@@ -51,7 +50,31 @@
     <string name="two_g_hz">2.4GHz</string>
     <string name="dark_value">dark</string>
     <string name="light_value">light</string>
-    <string name="pref_theme_key">theme</string>
+
+    <string name="aps_sort_default">rssi</string>
+    <string name="band_default">All</string>
+    <string name="theme_default">dark</string>
+    <string name="file_location_default">Wifi_Fingerprint</string>
+
+    <string name="asc_rssi_sort">RSSI (Asc)</string>
+    <string name="alphabetically_sort">Alphabetically</string>
+    <string name="all_bands_sort">All</string>
+    <string name="band_5ghz_sort">5GHz</string>
+    <string name="band_2ghz_sort">2.4GHz</string>
+    <string name="sort_dark">Dark</string>
+    <string name="sort_light">Light</string>
+
+    <!-- Keys and titles of settings-->
+    <string name="pref_theme_key" translatable="false">theme</string>
+    <string name="pref_band_key" translatable="false">band</string>
+    <string name="pref_sort_key" translatable="false">sort</string>
+    <string name="pref_default_location_key" translatable="false">defaultFileLoc</string>
+    <string name="pref_theme_title">Theme</string>
+    <string name="pref_band_title">Band</string>
+    <string name="pref_sort_title">Sort By</string>
+    <string name="pref_default_file_loc_title">Default Files Location</string>
+
+
     <string name="scanning_duration">Scanning Duration:</string>
     <string name="location_name">Location Name:</string>
     <string name="cancel">CANCEL</string>
@@ -60,12 +83,12 @@
     <string name="file_name">File Name:</string>
     <string name="file_name_hint">File Name</string>
     <string name="default_file_location_label">Default File Location:</string>
-    <string name="default_file_location_value">a/b/folderXYZ</string>
+    <string name="default_file_location_value" translatable="false">a/b/folderXYZ</string>
     <string name="change_file_location">New File Location:</string>
     <string name="browse">Browse</string>
     <string name="file_saved_success">Your file has been saved successfully</string>
     <string name="ok">OK</string>
-    <string name="file_type_json">JSON</string>
+    <string name="file_type_json" translatable="false">JSON</string>
     <string name="actions_title">Actions</string>
     <string name="file_content_title">Content</string>
     <string name="file_name_title">File Name</string>
@@ -73,4 +96,5 @@
     <string name="delete_message">Do you want to Delete</string>
     <string name="file_has_been_deleted">File has been deleted!</string>
     <string name="no_stored_files_message">There are no stored files to display</string>
+    <string name="file_saved_failed">Sorry. Your file cannot be saved.</string>
 </resources>

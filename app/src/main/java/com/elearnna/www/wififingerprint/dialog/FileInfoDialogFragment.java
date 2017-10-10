@@ -253,8 +253,10 @@ public class FileInfoDialogFragment extends DialogFragment{
     }
 
     private void showFileSavingResultDialog(boolean isFileCreatedSuccessfully) {
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getContext());
+        String filePath = sp.getString(Constants.DEFAULT_DIRECTORY_PATH, Constants.DEFAULT_DIRECTORY_PATH);
         FragmentManager fm = getActivity().getSupportFragmentManager();
-        FileStoringResultDF fileInfoDialogFragment = FileStoringResultDF.newInstance("File Saving Result", isFileCreatedSuccessfully, fullFileName);
+        FileStoringResultDF fileInfoDialogFragment = FileStoringResultDF.newInstance("File Saving Result", isFileCreatedSuccessfully, fileName, filePath);
         fileInfoDialogFragment.show(fm, "saving result");
     }
 

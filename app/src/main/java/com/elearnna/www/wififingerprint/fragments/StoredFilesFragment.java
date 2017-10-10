@@ -8,7 +8,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -92,11 +91,6 @@ public class StoredFilesFragment extends Fragment implements StoredFilesView{
             displayNoFilesMessage();
             vgFilesHesder.setVisibility(View.GONE);
             rvStoredFilesList.setVisibility(View.GONE);
-            //onSaveInstanceState(state);
-            //storedFilesAdapter= new StoredFilesAdapter(filesList, getContext());
-            //rvStoredFilesList.setAdapter(storedFilesAdapter);
-            //rvStoredFilesList.getAdapter().notifyDataSetChanged();
-            //onViewStateRestored(state);
         }
 
         // Hide APs loading progress bar
@@ -138,9 +132,4 @@ public class StoredFilesFragment extends Fragment implements StoredFilesView{
         }
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        Log.i("DESTOYED::::" , "DESTROYED");
-    }
 }
