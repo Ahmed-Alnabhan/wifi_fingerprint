@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="sortArray">
-        <item>@string/asc_rssi_sort</item>
+        <item>@string/aps_sort_default</item>
         <item>@string/alphabetically_sort</item>
     </string-array>
 
     <string-array name="sortValues">
-        <item>@string/rssiValue</item>
+        <item>@string/aps_sort_default</item>
         <item>@string/alpha</item>
     </string-array>
 

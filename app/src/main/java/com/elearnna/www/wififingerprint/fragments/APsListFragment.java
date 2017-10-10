@@ -54,6 +54,9 @@ import com.elearnna.www.wififingerprint.view.APsListView;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
@@ -107,7 +110,9 @@ public class APsListFragment extends Fragment implements APsListView, APsAdapter
     private FragmentManager fragmentManager;
     private Context context;
     private Intent intent;
-    String band;
+    private String band;
+    private String sort;
+
 
     public APsListFragment() {
     }
@@ -131,6 +136,7 @@ public class APsListFragment extends Fragment implements APsListView, APsAdapter
         // Write device info to the database once
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         band = sharedPreferences.getString(getActivity().getResources().getString(R.string.pref_band_key), getActivity().getResources().getString(R.string.band_default));
+        sort = sharedPreferences.getString(getActivity().getResources().getString(R.string.pref_sort_key), getActivity().getResources().getString(R.string.aps_sort_default));
         if(!sharedPreferences.getBoolean(Constants.EXECUTED_ONCE, false)){
             readDeviceInfoOnce();
             SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -249,8 +255,7 @@ public class APsListFragment extends Fragment implements APsListView, APsAdapter
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         switch (requestCode) {
             case 10: {
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
                 } else {
 
@@ -263,12 +268,14 @@ public class APsListFragment extends Fragment implements APsListView, APsAdapter
     @Override
     public void displayAPsList(List<AP> APsList) {
         // Restore the RecyclerView scroll position every time a new reading is displayed
-        List<AP> sortedAPsList = new ArrayList<>();
+        List<AP> sortedAPsListByBand;
+        List<AP> orderedAPsList;
         if (APsList != null) {
-            sortedAPsList = applyBandSort(APsList);
+            sortedAPsListByBand = applyBandSort(APsList);
+            orderedAPsList = applyAPsSort(sortedAPsListByBand);
             hideAPsLoading();
             onSaveInstanceState(state);
-            rvAPsList.setAdapter(new APsAdapter(sortedAPsList, getContext(), this));
+            rvAPsList.setAdapter(new APsAdapter(orderedAPsList, getContext(), this));
             rvAPsList.getAdapter().notifyDataSetChanged();
             onViewStateRestored(state);
         }
@@ -286,6 +293,39 @@ public class APsListFragment extends Fragment implements APsListView, APsAdapter
             }
         }
         return sortedAPs;
+    }
+
+    private List<AP> applyAPsSort(List<AP> aps) {
+        
+        List<AP> sortedAPS = new ArrayList<>();
+        // Create Temporary HashMap
+        HashMap<String, AP> map =  new HashMap<String, AP>();
+
+        // Add APs to Map using MAC to avoid duplicates
+        for (AP ap : aps) {
+            if (ap.getMacAddress() != null && !ap.getMacAddress().isEmpty()) {
+                map.put(ap.getMacAddress(), ap);
+            }
+        }
+
+        // Add to new List
+        List<AP> sortedWifiList =  new ArrayList<>(map.values());
+
+        Comparator<AP> comparator = new Comparator<AP>() {
+            @Override
+            public int compare(AP leftSSID, AP rightSSID) {
+                return (rightSSID.getSsid().compareTo(leftSSID.getSsid()));
+            }
+        };
+        // Apply Comparator and sort
+        Collections.sort(sortedWifiList, comparator);
+
+        if (sort.equals(Constants.RSSI_ASCENDING)) {
+            sortedAPS = aps;
+        } else if (sort.equals(Constants.ALPHABETICALLY)) {
+            sortedAPS =  sortedWifiList;
+        }
+        return sortedAPS;
     }
 
     private void readConnectedAPPeriodically() {
@@ -394,7 +434,7 @@ public class APsListFragment extends Fragment implements APsListView, APsAdapter
         }
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(Constants.DEFAULT_DIRECTORY_PATH, String.valueOf(fingerprintDirectory));
-        editor.putString(Constants.DEFAULT_APS_SORT, getContext().getResources().getString(R.string.asc_rssi_sort));
+        editor.putString(Constants.DEFAULT_APS_SORT, getContext().getResources().getString(R.string.aps_sort_default));
         editor.apply();
     }
 
@@ -402,6 +442,8 @@ public class APsListFragment extends Fragment implements APsListView, APsAdapter
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String s) {
         if (s.equals(getActivity().getResources().getString(R.string.pref_band_key))) {
             band = sharedPreferences.getString(s, getActivity().getResources().getString(R.string.band_default));
+        } else if (s.equals(getActivity().getResources().getString(R.string.pref_sort_key))) {
+            sort = sharedPreferences.getString(s, getActivity().getResources().getString(R.string.aps_sort_default));
         }
     }
 
