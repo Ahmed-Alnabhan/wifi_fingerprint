@@ -2,6 +2,7 @@ package com.elearnna.www.wififingerprint.fragments;
 
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -64,6 +65,24 @@ public class APDetailFragment extends Fragment implements APDetailView, APDetail
     @BindView(R.id.colorArcProgressBar)
     ColorArcProgressBar colorArcProgressBar;
 
+    @BindView(R.id.txt_manufacturer_label)
+    TextView txtManufacturerLabel;
+
+    @BindView(R.id.txt_frequency_label)
+    TextView txtFrequencyLabel;
+
+    @BindView(R.id.txt_band_label)
+    TextView txtBandLabel;
+
+    @BindView(R.id.txt_mac_label)
+    TextView txtMACLabel;
+
+    @BindView(R.id.txt_channel_label)
+    TextView txtChannelLabel;
+
+    @BindView(R.id.txt_security_protocol_label)
+    TextView txtSecurityProtocolLabel;
+
     public APDetailFragment() {
         // Required empty public constructor
     }
@@ -76,6 +95,7 @@ public class APDetailFragment extends Fragment implements APDetailView, APDetail
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_apdetail, container, false);
         ButterKnife.bind(this, view);
+        setViewsStyle();
         setAPDetailView(this);
         getAPDetail();
         dispalyAP(ap);
@@ -195,5 +215,55 @@ public class APDetailFragment extends Fragment implements APDetailView, APDetail
         if(savedInstanceState != null) {
             ap = savedInstanceState.getParcelable(Constants.ACCESS_POINT);
         }
+    }
+
+    /**
+     * This method sets style to the views
+     */
+
+    private void setViewsStyle() {
+        // set quicksand bold font
+        Typeface bold_font = Utils.setQuicksandBoldFont(getContext());
+        // set quicksand regular font
+        Typeface regular_font = Utils.setQuicksandRegularFont(getContext());
+
+        // Set the style of the SSID value TextView
+        Utils.setTextViewStyle(getContext(), apNameTitle, bold_font, "Large");
+
+        // Set the style of the manufacturer label TextView
+        Utils.setTextViewStyle(getContext(), txtManufacturerLabel, regular_font, "Regular");
+
+        // Set the style of the manufacturer value TextView
+        Utils.setTextViewStyle(getContext(), manufacturerValue, bold_font, "Regular");
+
+        // Set the style of the Frequency label TextView
+        Utils.setTextViewStyle(getContext(), txtFrequencyLabel, regular_font, "Regular");
+
+        // Set the style of the Frequency value TextView
+        Utils.setTextViewStyle(getContext(), frequencyValue, bold_font, "Regular");
+
+        // Set the style of the band label TextView
+        Utils.setTextViewStyle(getContext(), txtBandLabel, regular_font, "Regular");
+
+        // Set the style of the band value TextView
+        Utils.setTextViewStyle(getContext(), bandValue, bold_font, "Regular");
+
+        // Set the style of the Mac Address label TextView
+        Utils.setTextViewStyle(getContext(), txtMACLabel, regular_font, "Regular");
+
+        // Set the style of the Mac Address value TextView
+        Utils.setTextViewStyle(getContext(), macValue, bold_font, "Regular");
+
+        // Set the style of the channel label TextView
+        Utils.setTextViewStyle(getContext(), txtChannelLabel, regular_font, "Regular");
+
+        // Set the style of the channel value TextView
+        Utils.setTextViewStyle(getContext(), channelValue, bold_font, "Regular");
+
+        // Set the style of the security protocols label TextView
+        Utils.setTextViewStyle(getContext(), txtSecurityProtocolLabel, regular_font, "Regular");
+
+        // Set the style of the security protocols value TextView
+        Utils.setTextViewStyle(getContext(), securityProtocol, bold_font, "Regular");
     }
 }

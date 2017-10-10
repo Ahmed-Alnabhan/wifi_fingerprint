@@ -21,7 +21,8 @@
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toTopOf="@+id/guideline2" />
+            app:layout_constraintBottom_toTopOf="@+id/guideline2"
+            style="?textLarge"/>
 
         <ImageView
             android:id="@+id/img_locked"
@@ -71,7 +72,8 @@
             android:layout_marginLeft="8dp"
             app:layout_constraintVertical_bias="0.625"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintHorizontal_bias="0.976" />
+            app:layout_constraintHorizontal_bias="0.976"
+            style="?textRegular"/>
 
         <TextView
             android:id="@+id/txt_frequency_label"
@@ -87,7 +89,8 @@
             app:layout_constraintBottom_toTopOf="@+id/guideline4"
             app:layout_constraintTop_toTopOf="@+id/guideline3"
             android:layout_marginTop="0dp"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintVertical_bias="1.0"
+            style="?textRegular"/>
 
         <TextView
             android:id="@+id/txt_security_protocol_label"
@@ -103,7 +106,8 @@
             android:layout_marginLeft="8dp"
             app:layout_constraintVertical_bias="0.625"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintHorizontal_bias="1.0" />
+            app:layout_constraintHorizontal_bias="1.0"
+            style="?textRegular"/>
 
         <TextView
             android:id="@+id/txt_manufacturer_label"
@@ -119,7 +123,8 @@
             android:layout_marginLeft="8dp"
             app:layout_constraintVertical_bias="1.0"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintHorizontal_bias="1.0" />
+            app:layout_constraintHorizontal_bias="1.0"
+            style="?textRegular"/>
 
         <TextView
             android:id="@+id/txt_band_label"
@@ -135,7 +140,8 @@
             android:layout_marginLeft="8dp"
             app:layout_constraintVertical_bias="0.75"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintHorizontal_bias="1.0" />
+            app:layout_constraintHorizontal_bias="1.0"
+            style="?textRegular"/>
 
         <TextView
             android:id="@+id/txt_mac_value"
@@ -219,13 +225,14 @@
 
         <TextView
             android:id="@+id/txt_security_protocol_value"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             tools:text="@string/security_protocol_value"
             android:textColor="@android:color/black"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginLeft="8dp"
+            android:maxLines="3"
             app:layout_constraintLeft_toLeftOf="@+id/guideline"
             app:layout_constraintTop_toTopOf="@+id/guideline7"
             android:layout_marginTop="0dp"
