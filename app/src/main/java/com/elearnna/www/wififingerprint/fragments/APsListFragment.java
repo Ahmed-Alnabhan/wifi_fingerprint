@@ -277,11 +277,11 @@ public class APsListFragment extends Fragment implements APsListView, APsAdapter
     private List<AP> applyBandSort(List<AP> aps) {
         List<AP> sortedAPs = new ArrayList<>();
         for(AP ap : aps) {
-            if (band.equals(getActivity().getString(R.string.all_bands))) {
+            if (band.equals(Constants.ALL_BANDS)) {
                 sortedAPs.add(ap);
-            } else if (band.equals(getActivity().getString(R.string.five_g_hz)) && (ap.getFrequency() > 5000)) {
+            } else if (band.equals(Constants.BAND_5_GHZ) && (ap.getFrequency() > 5000)) {
                 sortedAPs.add(ap);
-            } else if (band.equals(getActivity().getString(R.string.two_g_hz)) && (ap.getFrequency()) < 5000) {
+            } else if (band.equals(Constants.BAND_2_4_GHZ) && (ap.getFrequency()) < 5000) {
                 sortedAPs.add(ap);
             }
         }
