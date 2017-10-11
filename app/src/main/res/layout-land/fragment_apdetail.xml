@@ -1,7 +1,15 @@
-<android.support.constraint.ConstraintLayout android:layout_width="match_parent"
-    android:layout_height="match_parent"
+<FrameLayout
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ap_detail_container"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:background="@color/wifi_light_gray">
+<android.support.constraint.ConstraintLayout
+    android:layout_width="500dp"
+    android:layout_height="match_parent"
+    android:layout_gravity="center_horizontal"
     android:id="@+id/fragment_ap_detail_view"
     tools:context="com.elearnna.www.wififingerprint.activities.APDetail"
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -288,7 +296,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/guideline"
-            app:layout_constraintGuide_begin="192dp"
+            app:layout_constraintGuide_begin="250dp"
             android:orientation="vertical" />
 
         <android.support.constraint.Guideline
@@ -372,3 +380,4 @@
             android:layout_marginLeft="8dp"
             app:layout_constraintLeft_toLeftOf="@+id/roundCornerProgressBarDetail" />
 </android.support.constraint.ConstraintLayout>
+</FrameLayout>

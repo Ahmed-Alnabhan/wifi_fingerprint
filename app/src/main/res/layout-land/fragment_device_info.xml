@@ -1,9 +1,15 @@
-<android.support.constraint.ConstraintLayout
+<FrameLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/device_info_container"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/wifi_light_gray">
+<android.support.constraint.ConstraintLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="@dimen/dimen_500_dp"
+    android:layout_height="match_parent"
+    android:layout_gravity="center_horizontal"
     tools:context="com.elearnna.www.wififingerprint.fragments.DeviceInfoFragment"
     style="?pageBackground">
 
@@ -12,7 +18,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/guideline10"
-        app:layout_constraintGuide_begin="192dp"
+        app:layout_constraintGuide_begin="250dp"
         android:orientation="vertical" />
 
     <TextView
@@ -242,3 +248,4 @@
         app:layout_constraintHorizontal_bias="0.05"
         app:layout_constraintVertical_bias="0.0" />
 </android.support.constraint.ConstraintLayout>
+</FrameLayout>

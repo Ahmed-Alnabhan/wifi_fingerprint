@@ -14,15 +14,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar;
 import com.elearnna.www.wififingerprint.R;
 import com.elearnna.www.wififingerprint.app.ApiUtils;
 import com.elearnna.www.wififingerprint.app.Constants;
+import com.elearnna.www.wififingerprint.app.RSSIRepresenter;
 import com.elearnna.www.wififingerprint.app.Utils;
 import com.elearnna.www.wififingerprint.model.AP;
 import com.elearnna.www.wififingerprint.network.VendorService;
 import com.elearnna.www.wififingerprint.presenter.APDetailPresenter;
 import com.elearnna.www.wififingerprint.view.APDetailView;
-import com.shinelw.library.ColorArcProgressBar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -62,8 +63,8 @@ public class APDetailFragment extends Fragment implements APDetailView, APDetail
     @BindView(R.id.txt_channel_value)
     TextView channelValue;
 
-    @BindView(R.id.colorArcProgressBar)
-    ColorArcProgressBar colorArcProgressBar;
+    @BindView(R.id.roundCornerProgressBarDetail)
+    RoundCornerProgressBar roundCornerProgressBarDetail;
 
     @BindView(R.id.txt_manufacturer_label)
     TextView txtManufacturerLabel;
@@ -82,6 +83,9 @@ public class APDetailFragment extends Fragment implements APDetailView, APDetail
 
     @BindView(R.id.txt_security_protocol_label)
     TextView txtSecurityProtocolLabel;
+
+    @BindView(R.id.rssi_signal_strength)
+    TextView rssiSignalStrength;
 
     public APDetailFragment() {
         // Required empty public constructor
@@ -114,6 +118,7 @@ public class APDetailFragment extends Fragment implements APDetailView, APDetail
             String band = Utils.getBandFromFrequency(frequency);
             String capabilities = ap.getSecurityProtocol();
             int rssiColor = Utils.getRSSIColor(rssi);
+            rssiSignalStrength.setText(String.valueOf(rssi));
 
             securityProtocol.setText(capabilities);
             // set the AP name (SSID)
@@ -133,9 +138,9 @@ public class APDetailFragment extends Fragment implements APDetailView, APDetail
             frequencyValue.setText(String.valueOf(frequency));
             macValue.setText(mac);
             channelValue.setText(String.valueOf(channel));
-            colorArcProgressBar.setIsShowCurrentSpeed(true);
-            colorArcProgressBar.setCurrentValues((float)Math.round(rssi * (-0.6)));
-            colorArcProgressBar.setMaxValues(-100);
+            RSSIRepresenter rssiRepresenter = Utils.setWifiImage(rssi, getContext());
+            roundCornerProgressBarDetail.setProgress((120 + (rssi)));
+            roundCornerProgressBarDetail.setProgressColor(rssiRepresenter.getRSSIStrength());
         }
     }
 
@@ -265,5 +270,8 @@ public class APDetailFragment extends Fragment implements APDetailView, APDetail
 
         // Set the style of the security protocols value TextView
         Utils.setTextViewStyle(getContext(), securityProtocol, bold_font, "Regular");
+
+        // Set the style of the security protocols value TextView
+        Utils.setTextViewStyle(getContext(), rssiSignalStrength, bold_font, "Large");
     }
 }

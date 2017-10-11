@@ -2,6 +2,7 @@ package com.elearnna.www.wififingerprint.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AlertDialog;
@@ -45,6 +46,15 @@ public class StoredFilesAdapter extends RecyclerView.Adapter<StoredFilesViewHold
         final String fileName = file.getName();
         final java.io.File filePath = new java.io.File(file.getLocation() + "/" + fileName + ".json");
         holder.getTxtFileName().setText(fileName);
+
+        // Set file name style
+        // set quicksand bold font
+        Typeface bold_font = Utils.setQuicksandBoldFont(context);
+        // set quicksand regular font
+        Typeface regular_font = Utils.setQuicksandRegularFont(context);
+
+        // Set the style of the file name title TextView
+        Utils.setTextViewStyle(context, holder.getTxtFileName(), regular_font, "Large");
 
         // Set OnClickListener of the browse button
         holder.getImgFolderLocation().setOnClickListener(new View.OnClickListener() {

@@ -5,7 +5,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    style="?pageBackground">
 
     <TextView
         android:id="@+id/txt_stored_file_name"
@@ -16,12 +17,13 @@
         android:layout_marginLeft="16dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="16dp"
         android:layout_marginStart="16dp"
         app:layout_constraintRight_toLeftOf="@+id/guideline15"
         android:layout_marginRight="8dp"
         android:layout_marginEnd="@dimen/dimen_8_dp"
-        app:layout_constraintHorizontal_bias="0.0" />
+        app:layout_constraintHorizontal_bias="0.0"
+        android:paddingBottom="@dimen/dimen_20_dp" />
 
     <ImageView
         android:id="@+id/img_folder_location"
@@ -37,11 +39,13 @@
         android:layout_height="wrap_content"
         android:id="@+id/guideline15"
         android:orientation="vertical"
-        app:layout_constraintGuide_begin="166dp" />
+        app:layout_constraintGuide_begin="166dp"
+        tools:layout_editor_absoluteY="0dp"
+        tools:layout_editor_absoluteX="166dp" />
 
     <ImageView
         android:id="@+id/img_share_file"
-        android:layout_width="@dimen/dimen_24_dp"
+        android:layout_width="24dp"
         android:layout_height="0dp"
         android:src="@drawable/ic_share"
         app:layout_constraintTop_toTopOf="parent"
@@ -53,7 +57,7 @@
     <ImageView
         android:id="@+id/img_divider_bar"
         android:layout_width="0dp"
-        android:layout_height="@dimen/dimen_32_dp"
+        android:layout_height="32dp"
         android:src="@drawable/ic_bar"
         app:layout_constraintLeft_toRightOf="@+id/img_share_file"
         app:layout_constraintTop_toTopOf="parent"
@@ -61,7 +65,7 @@
 
     <ImageView
         android:id="@+id/img_delete_file"
-        android:layout_width="@dimen/dimen_24_dp"
+        android:layout_width="24dp"
         android:layout_height="0dp"
         android:src="@drawable/ic_delete"
         app:layout_constraintLeft_toRightOf="@+id/img_divider_bar"
@@ -75,5 +79,16 @@
         android:layout_height="wrap_content"
         android:id="@+id/guideline16"
         app:layout_constraintGuide_begin="247dp"
-        android:orientation="vertical" />
+        android:orientation="vertical"
+        tools:layout_editor_absoluteY="0dp"
+        tools:layout_editor_absoluteX="247dp" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/wifi_light_gray"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        android:layout_marginBottom="-20dp" />
 </android.support.constraint.ConstraintLayout>
