@@ -16,20 +16,20 @@ public class MyApplication extends Application {
         Stetho.InitializerBuilder initializerBuilder =
                 Stetho.newInitializerBuilder(this);
 
-// Enable Chrome DevTools
+        // Enable Chrome DevTools
         initializerBuilder.enableWebKitInspector(
                 Stetho.defaultInspectorModulesProvider(this)
         );
 
-// Enable command line interface
+        // Enable command line interface
         initializerBuilder.enableDumpapp(
                 Stetho.defaultDumperPluginsProvider(getApplicationContext())
         );
 
-// Use the InitializerBuilder to generate an Initializer
+        // Use the InitializerBuilder to generate an Initializer
         Stetho.Initializer initializer = initializerBuilder.build();
 
-// Initialize Stetho with the Initializer
+        // Initialize Stetho with the Initializer
         Stetho.initialize(initializer);
     }
 }

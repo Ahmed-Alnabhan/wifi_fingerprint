@@ -1,5 +1,6 @@
 package com.elearnna.www.wififingerprint.dialog;
 
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
@@ -11,12 +12,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.elearnna.www.wififingerprint.R;
+import com.elearnna.www.wififingerprint.app.Utils;
 import com.elearnna.www.wififingerprint.fragments.APsListFragment;
 import com.elearnna.www.wififingerprint.model.Locator;
+import com.rengwuxian.materialedittext.MaterialEditText;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -27,11 +30,17 @@ import butterknife.ButterKnife;
 
 public class LocationDialog extends DialogFragment implements View.OnClickListener{
 
+    @BindView(R.id.scanning_duration_label)
+    TextView scanningDurationLabel;
+
+    @BindView(R.id.location_name_label)
+    TextView locationNameLabel;
+
     @BindView(R.id.scanning_duration_spinner)
     Spinner spinScanningDuration;
 
     @BindView(R.id.location_name_value)
-    EditText etLocationName;
+    MaterialEditText etLocationName;
 
     @BindView(R.id.cancel_location_dialog)
     Button btnCancelLocationDialog;
@@ -63,6 +72,13 @@ public class LocationDialog extends DialogFragment implements View.OnClickListen
         setStyle(DialogFragment.STYLE_NORMAL, R.style.CustomDialog);
         View view = inflater.inflate(R.layout.location_dialog, container);
         ButterKnife.bind(this, view);
+
+        // Set TextViews style
+        setViewsStyle();
+
+        // Set EditText style
+        Typeface tf = Typeface.createFromAsset(getActivity().getAssets(),"fonts/Quicksand-Regular.otf");
+        etLocationName.setTypeface(tf,Typeface.BOLD);
         return view;
     }
 
@@ -141,5 +157,22 @@ public class LocationDialog extends DialogFragment implements View.OnClickListen
     private void disableSaveButton() {
         btnSaveLocationDialog.setEnabled(false);
         btnSaveLocationDialog.setEnabled(false);
+    }
+
+    /**
+     * This method sets style to the views
+     */
+
+    private void setViewsStyle() {
+        // set quicksand bold font
+        Typeface bold_font = Utils.setQuicksandBoldFont(getContext());
+        // set quicksand regular font
+        Typeface regular_font = Utils.setQuicksandRegularFont(getContext());
+
+        // Set the style of the SSID value TextView
+        Utils.setTextViewStyle(getContext(), scanningDurationLabel, bold_font, "Regular");
+
+        // Set the style of the manufacturer label TextView
+        Utils.setTextViewStyle(getContext(), locationNameLabel, bold_font, "Regular");
     }
 }

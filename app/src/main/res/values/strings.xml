@@ -96,4 +96,5 @@
     <string name="file_has_been_deleted">File has been deleted!</string>
     <string name="no_stored_files_message">There are no stored files to display</string>
     <string name="file_saved_failed">Sorry. Your file cannot be saved.</string>
+    <string name="name">Name</string>
 </resources>
