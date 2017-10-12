@@ -51,7 +51,7 @@
     <string name="light_value">light</string>
 
     <string name="aps_sort_default">RSSI (DESC)</string>
-    <string name="band_default">All</string>
+    <string name="band_default">all</string>
     <string name="theme_default">dark</string>
     <string name="file_location_default">Wifi_Fingerprint</string>
 

@@ -237,8 +237,8 @@ public class APsListFragment extends Fragment implements APsListView, APsAdapter
     }
 
     private void requestUserPermission() {
-        int myPermission = ContextCompat.checkSelfPermission(getActivity(), android.Manifest.permission.ACCESS_COARSE_LOCATION);
-        if(!(myPermission == PackageManager.PERMISSION_GRANTED)){
+        int locationPermission = ContextCompat.checkSelfPermission(getActivity(), android.Manifest.permission.ACCESS_COARSE_LOCATION);
+        if(!(locationPermission == PackageManager.PERMISSION_GRANTED)){
             if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
                     Manifest.permission.ACCESS_COARSE_LOCATION)) {
 
@@ -249,12 +249,26 @@ public class APsListFragment extends Fragment implements APsListView, APsAdapter
                         10);
             }
         }
+
+        int storagePermission = ContextCompat.checkSelfPermission(getActivity(), android.Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        if(!(storagePermission == PackageManager.PERMISSION_GRANTED)){
+            if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
+
+            } else {
+                // do request the permission
+                ActivityCompat.requestPermissions(getActivity(),
+                        new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                        11);
+            }
+        }
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         switch (requestCode) {
-            case 10: {
+            case 10:
+            case 11: {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
                 } else {
@@ -262,6 +276,7 @@ public class APsListFragment extends Fragment implements APsListView, APsAdapter
                 }
                 return;
             }
+
         }
     }
 

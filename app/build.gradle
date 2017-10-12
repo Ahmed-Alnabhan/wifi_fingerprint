@@ -65,4 +65,9 @@ dependencies {
      * Preference library
      */
     compile 'com.android.support:preference-v7:26.+'
+
+    /**
+     * Stetho dependency
+     */
+    compile 'com.facebook.stetho:stetho:1.5.0'
 }
