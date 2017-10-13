@@ -28,4 +28,5 @@
     <dimen name="dimen_36_dp">36dp</dimen>
     <dimen name="dimen_20_dp">20dp</dimen>
     <dimen name="dimen_0_dp">0dp</dimen>
+    <dimen name="size_100_sp">100sp</dimen>
 </resources>

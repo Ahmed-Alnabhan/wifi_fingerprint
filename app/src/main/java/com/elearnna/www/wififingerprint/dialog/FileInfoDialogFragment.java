@@ -5,13 +5,17 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.graphics.Typeface;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.LoaderManager;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.content.Loader;
 import android.support.v7.preference.PreferenceManager;
 import android.text.Editable;
@@ -21,11 +25,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.elearnna.www.wififingerprint.R;
 import com.elearnna.www.wififingerprint.app.Constants;
+import com.elearnna.www.wififingerprint.app.Utils;
 import com.elearnna.www.wififingerprint.loader.FingerprintLoader;
 import com.elearnna.www.wififingerprint.model.Fingerprint;
 import com.elearnna.www.wififingerprint.provider.APContentProvider;
@@ -33,6 +37,7 @@ import com.elearnna.www.wififingerprint.service.APsFingerprintService;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.rengwuxian.materialedittext.MaterialEditText;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -48,18 +53,23 @@ import butterknife.ButterKnife;
 
 public class FileInfoDialogFragment extends DialogFragment{
 
+    @BindView(R.id.txt_file_type_label)
+    TextView txtFileTypeLabel;
+
     @BindView(R.id.txt_file_type_value)
     TextView txtFileType;
 
+    @BindView(R.id.txt_file_name_label)
+    TextView txtFileNameLabel;
+
     @BindView(R.id.et_file_name_value)
-    EditText etFileName;
+    MaterialEditText etFileName;
+
+    @BindView(R.id.txt_file_location_label)
+    TextView txtDefaultFileLocationLabel;
 
     @BindView(R.id.txt_default_file_location_value)
     TextView txtDefaultFileLocation;
-
-    @BindView(R.id.btn_browse)
-    Button btnBrowse;
-
 
     @BindView(R.id.txt_countdown_timer)
     TextView txtCountDownTimer;
@@ -96,6 +106,7 @@ public class FileInfoDialogFragment extends DialogFragment{
         return frag;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -110,6 +121,16 @@ public class FileInfoDialogFragment extends DialogFragment{
         setStyle(DialogFragment.STYLE_NORMAL, R.style.CustomDialog);
         View view = inflater.inflate(R.layout.file_properties_layout, container);
         ButterKnife.bind(this, view);
+
+        // Set TextViews style
+        setTextViewsStyle();
+
+        // Get the default file location from the sharedpreferences
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+        String defaultFileLocation = sharedPreferences.getString(Constants.DEFAULT_DIRECTORY_PATH, "");
+
+        // Set the default file location
+        txtDefaultFileLocation.setText(defaultFileLocation.toString());
 
         // Create the intent od the service
         intent = new Intent(getActivity(), APsFingerprintService.class);
@@ -167,7 +188,7 @@ public class FileInfoDialogFragment extends DialogFragment{
             }
         };
 
-        disableControls();
+        hideControls();
         if (savedInstanceState == null) {
             duration = getArguments().getInt("timer");
         } else {
@@ -219,7 +240,7 @@ public class FileInfoDialogFragment extends DialogFragment{
             @Override
             public void onFinish() {
                 txtCountDownTimer.setVisibility(View.GONE);
-                enableControls();
+                showControls();
                 readAPInfoFromDB(location);
                 if (isAdded()) {
                     getLoaderManager().initLoader(1, null, mLoader).forceLoad();
@@ -229,21 +250,23 @@ public class FileInfoDialogFragment extends DialogFragment{
 
     }
 
-    private void disableControls() {
-        txtFileType.setEnabled(false);
-        etFileName.setEnabled(false);
-        txtDefaultFileLocation.setEnabled(false);
-        btnBrowse.setEnabled(false);
-        btnBrowse.setClickable(false);
+    private void hideControls() {
+        txtFileTypeLabel.setVisibility(View.GONE);
+        txtFileType.setVisibility(View.GONE);
+        txtFileNameLabel.setVisibility(View.GONE);
+        etFileName.setVisibility(View.GONE);
+        txtDefaultFileLocationLabel.setVisibility(View.GONE);
+        txtDefaultFileLocation.setVisibility(View.GONE);
         disableSaveButton();
     }
 
-    private void enableControls() {
-        txtFileType.setEnabled(true);
-        etFileName.setEnabled(true);
-        txtDefaultFileLocation.setEnabled(true);
-        btnBrowse.setEnabled(true);
-        btnBrowse.setClickable(true);
+    private void showControls() {
+        txtFileTypeLabel.setVisibility(View.VISIBLE);
+        txtFileType.setVisibility(View.VISIBLE);
+        txtFileNameLabel.setVisibility(View.VISIBLE);
+        etFileName.setVisibility(View.VISIBLE);
+        txtDefaultFileLocationLabel.setVisibility(View.VISIBLE);
+        txtDefaultFileLocation.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -354,4 +377,32 @@ public class FileInfoDialogFragment extends DialogFragment{
 
         Uri uri = getActivity().getContentResolver().insert(Constants.FILES_CONTENT_URL, fileValues);
     }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    private void setTextViewsStyle() {
+        // set quicksand bold font
+        Typeface bold_font = Utils.setQuicksandBoldFont(getActivity());
+        // set quicksand regular font
+        Typeface regular_font = Utils.setQuicksandRegularFont(getActivity());
+
+        // Set the style of the SSID based on the app theme
+        Utils.setTextViewStyle(getContext(), txtFileTypeLabel, bold_font, "Regular");
+
+        // Set the style of the IP address based on the app theme
+        Utils.setTextViewStyle(getContext(), txtFileType, bold_font, "Regular");
+
+        // Set the style of the Connection status based on the app theme
+        Utils.setTextViewStyle(getContext(), txtFileNameLabel, bold_font, "Regular");
+
+        // Set the style of the Channel based on the app theme
+        Utils.setTextViewStyle(getContext(), txtDefaultFileLocationLabel, bold_font, "Regular");
+
+        // Set the style of the MAC based on the app theme
+        Utils.setTextViewStyle(getContext(), txtDefaultFileLocation, bold_font, "Regular");
+
+        // Set the font type of the file name edit text
+        etFileName.setTypeface(bold_font);
+        etFileName.setTextColor(ContextCompat.getColor(getContext(), R.color.wifi_light_gray));
+    }
+
 }

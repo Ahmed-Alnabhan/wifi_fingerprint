@@ -97,4 +97,6 @@
     <string name="no_stored_files_message">There are no stored files to display</string>
     <string name="file_saved_failed">Sorry. Your file cannot be saved.</string>
     <string name="name">Name</string>
+    <string name="duration">Duration</string>
+    <string name="duration_message">Please select a duration from the Scanning Duration dropdown list !</string>
 </resources>

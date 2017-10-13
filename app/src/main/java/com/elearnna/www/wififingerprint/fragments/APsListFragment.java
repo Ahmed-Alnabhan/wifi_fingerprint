@@ -153,33 +153,8 @@ public class APsListFragment extends Fragment implements APsListView, APsAdapter
         state = new Bundle();
         bundle = new Bundle();
         mTwoPane = false;
+        setTextViewsStyle();
 
-
-        // set quicksand bold font
-        Typeface bold_font = Utils.setQuicksandBoldFont(getActivity());
-        // set quicksand regular font
-        Typeface regular_font = Utils.setQuicksandRegularFont(getActivity());
-
-        // Set the style of the SSID based on the app theme
-        Utils.setTextViewStyle(getActivity(), txtSSID, bold_font, "Large");
-
-        // Set the style of the IP address based on the app theme
-        Utils.setTextViewStyle(getActivity(), txtIPAddress, regular_font, "Regular");
-
-        // Set the style of the Connection status based on the app theme
-        Utils.setTextViewStyle(getActivity(), txtConnectionStatus, regular_font, "Small");
-
-        // Set the style of the Channel based on the app theme
-        Utils.setTextViewStyle(getActivity(), txtChannel, regular_font, "Large");
-
-        // Set the style of the MAC based on the app theme
-        Utils.setTextViewStyle(getActivity(), txtMAC, regular_font, "Large");
-
-        // Set the style of the RSSI based on the app theme
-        Utils.setTextViewStyle(getActivity(), txtSignalStrength, bold_font, "Large");
-
-        // Set the style of the wifiNotConnected text view
-        Utils.setTextViewStyle(getActivity(), txtWifiNotConnected, bold_font, "Large");
 
         // request the user permission for location access
         requestUserPermission();
@@ -467,4 +442,33 @@ public class APsListFragment extends Fragment implements APsListView, APsAdapter
         super.onDestroyView();
         PreferenceManager.getDefaultSharedPreferences(getContext()).unregisterOnSharedPreferenceChangeListener(this);
     }
+
+    private void setTextViewsStyle() {
+        // set quicksand bold font
+        Typeface bold_font = Utils.setQuicksandBoldFont(getActivity());
+        // set quicksand regular font
+        Typeface regular_font = Utils.setQuicksandRegularFont(getActivity());
+
+        // Set the style of the SSID based on the app theme
+        Utils.setTextViewStyle(getActivity(), txtSSID, bold_font, "Large");
+
+        // Set the style of the IP address based on the app theme
+        Utils.setTextViewStyle(getActivity(), txtIPAddress, regular_font, "Regular");
+
+        // Set the style of the Connection status based on the app theme
+        Utils.setTextViewStyle(getActivity(), txtConnectionStatus, regular_font, "Small");
+
+        // Set the style of the Channel based on the app theme
+        Utils.setTextViewStyle(getActivity(), txtChannel, regular_font, "Large");
+
+        // Set the style of the MAC based on the app theme
+        Utils.setTextViewStyle(getActivity(), txtMAC, regular_font, "Large");
+
+        // Set the style of the RSSI based on the app theme
+        Utils.setTextViewStyle(getActivity(), txtSignalStrength, bold_font, "Large");
+
+        // Set the style of the wifiNotConnected text view
+        Utils.setTextViewStyle(getActivity(), txtWifiNotConnected, bold_font, "Large");
+    }
+
 }

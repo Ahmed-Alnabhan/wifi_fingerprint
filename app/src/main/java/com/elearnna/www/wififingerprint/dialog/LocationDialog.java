@@ -10,12 +10,12 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.elearnna.www.wififingerprint.R;
+import com.elearnna.www.wififingerprint.adapter.SpinnerAdapter;
 import com.elearnna.www.wififingerprint.app.Utils;
 import com.elearnna.www.wififingerprint.fragments.APsListFragment;
 import com.elearnna.www.wififingerprint.model.Locator;
@@ -23,6 +23,7 @@ import com.rengwuxian.materialedittext.MaterialEditText;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import fr.ganfra.materialspinner.MaterialSpinner;
 
 /**
  * Created by Ahmed on 9/23/2017.
@@ -37,7 +38,7 @@ public class LocationDialog extends DialogFragment implements View.OnClickListen
     TextView locationNameLabel;
 
     @BindView(R.id.scanning_duration_spinner)
-    Spinner spinScanningDuration;
+    MaterialSpinner spinScanningDuration;
 
     @BindView(R.id.location_name_value)
     MaterialEditText etLocationName;
@@ -50,7 +51,7 @@ public class LocationDialog extends DialogFragment implements View.OnClickListen
 
     private LocationDuration locDuration;
     private Locator locator;
-    private Integer[] spinnerItems;
+    private String[] spinnerItems;
 
     public LocationDialog() {
 
@@ -72,6 +73,10 @@ public class LocationDialog extends DialogFragment implements View.OnClickListen
         setStyle(DialogFragment.STYLE_NORMAL, R.style.CustomDialog);
         View view = inflater.inflate(R.layout.location_dialog, container);
         ButterKnife.bind(this, view);
+        locDuration = new APsListFragment();
+        locator = new Locator();
+        spinnerItems = new String[]{"5","10","15","20","25"};
+        String defaultSpinnerValue = spinnerItems[0];
 
         // Set TextViews style
         setViewsStyle();
@@ -79,24 +84,20 @@ public class LocationDialog extends DialogFragment implements View.OnClickListen
         // Set EditText style
         Typeface tf = Typeface.createFromAsset(getActivity().getAssets(),"fonts/Quicksand-Regular.otf");
         etLocationName.setTypeface(tf,Typeface.BOLD);
+
+        SpinnerAdapter adapter = new SpinnerAdapter(getContext(), android.R.layout.simple_spinner_dropdown_item, spinnerItems);
+        int spinnerPosition = adapter.getPosition(defaultSpinnerValue);
+        spinScanningDuration.setSelection(spinnerPosition, true);
+        spinScanningDuration.setAdapter(adapter);
         return view;
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        locDuration = new APsListFragment();
-        locator = new Locator();
-        spinnerItems = new Integer[]{5,10,15,20,25};
-        Integer defaultSpinnerValue = spinnerItems[0];
 
         // Disable the save button when the view is created
         disableSaveButton();
-
-        ArrayAdapter<Integer> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, spinnerItems);
-        int spinnerPosition = adapter.getPosition(defaultSpinnerValue);
-        spinScanningDuration.setSelection(spinnerPosition);
-        spinScanningDuration.setAdapter(adapter);
 
         // disable the save button unless the file name edit text is not empty
         etLocationName.addTextChangedListener(new TextWatcher() {
@@ -129,13 +130,18 @@ public class LocationDialog extends DialogFragment implements View.OnClickListen
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.save_location_dialog:
-                locator.setDuration(Integer.parseInt(spinScanningDuration.getSelectedItem().toString()));
-                if (!(etLocationName.getText().toString().isEmpty()) && etLocationName.getText() != null){
-                    locator.setLocation(etLocationName.getText().toString());
+                if (spinScanningDuration.getSelectedItem() != null) {
+                    String selectedItem = spinScanningDuration.getSelectedItem().toString();
+                    locator.setDuration(Integer.parseInt(selectedItem));
+                    if (!(etLocationName.getText().toString().isEmpty()) && etLocationName.getText() != null) {
+                        locator.setLocation(etLocationName.getText().toString());
+                    }
+                    locDuration.getLocationandDuration(locator);
+                    dismiss();
+                    showFileInfoDialog();
+                } else {
+                    Toast.makeText(getContext(), getResources().getString(R.string.duration_message), Toast.LENGTH_LONG).show();
                 }
-                locDuration.getLocationandDuration(locator);
-                dismiss();
-                showFileInfoDialog();
                 break;
             case R.id.cancel_location_dialog:
                 dismiss();
