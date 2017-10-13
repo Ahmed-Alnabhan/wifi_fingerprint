@@ -99,4 +99,12 @@
     <string name="name">Name</string>
     <string name="duration">Duration</string>
     <string name="duration_message">Please select a duration from the Scanning Duration dropdown list !</string>
+
+    <!-- About the app-->
+    <string name="description_title">Description:</string>
+    <string name="description_body">This app enables users to scan WiFi networks and collect data about the access points. The app displays access points and network data in a customizable way. Furthermore, the app enables users to store WiFi information in a SQLite database and retrieve the chosen data in a form of JSON file and share the retrieved file.</string>
+    <string name="libraries_title">Used Libraries:</string>
+    <string name="libraries_body"><![CDATA[<b>Butterknife</b><br />http://jakewharton.github.io/butterknife/<br/><br/><b>Retrofit</b><br/>http://square.github.io/retrofit/<br/><br/>]]></string>
+    <string name="icons_title">Icons Credit:</string>
+    <string name="icons_body"><![CDATA[<b>Flaticon</b><br />https://www.flaticon.com/<br/><br/><b>Freepik</b><br/>http://www.freepik.com/<br/><br/>]]></string>
 </resources>

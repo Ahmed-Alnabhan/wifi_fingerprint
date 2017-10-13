@@ -1,7 +1,8 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/scroll_about_app_activity"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    style="?pageBackground">
 <LinearLayout
     android:id="@+id/fragment_about_app"
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -13,10 +14,65 @@
 
 
     <TextView
-        android:id="@+id/txt_about_app"
+        android:id="@+id/description_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:text="About the APP!"
+        android:text="@string/description_title"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp" />
+
+    <TextView
+        android:id="@+id/description_body"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/description_body"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp" />
+
+    <TextView
+        android:id="@+id/libraries_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/libraries_title"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp" />
+
+    <TextView
+        android:id="@+id/libraries_body"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/libraries_body"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp" />
+
+    <TextView
+        android:id="@+id/icons_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/icons_title"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp" />
+
+    <TextView
+        android:id="@+id/icons_body"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/icons_body"
         android:layout_marginTop="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginLeft="8dp"
@@ -27,7 +83,7 @@
         android:id="@+id/txt_app_version"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="About the app"
+        android:text="Version:"
         android:layout_marginTop="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
