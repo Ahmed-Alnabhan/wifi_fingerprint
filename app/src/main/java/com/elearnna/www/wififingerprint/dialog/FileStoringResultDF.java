@@ -1,5 +1,6 @@
 package com.elearnna.www.wififingerprint.dialog;
 
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
@@ -70,6 +71,9 @@ public class FileStoringResultDF extends DialogFragment {
         View view = inflater.inflate(R.layout.saved_file_layout, container);
         ButterKnife.bind(this, view);
 
+        // Set style of views
+        setViewsStyle();
+
         // Create file path
 
         final java.io.File fileFullPath = new java.io.File(filePath + "/" + fileName + ".json");
@@ -127,5 +131,22 @@ public class FileStoringResultDF extends DialogFragment {
         getTxtFileSavedFailed.setVisibility(View.VISIBLE);
         btnDelete.setVisibility(View.GONE);
         btnShare.setVisibility(View.GONE);
+    }
+
+    /**
+     * This method sets style to the views
+     */
+
+    private void setViewsStyle() {
+        // set quicksand bold font
+        Typeface bold_font = Utils.setQuicksandBoldFont(getContext());
+        // set quicksand regular font
+        Typeface regular_font = Utils.setQuicksandRegularFont(getContext());
+
+        // Set the style of the successful saving file message value TextView
+        Utils.setTextViewStyle(getContext(), txtFileSavedSuccessfully, bold_font, "Regular");
+
+        // Set the style of the failed saving message label TextView
+        Utils.setTextViewStyle(getContext(), getTxtFileSavedFailed, bold_font, "Regular");
     }
 }

@@ -175,10 +175,10 @@ public class LocationDialog extends DialogFragment implements View.OnClickListen
         // set quicksand regular font
         Typeface regular_font = Utils.setQuicksandRegularFont(getContext());
 
-        // Set the style of the SSID value TextView
+        // Set the style of the scanning duration label TextView
         Utils.setTextViewStyle(getContext(), scanningDurationLabel, bold_font, "Regular");
 
-        // Set the style of the manufacturer label TextView
+        // Set the style of the location name label TextView
         Utils.setTextViewStyle(getContext(), locationNameLabel, bold_font, "Regular");
     }
 }

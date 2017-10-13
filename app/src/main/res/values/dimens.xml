@@ -29,4 +29,5 @@
     <dimen name="dimen_20_dp">20dp</dimen>
     <dimen name="dimen_0_dp">0dp</dimen>
     <dimen name="size_100_sp">100sp</dimen>
+    <dimen name="size_22_sp">22sp</dimen>
 </resources>

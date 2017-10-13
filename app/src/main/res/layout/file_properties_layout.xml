@@ -21,7 +21,9 @@
         android:layout_height="wrap_content"
         android:id="@+id/guideline14"
         app:layout_constraintGuide_begin="409dp"
-        android:orientation="horizontal" />
+        android:orientation="horizontal"
+        tools:layout_editor_absoluteY="409dp"
+        tools:layout_editor_absoluteX="0dp" />
 
     <Button
         android:id="@+id/btn_save_file"
@@ -39,7 +41,8 @@
         app:layout_constraintLeft_toLeftOf="@+id/guideline26"
         app:layout_constraintHorizontal_bias="0.0"
         android:theme="@style/MyButton"
-        style="@style/Widget.AppCompat.Button.Borderless" />
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_marginStart="8dp" />
 
     <Button
         android:id="@+id/btn_file_cancel"
@@ -55,7 +58,8 @@
         android:layout_marginRight="8dp"
         app:layout_constraintHorizontal_bias="0.845"
         android:theme="@style/MyButton"
-        style="@style/Widget.AppCompat.Button.Borderless" />
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_marginEnd="8dp" />
 
     <TextView
         android:id="@+id/txt_file_type_label"
@@ -87,7 +91,9 @@
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="58dp"
         android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline24" />
+        app:layout_constraintBottom_toTopOf="@+id/guideline24"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp" />
 
     <TextView
         android:id="@+id/txt_file_name_label"
@@ -102,11 +108,13 @@
         app:layout_constraintTop_toTopOf="@+id/guideline24"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline25" />
+        app:layout_constraintBottom_toTopOf="@+id/guideline25"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp" />
 
     <com.rengwuxian.materialedittext.MaterialEditText
         android:id="@+id/et_file_name_value"
-        android:layout_width="@dimen/dimen_0_dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:ems="10"
         android:textColorHint="@color/wifi_light_gray"
@@ -119,23 +127,27 @@
         app:layout_constraintTop_toTopOf="@+id/guideline24"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline25" />
+        app:layout_constraintBottom_toTopOf="@+id/guideline25"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp" />
 
     <TextView
         android:id="@+id/txt_file_location_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/default_file_location_label"
-        android:layout_marginLeft="8dp"
+        android:layout_marginLeft="32dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/guideline12"
         android:layout_marginRight="8dp"
-        app:layout_constraintHorizontal_bias="0.977"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintTop_toTopOf="@+id/guideline25"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toTopOf="@+id/guideline14"
-        app:layout_constraintVertical_bias="0.04" />
+        app:layout_constraintVertical_bias="0.039"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="8dp" />
 
     <TextView
         android:id="@+id/txt_default_file_location_value"
@@ -146,19 +158,19 @@
         android:layout_marginLeft="@dimen/dimen_12_dp"
         android:layout_marginStart="@dimen/dimen_12_dp"
         app:layout_constraintLeft_toLeftOf="@+id/guideline12"
-        android:layout_marginRight="@dimen/dimen_8_dp"
-        android:layout_marginEnd="@dimen/dimen_8_dp"
+        android:layout_marginRight="@dimen/dimen_32_dp"
+        android:layout_marginEnd="@dimen/dimen_32_dp"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintTop_toTopOf="@+id/guideline25"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toTopOf="@+id/guideline14"
-        app:layout_constraintVertical_bias="0.04" />
+        app:layout_constraintVertical_bias="0.039" />
 
     <TextView
         android:id="@+id/txt_countdown_timer"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         tools:text="25"
         android:textAlignment="center"
@@ -170,28 +182,32 @@
         app:layout_constraintBottom_toTopOf="@+id/guideline14"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="8dp"
-        app:layout_constraintVertical_bias="0.214"
-        android:layout_marginRight="0dp"
-        android:layout_marginLeft="0dp" />
+        app:layout_constraintVertical_bias="0.214" />
 
     <android.support.constraint.Guideline
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/guideline24"
         app:layout_constraintGuide_begin="92dp"
-        android:orientation="horizontal" />
+        android:orientation="horizontal"
+        tools:layout_editor_absoluteY="92dp"
+        tools:layout_editor_absoluteX="0dp" />
 
     <android.support.constraint.Guideline
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/guideline25"
         app:layout_constraintGuide_begin="171dp"
-        android:orientation="horizontal" />
+        android:orientation="horizontal"
+        tools:layout_editor_absoluteY="171dp"
+        tools:layout_editor_absoluteX="0dp" />
 
     <android.support.constraint.Guideline
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/guideline26"
         app:layout_constraintGuide_begin="256dp"
-        android:orientation="vertical" />
+        android:orientation="vertical"
+        tools:layout_editor_absoluteY="0dp"
+        tools:layout_editor_absoluteX="256dp" />
 </android.support.constraint.ConstraintLayout>
