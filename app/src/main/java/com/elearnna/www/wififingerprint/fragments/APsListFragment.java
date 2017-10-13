@@ -176,7 +176,6 @@ public class APsListFragment extends Fragment implements APsListView, APsAdapter
             wifiManager = (WifiManager) getActivity().getApplicationContext().getSystemService(Context.WIFI_SERVICE);
             wifiInfo = wifiManager.getConnectionInfo();
             if (wifiInfo.getNetworkId() != -1) {
-                txtWifiNotConnected.setVisibility(View.GONE);
                 int rssi = wifiInfo.getRssi();
 
                 // Set the name of the network SSID
@@ -203,8 +202,9 @@ public class APsListFragment extends Fragment implements APsListView, APsAdapter
                 roundCornerProgressBar.setProgressColor(rssiRepresenter.getRSSIStrength());
                 txtSignalStrength.setText(String.valueOf(rssi));
                 handler.postDelayed(runnable, timer);
+                txtWifiNotConnected.setVisibility(View.GONE);
                 apItemLayout.setVisibility(View.VISIBLE);
-            } else {
+            } else if (wifiInfo.getNetworkId() == -1){
                 apItemLayout.setVisibility(View.GONE);
                 txtWifiNotConnected.setVisibility(View.VISIBLE);
             }
