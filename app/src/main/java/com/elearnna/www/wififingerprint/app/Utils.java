@@ -342,8 +342,8 @@ public class Utils {
 
     public static void readWifiNetworks(int duration, WifiManager wifiManager, Handler handler, Runnable runnable) {
         wifiManager.setWifiEnabled(true);
-        wifiManager.startScan();
         handler.postDelayed(runnable, duration);
+        wifiManager.startScan();
     }
 
     public static Device readDeviceInfo(){

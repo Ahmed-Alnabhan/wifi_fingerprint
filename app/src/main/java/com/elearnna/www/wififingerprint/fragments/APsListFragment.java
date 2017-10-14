@@ -325,7 +325,7 @@ public class APsListFragment extends Fragment implements APsListView, APsAdapter
             @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void run() {
-                getConnectedAPInfo(5000);
+                getConnectedAPInfo(1000);
             }
         };
         runnable.run();
