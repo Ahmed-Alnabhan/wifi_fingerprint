@@ -42,10 +42,6 @@
             android:label="@string/about_activity_title"
             android:parentActivityName=".activities.APsList" />
         <activity
-            android:name=".activities.ChannelChart"
-            android:label="@string/channel_chart_activity_title"
-            android:parentActivityName=".activities.APsList" />
-        <activity
             android:name=".activities.StoredFiles"
             android:label="@string/stored_files_activity_title"
             android:configChanges="keyboardHidden|screenSize"

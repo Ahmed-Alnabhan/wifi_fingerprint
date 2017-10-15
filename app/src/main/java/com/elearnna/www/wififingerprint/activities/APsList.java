@@ -3,7 +3,6 @@ package com.elearnna.www.wififingerprint.activities;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
@@ -13,11 +12,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.preference.PreferenceManager;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.view.View;
 
 import com.elearnna.www.wififingerprint.R;
 import com.elearnna.www.wififingerprint.app.Utils;
-import com.elearnna.www.wififingerprint.dialog.LocationDialog;
+import com.elearnna.www.wififingerprint.fragments.APsListFragment;
 
 public class APsList extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, SharedPreferences.OnSharedPreferenceChangeListener {
@@ -37,14 +35,6 @@ public class APsList extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showLocationDialog();
-            }
-        });
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -53,6 +43,13 @@ public class APsList extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        // insert detail fragment into detail container
+        APsListFragment aPsListFragment = new APsListFragment();
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction()
+                .add(R.id.detail_fragment_container, aPsListFragment)
+                .commit();
     }
 
     @Override
@@ -71,11 +68,9 @@ public class APsList extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_chart) {
-            Intent channelChartIntent = new Intent(this, ChannelChart.class);
-            startActivity(channelChartIntent);
-        } else if (id == R.id.nav_aps) {
-
+        if (id == R.id.nav_aps) {
+            Intent apsListIntent = new Intent(this, APsList.class);
+            startActivity(apsListIntent);
         } else if (id == R.id.nav_files) {
             Intent storedFilesIntent = new Intent(this, StoredFiles.class);
             startActivity(storedFilesIntent);
@@ -119,12 +114,4 @@ public class APsList extends AppCompatActivity
         super.onDestroy();
         PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).unregisterOnSharedPreferenceChangeListener(this);
     }
-
-    private void showLocationDialog() {
-        FragmentManager fm = getSupportFragmentManager();
-        LocationDialog editLocationDialogFragment = LocationDialog.newInstance("Location-duration Info");
-        editLocationDialogFragment.show(fm, "fragment_edit_name");
-    }
-
-
 }

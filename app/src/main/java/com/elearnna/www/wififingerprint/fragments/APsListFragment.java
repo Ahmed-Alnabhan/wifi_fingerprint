@@ -18,6 +18,7 @@ import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -43,6 +44,7 @@ import com.elearnna.www.wififingerprint.adapter.APsAdapterOnClickHandler;
 import com.elearnna.www.wififingerprint.app.Constants;
 import com.elearnna.www.wififingerprint.app.RSSIRepresenter;
 import com.elearnna.www.wififingerprint.app.Utils;
+import com.elearnna.www.wififingerprint.dialog.LocationDialog;
 import com.elearnna.www.wififingerprint.dialog.LocationDuration;
 import com.elearnna.www.wififingerprint.model.AP;
 import com.elearnna.www.wififingerprint.model.Device;
@@ -167,6 +169,16 @@ public class APsListFragment extends Fragment implements APsListView, APsAdapter
         getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
         readConnectedAPPeriodically();
+
+        // FAB
+
+        FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showLocationDialog();
+            }
+        });
         return view;
     }
 
@@ -469,6 +481,12 @@ public class APsListFragment extends Fragment implements APsListView, APsAdapter
 
         // Set the style of the wifiNotConnected text view
         Utils.setTextViewStyle(getActivity(), txtWifiNotConnected, bold_font, "Large");
+    }
+
+    private void showLocationDialog() {
+        FragmentManager fm = getActivity().getSupportFragmentManager();
+        LocationDialog editLocationDialogFragment = LocationDialog.newInstance("Location-duration Info");
+        editLocationDialogFragment.show(fm, "fragment_edit_name");
     }
 
 }

@@ -15,11 +15,18 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
+
+            android:fitsSystemWindows="true"
             app:popupTheme="@style/action_bar_light"
             app:theme="@style/action_bar_light" />
 
     </android.support.design.widget.AppBarLayout>
+    <FrameLayout
+        android:id="@+id/detail_fragment_container"
+        android:layout_width="match_parent"
+        app:layout_behavior="android.support.design.widget.AppBarLayout$ScrollingViewBehavior"
+        android:layout_height="match_parent">
 
-    <include layout="@layout/content_aps_list" />
+    </FrameLayout>
 
 </android.support.design.widget.CoordinatorLayout>

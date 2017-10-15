@@ -3,10 +3,6 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_chart"
-            android:icon="@drawable/ic_line_chart"
-            android:title="Channel Chart" />
-        <item
             android:id="@+id/nav_aps"
             android:icon="@drawable/ic_access_points"
             android:title="Access points" />
