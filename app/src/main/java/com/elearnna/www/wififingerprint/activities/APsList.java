@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -16,6 +17,10 @@ import android.view.MenuItem;
 import com.elearnna.www.wififingerprint.R;
 import com.elearnna.www.wififingerprint.app.Utils;
 import com.elearnna.www.wififingerprint.fragments.APsListFragment;
+import com.elearnna.www.wififingerprint.fragments.AboutFragment;
+import com.elearnna.www.wififingerprint.fragments.DeviceInfoFragment;
+import com.elearnna.www.wififingerprint.fragments.SettingsFragment;
+import com.elearnna.www.wififingerprint.fragments.StoredFilesFragment;
 
 public class APsList extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, SharedPreferences.OnSharedPreferenceChangeListener {
@@ -23,6 +28,7 @@ public class APsList extends AppCompatActivity
 
     private SharedPreferences sharedPreferences;
     private String theme;
+    private boolean mTwoPane = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,11 +41,17 @@ public class APsList extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
+
+        if (findViewById(R.id.drawer_layout) != null) {
+            mTwoPane = false;
+            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+            ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                    this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+            drawer.setDrawerListener(toggle);
+            toggle.syncState();
+        } else {
+            mTwoPane = true;
+        }
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -48,7 +60,7 @@ public class APsList extends AppCompatActivity
         APsListFragment aPsListFragment = new APsListFragment();
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
-                .add(R.id.detail_fragment_container, aPsListFragment)
+                .add(R.id.aps_fragment_container, aPsListFragment)
                 .commit();
     }
 
@@ -69,25 +81,59 @@ public class APsList extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_aps) {
-            Intent apsListIntent = new Intent(this, APsList.class);
-            startActivity(apsListIntent);
+            if (!mTwoPane) {
+                Intent intent = new Intent(this, APsList.class);
+                startActivity(intent);
+            } else {
+                APsListFragment aPsListFragment = new APsListFragment();
+                transactFragment(aPsListFragment);
+            }
         } else if (id == R.id.nav_files) {
-            Intent storedFilesIntent = new Intent(this, StoredFiles.class);
-            startActivity(storedFilesIntent);
+            if (!mTwoPane) {
+                Intent intent = new Intent(this, StoredFiles.class);
+                startActivity(intent);
+            } else {
+                StoredFilesFragment fragment = new StoredFilesFragment();
+                transactFragment(fragment);
+            }
         } else if (id == R.id.nav_device_info) {
-            Intent deviceInfoIntent = new Intent(this, DeviceInfo.class);
-            startActivity(deviceInfoIntent);
+            if (!mTwoPane) {
+                Intent intent = new Intent(this, DeviceInfo.class);
+                startActivity(intent);
+            } else {
+                DeviceInfoFragment fragment = new DeviceInfoFragment();
+                transactFragment(fragment);
+            }
         } else if (id == R.id.nav_settings) {
-            Intent settingsIntent = new Intent(this, Settings.class);
-            startActivity(settingsIntent);
+            if (!mTwoPane) {
+                Intent intent = new Intent(this, Settings.class);
+                startActivity(intent);
+            } else {
+                SettingsFragment fragment = new SettingsFragment();
+                transactFragment(fragment);
+            }
         } else if (id == R.id.nav_about) {
-            Intent aboutIntent = new Intent(this, About.class);
-            startActivity(aboutIntent);
+            if (!mTwoPane) {
+                Intent intent = new Intent(this, About.class);
+                startActivity(intent);
+            } else {
+                AboutFragment fragment = new AboutFragment();
+                transactFragment(fragment);
+            }
         }
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
+        if (!mTwoPane) {
+            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+            drawer.closeDrawer(GravityCompat.START);
+        }
         return true;
+    }
+
+    private void transactFragment(Fragment fragment) {
+        // insert detail fragment into detail container
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(R.id.aps_fragment_container, fragment)
+                .commit();
     }
 
     private void setupPreferences(){

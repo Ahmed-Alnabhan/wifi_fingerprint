@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+
+    <android.support.design.widget.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="@dimen/drawer_width"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        app:elevation="2dp"
+        app:headerLayout="@layout/nav_header_aps_list"
+        app:menu="@menu/activity_aps_list_drawer" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize">
+        <include
+            layout="@layout/app_bar_aps_list" />
+        </FrameLayout>
+        <FrameLayout
+            android:id="@+id/aps_fragment_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </FrameLayout>
+    </LinearLayout>
+
+</LinearLayout>

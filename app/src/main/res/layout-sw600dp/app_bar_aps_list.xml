@@ -21,12 +21,5 @@
             app:theme="@style/action_bar_light" />
 
     </android.support.design.widget.AppBarLayout>
-    <FrameLayout
-        android:id="@+id/aps_fragment_container"
-        android:layout_width="match_parent"
-        app:layout_behavior="android.support.design.widget.AppBarLayout$ScrollingViewBehavior"
-        android:layout_height="match_parent">
-
-    </FrameLayout>
 
 </android.support.design.widget.CoordinatorLayout>
