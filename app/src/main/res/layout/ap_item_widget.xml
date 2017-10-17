@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/no_connection_message_gradient">
+    <TextView
+        android:id="@+id/widget_ssid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="@string/widget_ssid"
+        android:layout_marginTop="@dimen/dimen_8_dp"
+        android:layout_marginLeft="@dimen/dimen_8_dp"
+        android:textColor="@android:color/white"/>
+    <TextView
+        android:id="@+id/widget_mac"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="@string/mac_address"
+        android:layout_below="@+id/widget_ssid"
+        android:layout_marginTop="@dimen/dimen_8_dp"
+        android:layout_marginLeft="@dimen/dimen_8_dp"
+        android:textColor="@android:color/white"/>
+    <TextView
+        android:id="@+id/widget_rssi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="@string/signal_strength"
+        android:layout_marginTop="@dimen/dimen_8_dp"
+        android:layout_toRightOf="@+id/widget_mac"
+        android:textColor="@android:color/white"/>
+
+</RelativeLayout>

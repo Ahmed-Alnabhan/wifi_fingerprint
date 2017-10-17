@@ -1,6 +1,6 @@
 apply plugin: 'com.android.application'
 
-def daggerVersion = '2.8'
+//def daggerVersion = '2.8'
 def butterknifeVersion = '8.8.1'
 
 android {
@@ -35,8 +35,8 @@ dependencies {
     /**
      * Dagger 2 Dependencies
      */
-    compile "com.google.dagger:dagger:$daggerVersion"
-    annotationProcessor "com.google.dagger:dagger-compiler:$daggerVersion"
+    //compile "com.google.dagger:dagger:$daggerVersion"
+    //annotationProcessor "com.google.dagger:dagger-compiler:$daggerVersion"
     /**
      * RecyclerView dependencies
      */

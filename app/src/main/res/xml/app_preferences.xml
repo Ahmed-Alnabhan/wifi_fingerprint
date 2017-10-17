@@ -14,25 +14,25 @@
             android:entryValues="@array/sortValues"/>
 
         <ListPreference
-            android:key="band"
-            android:title="Band"
+            android:key="@string/pref_band_key"
+            android:title="@string/pref_band_title"
             android:defaultValue="@string/all_bands"
             android:entries="@array/bandArray"
             android:summary="%s"
             android:entryValues="@array/bandValues"/>
 
-        <ListPreference
-            android:key="theme"
-            android:title="Theme"
-            android:defaultValue="@string/dark_value"
-            android:summary="%s"
-            android:entries="@array/themeArray"
-            android:entryValues="@array/themeValues"/>
+        <!--<ListPreference-->
+            <!--android:key="theme"-->
+            <!--android:title="Theme"-->
+            <!--android:defaultValue="@string/dark_value"-->
+            <!--android:summary="%s"-->
+            <!--android:entries="@array/themeArray"-->
+            <!--android:entryValues="@array/themeValues"/>-->
 
-        <EditTextPreference
-            android:title="Default Files Location"
-            android:key="filesLocation"
-            />
+        <!--<EditTextPreference-->
+            <!--android:title="Default Files Location"-->
+            <!--android:key="filesLocation"-->
+            <!--/>-->
 
     </PreferenceCategory>
 </PreferenceScreen>

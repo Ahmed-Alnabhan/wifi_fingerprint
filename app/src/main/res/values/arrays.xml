@@ -22,13 +22,13 @@
         <item>@string/two_g_hz</item>
     </string-array>
 
-    <string-array name="themeArray">
-        <item>@string/sort_dark</item>
-        <item>@string/sort_light</item>
-    </string-array>
+    <!--<string-array name="themeArray">-->
+        <!--<item>@string/sort_dark</item>-->
+        <!--<item>@string/sort_light</item>-->
+    <!--</string-array>-->
 
-    <string-array name="themeValues">
-        <item>@string/dark_value</item>
-        <item>@string/light_value</item>
-    </string-array>
+    <!--<string-array name="themeValues">-->
+        <!--<item>@string/dark_value</item>-->
+        <!--<item>@string/light_value</item>-->
+    <!--</string-array>-->
 </resources>

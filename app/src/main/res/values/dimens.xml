@@ -31,4 +31,6 @@
     <dimen name="size_100_sp">100sp</dimen>
     <dimen name="size_22_sp">22sp</dimen>
     <dimen name="drawer_width">320dp</dimen>
+    <dimen name="txt_size_18_sp">18sp</dimen>
+    <dimen name="txt_size_16_sp">16sp</dimen>
 </resources>

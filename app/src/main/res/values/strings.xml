@@ -107,4 +107,5 @@
     <string name="libraries_body"><![CDATA[<b>Butterknife</b><br />http://jakewharton.github.io/butterknife/<br/><br/><b>Retrofit</b><br/>http://square.github.io/retrofit/<br/><br/>]]></string>
     <string name="icons_title">Icons Credit:</string>
     <string name="icons_body"><![CDATA[<b>Flaticon</b><br />https://www.flaticon.com/<br/><br/><b>Freepik</b><br/>http://www.freepik.com/<br/><br/>]]></string>
+    <string name="widget_ssid">ap name</string>
 </resources>
