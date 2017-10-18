@@ -210,5 +210,6 @@ public class Constants {
      * Stored state
      */
     public static final String RECYCLER_STATE = "recycler.state";
+    public static final String SELECTED_ITEM = "selectedItem";
 
 }

@@ -15,6 +15,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.elearnna.www.wififingerprint.R;
+import com.elearnna.www.wififingerprint.app.Constants;
 import com.elearnna.www.wififingerprint.app.Utils;
 import com.elearnna.www.wififingerprint.fragments.APsListFragment;
 import com.elearnna.www.wififingerprint.fragments.AboutFragment;
@@ -29,6 +30,8 @@ public class APsList extends AppCompatActivity
     private SharedPreferences sharedPreferences;
     private String theme;
     private boolean mTwoPane = false;
+    private int selectedItem;
+    private MenuItem menuItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,11 +60,15 @@ public class APsList extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         // insert detail fragment into detail container
-        APsListFragment aPsListFragment = new APsListFragment();
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction()
-                .add(R.id.aps_fragment_container, aPsListFragment)
-                .commit();
+        if (savedInstanceState == null) {
+            APsListFragment aPsListFragment = new APsListFragment();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction()
+                    .add(R.id.aps_fragment_container, aPsListFragment)
+                    .commit();
+        } else {
+            selectedItem = savedInstanceState.getInt(Constants.SELECTED_ITEM);
+        }
     }
 
     @Override
@@ -97,6 +104,7 @@ public class APsList extends AppCompatActivity
                 Intent intent = new Intent(this, StoredFiles.class);
                 startActivity(intent);
             } else {
+                selectedItem = id;
                 StoredFilesFragment fragment = new StoredFilesFragment();
                 transactFragment(fragment);
             }
@@ -105,6 +113,7 @@ public class APsList extends AppCompatActivity
                 Intent intent = new Intent(this, DeviceInfo.class);
                 startActivity(intent);
             } else {
+                selectedItem = id;
                 DeviceInfoFragment fragment = new DeviceInfoFragment();
                 transactFragment(fragment);
             }
@@ -113,6 +122,7 @@ public class APsList extends AppCompatActivity
                 Intent intent = new Intent(this, Settings.class);
                 startActivity(intent);
             } else {
+                selectedItem = id;
                 SettingsFragment fragment = new SettingsFragment();
                 transactFragment(fragment);
             }
@@ -121,6 +131,7 @@ public class APsList extends AppCompatActivity
                 Intent intent = new Intent(this, About.class);
                 startActivity(intent);
             } else {
+                selectedItem = id;
                 AboutFragment fragment = new AboutFragment();
                 transactFragment(fragment);
             }
@@ -163,5 +174,17 @@ public class APsList extends AppCompatActivity
     public void onDestroy() {
         super.onDestroy();
         PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).unregisterOnSharedPreferenceChangeListener(this);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putInt(Constants.SELECTED_ITEM, selectedItem);
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        selectedItem = savedInstanceState.getInt(Constants.SELECTED_ITEM);
     }
 }
