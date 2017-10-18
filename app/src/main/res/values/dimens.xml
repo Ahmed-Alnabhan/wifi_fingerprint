@@ -33,4 +33,24 @@
     <dimen name="drawer_width">320dp</dimen>
     <dimen name="txt_size_18_sp">18sp</dimen>
     <dimen name="txt_size_16_sp">16sp</dimen>
+    <dimen name="dimen_21_dp">21dp</dimen>
+    <dimen name="dimen_13_dp">13dp</dimen>
+    <dimen name="dimen_14_dp">14dp</dimen>
+    <dimen name="dimen_146_dp">146dp</dimen>
+    <dimen name="dimen_200_dp">200dp</dimen>
+    <dimen name="dimen_7_dp">7dp</dimen>
+    <dimen name="dimen_58_dp">58dp</dimen>
+    <dimen name="dimen_9_dp">9dp</dimen>
+    <dimen name="dimen_5_dp">5dp</dimen>
+    <dimen name="dimen_6_dp">6dp</dimen>
+    <dimen name="dimen_88_dp">88dp</dimen>
+    <dimen name="dimen_37_dp">37dp</dimen>
+    <dimen name="dimen_1_dp">1dp</dimen>
+    <dimen name="dimen_159_dp">159dp</dimen>
+    <dimen name="dimen_61_dp">61dp</dimen>
+    <dimen name="dimen_80_dp">80dp</dimen>
+    <dimen name="dimen_97_dp">97dp</dimen>
+    <dimen name="dimen_47_dp">47dp</dimen>
+    <dimen name="dimen_minus_12_dp">-12dp</dimen>
+    <dimen name="dimen_30_dp">30dp</dimen>
 </resources>

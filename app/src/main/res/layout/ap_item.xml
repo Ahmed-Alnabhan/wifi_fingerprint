@@ -15,8 +15,9 @@
         tools:src="@drawable/ic_wifi_signal_good"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="@dimen/dimen_8_dp"
-        android:layout_marginLeft="8dp"
+        android:layout_marginLeft="@dimen/dimen_8_dp"
         app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginBottom="@dimen/dimen_8_dp"
         android:layout_marginStart="@dimen/dimen_8_dp"
@@ -29,10 +30,11 @@
         tools:text="@string/ssid_name"
         android:textColor="@android:color/black"
         app:layout_constraintLeft_toRightOf="@+id/wifi_image"
-        android:layout_marginLeft="8dp"
+        app:layout_constraintStart_toEndOf="@+id/wifi_image"
+        android:layout_marginLeft="@dimen/dimen_8_dp"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="8dp"
-        android:layout_marginStart="8dp"/>
+        android:layout_marginTop="@dimen/dimen_8_dp"
+        android:layout_marginStart="@dimen/dimen_8_dp"/>
 
     <TextView
         android:id="@+id/tv_ip_address"
@@ -41,10 +43,11 @@
         tools:text="@string/ap_ip"
         android:textColor="@android:color/black"
         app:layout_constraintLeft_toRightOf="@+id/tv_ssid"
-        android:layout_marginLeft="21dp"
+        app:layout_constraintStart_toEndOf="@+id/tv_ssid"
+        android:layout_marginLeft="@dimen/dimen_21_dp"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="8dp"
-        android:layout_marginStart="21dp"
+        android:layout_marginStart="@dimen/dimen_21_dp"
         style="?textRegular"/>
 
     <TextView
@@ -53,15 +56,17 @@
         android:layout_height="wrap_content"
         android:text="@string/connection_status"
         android:textColor="@android:color/black"
-        android:layout_marginRight="32dp"
+        android:layout_marginRight="@dimen/dimen_32_dp"
         app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginStart="7dp"
-        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="@dimen/dimen_8_dp"
+        android:layout_marginEnd="@dimen/dimen_8_dp"
         style="?textSmall"
         app:layout_constraintLeft_toRightOf="@+id/tv_signal_strength"
-        android:layout_marginLeft="8dp"
+        app:layout_constraintStart_toEndOf="@+id/tv_signal_strength"
+        android:layout_marginLeft="@dimen/dimen_8_dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="13dp"
+        android:layout_marginBottom="@dimen/dimen_13_dp"
         app:layout_constraintHorizontal_bias="0.214" />
 
     <TextView
@@ -71,10 +76,11 @@
         android:text="@string/channel"
         android:textColor="@android:color/black"
         app:layout_constraintLeft_toRightOf="@+id/wifi_image"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="13dp"
+        app:layout_constraintStart_toEndOf="@+id/wifi_image"
+        android:layout_marginLeft="@dimen/dimen_8_dp"
+        android:layout_marginTop="@dimen/dimen_13_dp"
         app:layout_constraintTop_toBottomOf="@+id/tv_ssid"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="@dimen/dimen_8_dp"
         style="?textRegular"/>
 
     <TextView
@@ -84,14 +90,16 @@
         tools:text="@string/mac_address"
         android:textColor="@android:color/black"
         app:layout_constraintLeft_toRightOf="@+id/tv_channel"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="14dp"
+        app:layout_constraintStart_toEndOf="@+id/tv_channel"
+        android:layout_marginLeft="@dimen/dimen_8_dp"
+        android:layout_marginTop="@dimen/dimen_14_dp"
         app:layout_constraintTop_toBottomOf="@+id/tv_ip_address"
-        android:layout_marginRight="8dp"
+        android:layout_marginRight="@dimen/dimen_8_dp"
         app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.078"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginStart="@dimen/dimen_8_dp"
+        android:layout_marginEnd="@dimen/dimen_8_dp"
         style="?textRegular"/>
 
     <TextView
@@ -100,31 +108,33 @@
         android:layout_height="wrap_content"
         tools:text="@string/signal_strength"
         android:textColor="@android:color/black"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="@dimen/dimen_12_dp"
         app:layout_constraintTop_toBottomOf="@+id/tv_mac_address"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="@dimen/dimen_8_dp"
         app:layout_constraintLeft_toRightOf="@+id/roundCornerProgressBar"
-        android:layout_marginLeft="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="146dp"
+        app:layout_constraintStart_toEndOf="@+id/roundCornerProgressBar"
+        android:layout_marginLeft="@dimen/dimen_8_dp"
+        android:layout_marginStart="@dimen/dimen_8_dp"
+        android:layout_marginEnd="@dimen/dimen_146_dp"
         style="?textLarge"
         app:layout_constraintVertical_bias="0.333"
-        android:layout_marginRight="146dp" />
+        android:layout_marginRight="@dimen/dimen_146_dp" />
 
     <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
-        android:layout_width="200dp"
-        android:layout_height="7dp"
+        android:layout_width="@dimen/dimen_200_dp"
+        android:layout_height="@dimen/dimen_7_dp"
         app:layout_constraintLeft_toRightOf="@+id/wifi_image"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="12dp"
+        app:layout_constraintStart_toEndOf="@+id/wifi_image"
+        android:layout_marginLeft="@dimen/dimen_8_dp"
+        android:layout_marginTop="@dimen/dimen_12_dp"
         app:rcMax="90"
         app:rcBackgroundColor="@color/wifi_light_gray"
         app:layout_constraintTop_toBottomOf="@+id/tv_channel"
         android:id="@+id/roundCornerProgressBar"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="8dp"
-        android:layout_marginStart="8dp">
+        android:layout_marginBottom="@dimen/dimen_8_dp"
+        android:layout_marginStart="@dimen/dimen_8_dp">
     </com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar>
     <View
         android:id="@+id/items_devider"
@@ -133,5 +143,7 @@
         android:background="@android:color/darker_gray"
         tools:layout_editor_absoluteY="96dp"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 </android.support.constraint.ConstraintLayout>

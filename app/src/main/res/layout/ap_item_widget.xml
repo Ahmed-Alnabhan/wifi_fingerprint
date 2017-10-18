@@ -12,6 +12,7 @@
         tools:text="@string/widget_ssid"
         android:layout_marginTop="@dimen/dimen_8_dp"
         android:layout_marginLeft="@dimen/dimen_8_dp"
+        android:layout_marginStart="@dimen/dimen_8_dp"
         android:textColor="@android:color/white"/>
     <TextView
         android:id="@+id/widget_mac"
@@ -21,6 +22,7 @@
         android:layout_below="@+id/widget_ssid"
         android:layout_marginTop="@dimen/dimen_8_dp"
         android:layout_marginLeft="@dimen/dimen_8_dp"
+        android:layout_marginStart="@dimen/dimen_8_dp"
         android:textColor="@android:color/white"/>
     <TextView
         android:id="@+id/widget_rssi"

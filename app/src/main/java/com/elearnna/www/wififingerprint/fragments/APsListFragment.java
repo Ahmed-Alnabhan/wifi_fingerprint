@@ -436,7 +436,6 @@ public class APsListFragment extends Fragment implements APsListView, APsAdapter
         }
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(Constants.DEFAULT_DIRECTORY_PATH, String.valueOf(fingerprintDirectory));
-        //editor.putString(Constants.DEFAULT_APS_SORT, getContext().getResources().getString(R.string.aps_sort_default));
         editor.apply();
     }
 

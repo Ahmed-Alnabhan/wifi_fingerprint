@@ -14,13 +14,15 @@
         android:layout_height="wrap_content"
         android:maxLines="2"
         tools:text="@string/file_name"
-        android:layout_marginLeft="16dp"
+        android:layout_marginLeft="@dimen/dimen_16_dp"
         app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginTop="@dimen/dimen_16_dp"
+        android:layout_marginStart="@dimen/dimen_16_dp"
         app:layout_constraintRight_toLeftOf="@+id/guideline15"
-        android:layout_marginRight="8dp"
+        app:layout_constraintEnd_toStartOf="@+id/guideline15"
+        android:layout_marginRight="@dimen/dimen_8_dp"
         android:layout_marginEnd="@dimen/dimen_8_dp"
         app:layout_constraintHorizontal_bias="0.0"
         android:paddingBottom="@dimen/dimen_20_dp" />
@@ -32,7 +34,8 @@
         android:src="@drawable/ic_folder"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="16dp"
-        app:layout_constraintLeft_toLeftOf="@+id/guideline15" />
+        app:layout_constraintLeft_toLeftOf="@+id/guideline15"
+        app:layout_constraintStart_toStartOf="@+id/guideline15" />
 
     <android.support.constraint.Guideline
         android:layout_width="wrap_content"
@@ -45,14 +48,15 @@
 
     <ImageView
         android:id="@+id/img_share_file"
-        android:layout_width="24dp"
-        android:layout_height="0dp"
+        android:layout_width="@dimen/dimen_24_dp"
+        android:layout_height="@dimen/dimen_0_dp"
         android:src="@drawable/ic_share"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
-        app:layout_constraintLeft_toLeftOf="@+id/guideline16" />
+        android:layout_marginTop="@dimen/dimen_16_dp"
+        android:layout_marginStart="@dimen/dimen_32_dp"
+        android:layout_marginLeft="@dimen/dimen_32_dp"
+        app:layout_constraintLeft_toLeftOf="@+id/guideline16"
+        app:layout_constraintStart_toStartOf="@+id/guideline16" />
 
     <ImageView
         android:id="@+id/img_divider_bar"
@@ -60,6 +64,7 @@
         android:layout_height="32dp"
         android:src="@drawable/ic_bar"
         app:layout_constraintLeft_toRightOf="@+id/img_share_file"
+        app:layout_constraintStart_toEndOf="@+id/img_share_file"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="16dp" />
 
@@ -69,7 +74,9 @@
         android:layout_height="0dp"
         android:src="@drawable/ic_delete"
         app:layout_constraintLeft_toRightOf="@+id/img_divider_bar"
+        app:layout_constraintStart_toEndOf="@+id/img_divider_bar"
         app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="16dp" />
@@ -87,7 +94,9 @@
         android:layout_height="0.5dp"
         android:background="@color/wifi_light_gray"
         app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         android:layout_marginBottom="-20dp" />
