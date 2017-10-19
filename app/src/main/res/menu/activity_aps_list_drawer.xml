@@ -5,23 +5,23 @@
         <item
             android:id="@+id/nav_aps"
             android:icon="@drawable/ic_access_points"
-            android:title="Access points"/>
+            android:title="@string/access_points_drawer_item"/>
         <item
             android:id="@+id/nav_files"
             android:icon="@drawable/ic_file"
-            android:title="Stored Files" />
+            android:title="@string/stored_files_drawer_item" />
         <item
             android:id="@+id/nav_device_info"
             android:icon="@drawable/ic_smartphone"
-            android:title="Device Info" />
+            android:title="@string/device_info_drawer_item" />
     </group>
 
-    <item android:title="Configure">
+    <item android:title="@string/drawer_sub_title_configure">
         <menu>
             <item
                 android:id="@+id/nav_settings"
                 android:icon="@drawable/ic_settings"
-                android:title="Settings" />
+                android:title="@string/action_settings" />
             <item
                 android:id="@+id/nav_about"
                 android:icon="@drawable/ic_about"

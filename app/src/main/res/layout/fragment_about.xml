@@ -83,7 +83,7 @@
         android:id="@+id/txt_app_version"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Version:"
+        android:text="@string/app_version_label"
         android:layout_marginTop="@dimen/dimen_8_dp"
         android:layout_marginLeft="@dimen/dimen_8_dp"
         android:layout_marginRight="@dimen/dimen_8_dp"

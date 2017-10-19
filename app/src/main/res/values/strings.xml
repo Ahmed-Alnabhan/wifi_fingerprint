@@ -120,4 +120,10 @@
     <string name="fab_description">Floating action button write wifi info to a file</string>
     <string name="rssi_description">A bar shows the wifi signal strength</string>
     <string name="list_of_access_points_description">A list of access points icon</string>
+    <string name="access_points_drawer_item">Access points</string>
+    <string name="stored_files_drawer_item">Stored Files</string>
+    <string name="device_info_drawer_item">Device Info</string>
+    <string name="drawer_sub_title_configure">Configure</string>
+    <string name="app_version_label">Version:</string>
+    <string name="location_dialog_title">This is a custom title</string>
 </resources>
