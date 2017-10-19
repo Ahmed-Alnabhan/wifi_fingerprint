@@ -91,7 +91,7 @@ public class StoredFilesAdapter extends RecyclerView.Adapter<StoredFilesViewHold
         if (intent.resolveActivityInfo(context.getPackageManager(), 0) != null){
         context.startActivity(intent);
         } else {
-            Toast.makeText(context, "There is no text reader app installed on your device. Please install one", Toast.LENGTH_LONG).show();
+            Toast.makeText(context, context.getResources().getString(R.string.no_text_reader_installed_message), Toast.LENGTH_LONG).show();
             // if you reach this place, it means there is no any file
             // explorer app installed on your device
         }

@@ -4,6 +4,14 @@ apply plugin: 'com.android.application'
 def butterknifeVersion = '8.8.1'
 
 android {
+    signingConfigs {
+        config {
+            keyAlias 'elearnna'
+            keyPassword 'Ele@rnn@88'
+            storeFile file("$rootDir/keystore.jks")
+            storePassword 'Ele@rnn@88'
+        }
+    }
     compileSdkVersion 26
     buildToolsVersion "26.0.1"
     defaultConfig {
@@ -18,12 +26,13 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
         }
     }
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
@@ -32,55 +41,22 @@ dependencies {
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.android.support:support-v4:26.+'
     testCompile 'junit:junit:4.12'
-    /**
-     * Dagger 2 Dependencies
-     */
     //compile "com.google.dagger:dagger:$daggerVersion"
     //annotationProcessor "com.google.dagger:dagger-compiler:$daggerVersion"
-    /**
-     * RecyclerView dependencies
-     */
     compile 'com.android.support:recyclerview-v7:26.+'
-    /**
-     * Round corner progress bar dependencies
-     */
     compile 'com.akexorcist:RoundCornerProgressBar:2.0.3'
-    /**
-     * Butterknife dependencies
-     */
     compile "com.jakewharton:butterknife:$butterknifeVersion"
     annotationProcessor "com.jakewharton:butterknife-compiler:$butterknifeVersion"
-    /**
-     * rssi gauge view
-     */
     compile 'com.github.shinelw:library:1.0.1'
-    /**
-     * Retrofit dependencies
-     */
     compile 'com.squareup.retrofit2:retrofit:2.3.0'
     compile 'com.squareup.okhttp3:logging-interceptor:3.8.0'
     compile 'com.google.code.gson:gson:2.8.1'
     compile 'com.squareup.retrofit2:converter-scalars:2.3.0'
-    /**
-     * Preference library
-     */
     compile 'com.android.support:preference-v7:26.+'
-
-    /**
-     * Stetho dependency
-     */
     compile 'com.facebook.stetho:stetho:1.5.0'
-
-    /**
-     * Material Spinner dependency
-     */
-    compile ('com.github.ganfra:material-spinner:2.0.0'){
+    compile('com.github.ganfra:material-spinner:2.0.0') {
         exclude group: 'com.android.support', module: 'appcompat-v7'
         exclude group: 'com.android.support', module: 'recyclerview-v7'
     }
-
-    /**
-     * Material TextEdit
-     */
     compile 'com.rengwuxian.materialedittext:library:2.1.4'
 }

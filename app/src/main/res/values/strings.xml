@@ -12,6 +12,7 @@
     <string name="ap_ip">192.168.0.1</string>
     <string name="channel">Channel: 11</string>
     <string name="mac_address">MAC: 12:e3:4f:12:a3</string>
+    <string name="mac_label">MAC:</string>
     <string name="signal_strength">-61</string>
     <string name="no_connection">Device is not connected to Wifi!</string>
     <string name="about">About</string>
@@ -125,5 +126,7 @@
     <string name="device_info_drawer_item">Device Info</string>
     <string name="drawer_sub_title_configure">Configure</string>
     <string name="app_version_label">Version:</string>
+    <string name="ip_label">IP: </string>
     <string name="location_dialog_title">This is a custom title</string>
+    <string name="no_text_reader_installed_message">There is no text reader app installed on your device. Please install one</string>
 </resources>

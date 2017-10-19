@@ -79,8 +79,8 @@ public class APsAdapter extends RecyclerView.Adapter<APsListViewHolder>{
 
         holder.getTxtIPAddress().setText(ap.getIpAddress());
         holder.getTxtConnectionStatus().setText(String.valueOf(ap.isConnected()));
-        holder.getTxtChannel().setText(String.valueOf("Channel: " + channel));
-        holder.getTxtMAC().setText("MAC: " + ap.getMacAddress());
+        holder.getTxtChannel().setText(String.valueOf(context.getResources().getString(R.string.channel_label) + channel));
+        holder.getTxtMAC().setText(context.getResources().getString(R.string.mac_label) + ap.getMacAddress());
         holder.getTxtSignalStrength().setText(String.valueOf(rssi));
         RSSIRepresenter rssiRepresenter = Utils.setWifiImage(rssi, context);
         holder.getWifiImage().setImageDrawable(ContextCompat.getDrawable(context, rssiRepresenter.getRSSIImage()));
@@ -88,7 +88,7 @@ public class APsAdapter extends RecyclerView.Adapter<APsListViewHolder>{
         holder.getRoundCornerProgressBar().setProgressColor(rssiRepresenter.getRSSIStrength());
         // Check if the AP is connected to the Internet then show a connected textview
         if (Utils.isConnected(context, ap.getMacAddress())){
-            holder.getTxtConnectionStatus().setText("Connected");
+            holder.getTxtConnectionStatus().setText(context.getResources().getString(R.string.connection_status));
         } else {
             holder.getTxtConnectionStatus().setText("");
         }

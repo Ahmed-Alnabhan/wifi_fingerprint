@@ -203,13 +203,13 @@ public class APsListFragment extends Fragment implements APsListView, APsAdapter
 
                 int ip = wifiInfo.getIpAddress();
                 String ipAddress = String.format("%d.%d.%d.%d", (ip & 0xff), (ip >> 8 & 0xff), (ip >> 16 & 0xff), (ip >> 24 & 0xff));
-                txtIPAddress.setText("IP: " + ipAddress);
+                txtIPAddress.setText(getContext().getResources().getString(R.string.ip_label) + ipAddress);
                 if (Build.VERSION.SDK_INT >= 21) {
-                    txtChannel.setText("Channel: " + Utils.convertFrequencyToChannel(wifiInfo.getFrequency()));
+                    txtChannel.setText(getContext().getResources().getString(R.string.channel_label) + Utils.convertFrequencyToChannel(wifiInfo.getFrequency()));
                 } else {
-                    txtChannel.setText("Channel: " + Constants.NOT_APPLICABLE);
+                    txtChannel.setText(getContext().getResources().getString(R.string.channel_label) + Constants.NOT_APPLICABLE);
                 }
-                txtMAC.setText("MAC: " + Utils.getMacAddr());
+                txtMAC.setText(getContext().getResources().getString(R.string.mac_label) + Utils.getMacAddr());
 
                 RSSIRepresenter rssiRepresenter = Utils.setWifiImage(rssi, getContext());
                 wifiImage.setImageDrawable(ContextCompat.getDrawable(getContext(), rssiRepresenter.getRSSIImage()));

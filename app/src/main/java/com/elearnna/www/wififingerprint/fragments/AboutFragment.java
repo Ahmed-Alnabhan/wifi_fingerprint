@@ -69,7 +69,7 @@ public class AboutFragment extends Fragment {
         // Get app version
         String appName = BuildConfig.VERSION_NAME;
 
-        txtAppVersion.setText("Version: " + appName);
+        txtAppVersion.setText(getContext().getResources().getString(R.string.app_version_label) + appName);
 
         txtLibrariesBody.setText(Html.fromHtml(getString(R.string.libraries_body)));
         txtIconsBody.setText(Html.fromHtml(getString(R.string.icons_body)));
