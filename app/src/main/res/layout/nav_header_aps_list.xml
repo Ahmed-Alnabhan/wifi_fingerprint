@@ -19,7 +19,8 @@
         android:layout_width="@dimen/dimen_50_dp"
         android:layout_height="@dimen/dimen_50_dp"
         android:paddingTop="@dimen/dimen_24_dp"
-        android:src="@drawable/launcher_icon" />
+        android:src="@drawable/launcher_icon"
+        android:contentDescription="@string/app_icon_description"/>
 
     <TextView
         android:layout_width="match_parent"

@@ -108,4 +108,16 @@
     <string name="icons_title">Icons Credit:</string>
     <string name="icons_body"><![CDATA[<b>Flaticon</b><br />https://www.flaticon.com/<br/><br/><b>Freepik</b><br/>http://www.freepik.com/<br/><br/>]]></string>
     <string name="widget_ssid">ap name</string>
+    <string name="wifi_rssi_image_description">Wifi signal strength image</string>
+    <string name="display_file_content_image">Display file content using a file editor</string>
+    <string name="share_file_image_description">Share file with other apps</string>
+    <string name="bar_image_description">A separator between share and delete buttons</string>
+    <string name="delete_file_image_description">Delete file</string>
+    <string name="access_point_locked_image_description">The access point is secured</string>
+    <string name="mac_label_description">Mac address of the access point label</string>
+    <string name="mac_value_description" />
+    <string name="app_icon_description">Wifi Fingerprint app\'s icon</string>
+    <string name="fab_description">Floating action button write wifi info to a file</string>
+    <string name="rssi_description">A bar shows the wifi signal strength</string>
+    <string name="list_of_access_points_description">A list of access points icon</string>
 </resources>

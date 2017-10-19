@@ -51,7 +51,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.136"
             android:layout_marginBottom="@dimen/dimen_8_dp"
-            app:layout_constraintBottom_toTopOf="@+id/guideline2" />
+            app:layout_constraintBottom_toTopOf="@+id/guideline2"
+            android:contentDescription="@string/access_point_locked_image_description" />
 
         <TextView
             android:id="@+id/txt_mac_label"
@@ -72,7 +73,8 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
-            style="?textRegular"/>
+            style="?textRegular"
+            android:contentDescription="@string/mac_label_description"/>
 
         <TextView
             android:id="@+id/txt_channel_label"
@@ -199,6 +201,7 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
+            android:contentDescription="@string/mac_value_description"
             />
 
         <TextView
@@ -404,6 +407,7 @@
             android:layout_marginLeft="@dimen/dimen_8_dp"
             android:layout_marginStart="@dimen/dimen_8_dp"
             app:layout_constraintLeft_toLeftOf="@+id/roundCornerProgressBarDetail"
-            app:layout_constraintStart_toStartOf="@+id/roundCornerProgressBarDetail" />
+            app:layout_constraintStart_toStartOf="@+id/roundCornerProgressBarDetail"
+            android:contentDescription="@string/rssi_description" />
 </android.support.constraint.ConstraintLayout>
 </FrameLayout>

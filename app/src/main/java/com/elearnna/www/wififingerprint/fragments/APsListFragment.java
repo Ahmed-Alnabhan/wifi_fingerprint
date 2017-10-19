@@ -179,6 +179,9 @@ public class APsListFragment extends Fragment implements APsListView, APsAdapter
                 showLocationDialog();
             }
         });
+
+        // Set content description of used drawables
+        fab.setContentDescription(getResources().getString(R.string.fab_description));
         return view;
     }
 

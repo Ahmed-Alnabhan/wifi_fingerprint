@@ -81,7 +81,8 @@
         app:layout_constraintTop_toBottomOf="@+id/txt_file_saved_successfully"
         app:layout_constraintBottom_toBottomOf="@+id/btn_share"
         android:layout_marginBottom="@dimen/dimen_8_dp"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.0"
+        android:contentDescription="@string/delete_file_image_description"/>
 
     <ImageView
         android:id="@+id/btn_share"
@@ -98,7 +99,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guideline13"
         android:layout_marginTop="@dimen/dimen_97_dp"
-        app:layout_constraintTop_toBottomOf="@+id/txt_file_saved_successfully" />
+        app:layout_constraintTop_toBottomOf="@+id/txt_file_saved_successfully"
+        android:contentDescription="@string/share_file_image_description"/>
 
     <Button
         android:id="@+id/btn_ok"

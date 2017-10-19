@@ -103,6 +103,7 @@ public class APDetailFragment extends Fragment implements APDetailView, APDetail
         setAPDetailView(this);
         getAPDetail();
         dispalyAP(ap);
+
         return view;
     }
 

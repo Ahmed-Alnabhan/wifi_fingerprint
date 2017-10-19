@@ -43,7 +43,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.136"
             android:layout_marginBottom="@dimen/dimen_8_dp"
-            app:layout_constraintBottom_toTopOf="@+id/guideline2" />
+            app:layout_constraintBottom_toTopOf="@+id/guideline2"
+            android:contentDescription="@string/access_point_locked_image_description"/>
 
         <TextView
             android:id="@+id/txt_mac_label"
@@ -377,7 +378,8 @@
             app:layout_constraintTop_toTopOf="@+id/guideline8"
             app:layout_constraintVertical_bias="0.269"
             app:rcBackgroundColor="@color/wifi_light_gray"
-            app:rcMax="90">
+            app:rcMax="90"
+            android:contentDescription="@string/rssi_description">
         </com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar>
         <TextView
             android:id="@+id/rssi_signal_strength"
