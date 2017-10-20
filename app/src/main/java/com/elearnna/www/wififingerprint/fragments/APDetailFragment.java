@@ -234,45 +234,45 @@ public class APDetailFragment extends Fragment implements APDetailView, APDetail
         Typeface regular_font = Utils.setQuicksandRegularFont(getContext());
 
         // Set the style of the SSID value TextView
-        Utils.setTextViewStyle(getContext(), apNameTitle, bold_font, "Large");
+        Utils.setTextViewStyle(getContext(), apNameTitle, bold_font, Constants.LARGE_FONT);
 
         // Set the style of the manufacturer label TextView
-        Utils.setTextViewStyle(getContext(), txtManufacturerLabel, regular_font, "Regular");
+        Utils.setTextViewStyle(getContext(), txtManufacturerLabel, regular_font, Constants.REGULAR_FONT);
 
         // Set the style of the manufacturer value TextView
-        Utils.setTextViewStyle(getContext(), manufacturerValue, bold_font, "Regular");
+        Utils.setTextViewStyle(getContext(), manufacturerValue, bold_font, Constants.REGULAR_FONT);
 
         // Set the style of the Frequency label TextView
-        Utils.setTextViewStyle(getContext(), txtFrequencyLabel, regular_font, "Regular");
+        Utils.setTextViewStyle(getContext(), txtFrequencyLabel, regular_font, Constants.REGULAR_FONT);
 
         // Set the style of the Frequency value TextView
-        Utils.setTextViewStyle(getContext(), frequencyValue, bold_font, "Regular");
+        Utils.setTextViewStyle(getContext(), frequencyValue, bold_font, Constants.REGULAR_FONT);
 
         // Set the style of the band label TextView
-        Utils.setTextViewStyle(getContext(), txtBandLabel, regular_font, "Regular");
+        Utils.setTextViewStyle(getContext(), txtBandLabel, regular_font, Constants.REGULAR_FONT);
 
         // Set the style of the band value TextView
-        Utils.setTextViewStyle(getContext(), bandValue, bold_font, "Regular");
+        Utils.setTextViewStyle(getContext(), bandValue, bold_font, Constants.REGULAR_FONT);
 
         // Set the style of the Mac Address label TextView
-        Utils.setTextViewStyle(getContext(), txtMACLabel, regular_font, "Regular");
+        Utils.setTextViewStyle(getContext(), txtMACLabel, regular_font, Constants.REGULAR_FONT);
 
         // Set the style of the Mac Address value TextView
-        Utils.setTextViewStyle(getContext(), macValue, bold_font, "Regular");
+        Utils.setTextViewStyle(getContext(), macValue, bold_font, Constants.REGULAR_FONT);
 
         // Set the style of the channel label TextView
-        Utils.setTextViewStyle(getContext(), txtChannelLabel, regular_font, "Regular");
+        Utils.setTextViewStyle(getContext(), txtChannelLabel, regular_font, Constants.REGULAR_FONT);
 
         // Set the style of the channel value TextView
-        Utils.setTextViewStyle(getContext(), channelValue, bold_font, "Regular");
+        Utils.setTextViewStyle(getContext(), channelValue, bold_font, Constants.REGULAR_FONT);
 
         // Set the style of the security protocols label TextView
-        Utils.setTextViewStyle(getContext(), txtSecurityProtocolLabel, regular_font, "Regular");
+        Utils.setTextViewStyle(getContext(), txtSecurityProtocolLabel, regular_font, Constants.REGULAR_FONT);
 
         // Set the style of the security protocols value TextView
-        Utils.setTextViewStyle(getContext(), securityProtocol, bold_font, "Regular");
+        Utils.setTextViewStyle(getContext(), securityProtocol, bold_font, Constants.REGULAR_FONT);
 
         // Set the style of the security protocols value TextView
-        Utils.setTextViewStyle(getContext(), rssiSignalStrength, bold_font, "Large");
+        Utils.setTextViewStyle(getContext(), rssiSignalStrength, bold_font, Constants.LARGE_FONT);
     }
 }

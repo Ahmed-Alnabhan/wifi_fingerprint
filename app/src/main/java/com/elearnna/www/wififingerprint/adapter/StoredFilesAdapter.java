@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.elearnna.www.wififingerprint.R;
+import com.elearnna.www.wififingerprint.app.Constants;
 import com.elearnna.www.wififingerprint.app.Utils;
 import com.elearnna.www.wififingerprint.model.File;
 import com.elearnna.www.wififingerprint.view.StoredFilesViewHolder;
@@ -54,7 +55,7 @@ public class StoredFilesAdapter extends RecyclerView.Adapter<StoredFilesViewHold
         Typeface regular_font = Utils.setQuicksandRegularFont(context);
 
         // Set the style of the file name title TextView
-        Utils.setTextViewStyle(context, holder.getTxtFileName(), regular_font, "Large");
+        Utils.setTextViewStyle(context, holder.getTxtFileName(), regular_font, Constants.LARGE_FONT);
 
         // Set OnClickListener of the browse button
         holder.getImgFolderLocation().setOnClickListener(new View.OnClickListener() {

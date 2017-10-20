@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.elearnna.www.wififingerprint.R;
+import com.elearnna.www.wififingerprint.app.Constants;
 import com.elearnna.www.wififingerprint.app.Utils;
 
 import butterknife.BindView;
@@ -144,9 +145,9 @@ public class FileStoringResultDF extends DialogFragment {
         Typeface regular_font = Utils.setQuicksandRegularFont(getContext());
 
         // Set the style of the successful saving file message value TextView
-        Utils.setTextViewStyle(getContext(), txtFileSavedSuccessfully, bold_font, "Regular");
+        Utils.setTextViewStyle(getContext(), txtFileSavedSuccessfully, bold_font, Constants.REGULAR_FONT);
 
         // Set the style of the failed saving message label TextView
-        Utils.setTextViewStyle(getContext(), getTxtFileSavedFailed, bold_font, "Regular");
+        Utils.setTextViewStyle(getContext(), getTxtFileSavedFailed, bold_font, Constants.REGULAR_FONT);
     }
 }

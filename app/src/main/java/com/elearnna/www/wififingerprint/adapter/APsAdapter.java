@@ -60,22 +60,22 @@ public class APsAdapter extends RecyclerView.Adapter<APsListViewHolder>{
         Typeface regular_font = Utils.setQuicksandRegularFont(context);
 
         // Set the style of the SSID based on the app theme
-        Utils.setTextViewStyle(context, holder.getTxtSSID(), bold_font, "Large");
+        Utils.setTextViewStyle(context, holder.getTxtSSID(), bold_font, Constants.LARGE_FONT);
 
         // Set the style of the IP address based on the app theme
-        Utils.setTextViewStyle(context, holder.getTxtIPAddress(), regular_font, "Regular");
+        Utils.setTextViewStyle(context, holder.getTxtIPAddress(), regular_font, Constants.REGULAR_FONT);
 
         // Set the style of the Connection status based on the app theme
-        Utils.setTextViewStyle(context, holder.getTxtConnectionStatus(), regular_font, "Small");
+        Utils.setTextViewStyle(context, holder.getTxtConnectionStatus(), regular_font, Constants.SMALL_FONT);
 
         // Set the style of the Channel based on the app theme
-        Utils.setTextViewStyle(context, holder.getTxtChannel(), regular_font, "Large");
+        Utils.setTextViewStyle(context, holder.getTxtChannel(), regular_font, Constants.LARGE_FONT);
 
         // Set the style of the MAC based on the app theme
-        Utils.setTextViewStyle(context, holder.getTxtMAC(), regular_font, "Large");
+        Utils.setTextViewStyle(context, holder.getTxtMAC(), regular_font, Constants.LARGE_FONT);
 
         // Set the style of the RSSI based on the app theme
-        Utils.setTextViewStyle(context, holder.getTxtSignalStrength(), bold_font, "Large");
+        Utils.setTextViewStyle(context, holder.getTxtSignalStrength(), bold_font, Constants.LARGE_FONT);
 
         holder.getTxtIPAddress().setText(ap.getIpAddress());
         holder.getTxtConnectionStatus().setText(String.valueOf(ap.isConnected()));

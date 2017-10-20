@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.elearnna.www.wififingerprint.R;
 import com.elearnna.www.wififingerprint.adapter.SpinnerAdapter;
+import com.elearnna.www.wififingerprint.app.Constants;
 import com.elearnna.www.wififingerprint.app.Utils;
 import com.elearnna.www.wififingerprint.fragments.APsListFragment;
 import com.elearnna.www.wififingerprint.model.Locator;
@@ -176,9 +177,9 @@ public class LocationDialog extends DialogFragment implements View.OnClickListen
         Typeface regular_font = Utils.setQuicksandRegularFont(getContext());
 
         // Set the style of the scanning duration label TextView
-        Utils.setTextViewStyle(getContext(), scanningDurationLabel, bold_font, "Regular");
+        Utils.setTextViewStyle(getContext(), scanningDurationLabel, bold_font, Constants.REGULAR_FONT);
 
         // Set the style of the location name label TextView
-        Utils.setTextViewStyle(getContext(), locationNameLabel, bold_font, "Regular");
+        Utils.setTextViewStyle(getContext(), locationNameLabel, bold_font, Constants.REGULAR_FONT);
     }
 }

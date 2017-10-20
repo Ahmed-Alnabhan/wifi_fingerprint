@@ -71,7 +71,7 @@ public class WidgetFactory implements RemoteViewsService.RemoteViewsFactory {
             AP ap = aps.get(i);
             remoteViews = new RemoteViews(context.getPackageName(), R.layout.ap_item_widget);
             ssid = ap.getSsid();
-            mac = "MAC: " + ap.getMacAddress();
+            mac = context.getResources().getString(R.string.mac_label) + ap.getMacAddress();
             rssi = ap.getRssi();
         } 
         remoteViews.setTextViewText(R.id.widget_ssid, ssid);

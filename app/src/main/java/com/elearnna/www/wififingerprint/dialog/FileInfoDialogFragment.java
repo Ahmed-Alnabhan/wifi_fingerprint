@@ -89,7 +89,6 @@ public class FileInfoDialogFragment extends DialogFragment{
     private Context mContext;
     private String selectedFileType;
     private String fileName;
-    private String fullFileName;
     private com.elearnna.www.wififingerprint.model.File myFile;
     private Intent intent;
 
@@ -382,8 +381,6 @@ public class FileInfoDialogFragment extends DialogFragment{
     private void setTextViewsStyle() {
         // set quicksand bold font
         Typeface bold_font = Utils.setQuicksandBoldFont(getActivity());
-        // set quicksand regular font
-        Typeface regular_font = Utils.setQuicksandRegularFont(getActivity());
 
         // Set the style of the SSID based on the app theme
         Utils.setTextViewStyle(getContext(), txtFileTypeLabel, bold_font, "Regular");

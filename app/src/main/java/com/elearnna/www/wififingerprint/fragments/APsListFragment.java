@@ -436,7 +436,7 @@ public class APsListFragment extends Fragment implements APsListView, APsAdapter
 
     // Read the device info and write them to the database only once
     private synchronized void readDeviceInfoOnce(){
-        Device device = Utils.readDeviceInfo();
+        Device device = Utils.readDeviceInfo(getContext());
         if (device != null) {
             writeDeviceInfoToDB(device);
         }
@@ -477,25 +477,25 @@ public class APsListFragment extends Fragment implements APsListView, APsAdapter
         Typeface regular_font = Utils.setQuicksandRegularFont(getActivity());
 
         // Set the style of the SSID based on the app theme
-        Utils.setTextViewStyle(getActivity(), txtSSID, bold_font, "Large");
+        Utils.setTextViewStyle(getActivity(), txtSSID, bold_font, Constants.LARGE_FONT);
 
         // Set the style of the IP address based on the app theme
-        Utils.setTextViewStyle(getActivity(), txtIPAddress, regular_font, "Regular");
+        Utils.setTextViewStyle(getActivity(), txtIPAddress, regular_font, Constants.REGULAR_FONT);
 
         // Set the style of the Connection status based on the app theme
-        Utils.setTextViewStyle(getActivity(), txtConnectionStatus, regular_font, "Small");
+        Utils.setTextViewStyle(getActivity(), txtConnectionStatus, regular_font, Constants.SMALL_FONT);
 
         // Set the style of the Channel based on the app theme
-        Utils.setTextViewStyle(getActivity(), txtChannel, regular_font, "Large");
+        Utils.setTextViewStyle(getActivity(), txtChannel, regular_font, Constants.LARGE_FONT);
 
         // Set the style of the MAC based on the app theme
-        Utils.setTextViewStyle(getActivity(), txtMAC, regular_font, "Large");
+        Utils.setTextViewStyle(getActivity(), txtMAC, regular_font, Constants.LARGE_FONT);
 
         // Set the style of the RSSI based on the app theme
-        Utils.setTextViewStyle(getActivity(), txtSignalStrength, bold_font, "Large");
+        Utils.setTextViewStyle(getActivity(), txtSignalStrength, bold_font, Constants.LARGE_FONT);
 
         // Set the style of the wifiNotConnected text view
-        Utils.setTextViewStyle(getActivity(), txtWifiNotConnected, bold_font, "Large");
+        Utils.setTextViewStyle(getActivity(), txtWifiNotConnected, bold_font, Constants.LARGE_FONT);
     }
 
     private void showLocationDialog() {

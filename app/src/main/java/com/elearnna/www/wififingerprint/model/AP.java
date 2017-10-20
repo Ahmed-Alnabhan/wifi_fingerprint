@@ -26,14 +26,6 @@ public class AP implements Parcelable {
     private int isConnected;
     private String time;
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
     public String getSsid() {
         return ssid;
     }
@@ -108,10 +100,6 @@ public class AP implements Parcelable {
 
     public int isConnected() {
         return isConnected;
-    }
-
-    public void setConnected(int connected) {
-        isConnected = connected;
     }
 
     public String getTime() {

@@ -23,7 +23,6 @@ import com.elearnna.www.wififingerprint.fragments.AboutFragment;
 import com.elearnna.www.wififingerprint.fragments.DeviceInfoFragment;
 import com.elearnna.www.wififingerprint.fragments.SettingsFragment;
 import com.elearnna.www.wififingerprint.fragments.StoredFilesFragment;
-import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 
@@ -36,7 +35,6 @@ public class APsList extends AppCompatActivity
     private boolean mTwoPane = false;
     private int selectedItem;
     private Tracker mTracker;
-    private GoogleAnalytics analytics;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

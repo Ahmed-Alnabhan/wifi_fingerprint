@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.elearnna.www.wififingerprint.BuildConfig;
 import com.elearnna.www.wififingerprint.R;
+import com.elearnna.www.wififingerprint.app.Constants;
 import com.elearnna.www.wififingerprint.app.Utils;
 
 import butterknife.BindView;
@@ -85,8 +86,8 @@ public class AboutFragment extends Fragment {
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-        outState.putInt("scrollPositionX",aboutScrollView.getScrollX());
-        outState.putInt("scrollPositionY",aboutScrollView.getScrollY());
+        outState.putInt(Constants.SCROLL_POSITION_X,aboutScrollView.getScrollX());
+        outState.putInt(Constants.SCROLL_POSITION_Y,aboutScrollView.getScrollY());
         super.onSaveInstanceState(outState);
 
     }
@@ -95,8 +96,8 @@ public class AboutFragment extends Fragment {
     public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
         super.onViewStateRestored(savedInstanceState);
         if (savedInstanceState != null) {
-            scrollPositionX = savedInstanceState.getInt("scrollPositionX");
-            scrollPositionY = savedInstanceState.getInt("scrollPositionY");
+            scrollPositionX = savedInstanceState.getInt(Constants.SCROLL_POSITION_X);
+            scrollPositionY = savedInstanceState.getInt(Constants.SCROLL_POSITION_Y);
             aboutScrollView.post(new Runnable() {
                 @Override
                 public void run() {
@@ -118,24 +119,24 @@ public class AboutFragment extends Fragment {
         Typeface regular_font = Utils.setQuicksandRegularFont(getContext());
 
         // Set the style of the description title TextView
-        Utils.setTextViewStyle(getContext(), txtDescriptionTitle, regular_font, "Large");
+        Utils.setTextViewStyle(getContext(), txtDescriptionTitle, regular_font, Constants.LARGE_FONT);
 
         // Set the style of the description body TextView
-        Utils.setTextViewStyle(getContext(), txtDescriptionBody, regular_font, "Regular");
+        Utils.setTextViewStyle(getContext(), txtDescriptionBody, regular_font, Constants.REGULAR_FONT);
 
         // Set the style of the libraries title TextView
-        Utils.setTextViewStyle(getContext(), txtLibrariesTitle, regular_font, "Large");
+        Utils.setTextViewStyle(getContext(), txtLibrariesTitle, regular_font, Constants.LARGE_FONT);
 
         // Set the style of the libraries body TextView
-        Utils.setTextViewStyle(getContext(), txtLibrariesBody, regular_font, "Regular");
+        Utils.setTextViewStyle(getContext(), txtLibrariesBody, regular_font, Constants.REGULAR_FONT);
 
         // Set the style of the icons title TextView
-        Utils.setTextViewStyle(getContext(), txtIconsTitle, regular_font, "Large");
+        Utils.setTextViewStyle(getContext(), txtIconsTitle, regular_font, Constants.LARGE_FONT);
 
         // Set the style of the icons body TextView
-        Utils.setTextViewStyle(getContext(), txtIconsBody, regular_font, "Regular");
+        Utils.setTextViewStyle(getContext(), txtIconsBody, regular_font, Constants.REGULAR_FONT);
 
         // Set the style of the app version TextView
-        Utils.setTextViewStyle(getContext(), txtAppVersion, bold_font, "Large");
+        Utils.setTextViewStyle(getContext(), txtAppVersion, bold_font, Constants.LARGE_FONT);
     }
 }

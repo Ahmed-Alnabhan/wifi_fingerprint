@@ -125,7 +125,7 @@ public class APsFingerprintService extends Service {
                     String formattedDate = dateFormat.format(currentDate);
                     ap.setTime(formattedDate);
                     writeAPInfoToDB(ap, writen++);
-                    numberOfReadings--;
+                    //numberOfReadings--;
                 }
 
         }

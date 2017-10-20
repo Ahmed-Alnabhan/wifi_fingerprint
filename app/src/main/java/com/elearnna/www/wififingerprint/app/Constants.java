@@ -164,6 +164,11 @@ public class Constants {
     public static final String ALPHABETICALLY = "alphabetically";
     public static final java.lang.String AP_ID_MOBILE_AD = "ca-app-pub-2524500526022422~2001299541";
     public static final String AP_LIST_SCREEN_NAME = "APs List Screen";
+    public static final String SCROLL_POSITION_X = "scrollPositionX";
+    public static final String SCROLL_POSITION_Y = "scrollPositionY";
+    public static final String LARGE_FONT = "Large";
+    public static final String REGULAR_FONT = "Regular";
+    public static final String SMALL_FONT = "Small";
 
     public static int MIN_5_GHZ_FREQUENCY = 5180;
     public static int MAX_5_GHZ_FREQUENCY =  5809;

@@ -78,6 +78,7 @@
     <string name="scanning_duration">Scanning Duration:</string>
     <string name="location_name">Location Name:</string>
     <string name="cancel">CANCEL</string>
+    <string name="small_cancel">cancel</string>
     <string name="save">SAVE</string>
     <string name="file_type">File Type:</string>
     <string name="file_name">File Name:</string>
@@ -129,4 +130,8 @@
     <string name="ip_label">IP: </string>
     <string name="location_dialog_title">This is a custom title</string>
     <string name="no_text_reader_installed_message">There is no text reader app installed on your device. Please install one</string>
+    <string name="share_file_title">Share file</string>
+    <string name="json_file_type">.json file?</string>
+    <string name="share_file_type">*/*</string>
+    <string name="android_os">Android</string>
 </resources>

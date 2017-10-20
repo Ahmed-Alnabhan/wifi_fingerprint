@@ -57,7 +57,7 @@ public class StoredFilesFragment extends Fragment implements StoredFilesView{
 
     private StoredFilesPresenter storedFilesPresenter;
     private LoaderManager loaderManager;
-    private Bundle savedInstance, state;
+    private Bundle state;
     private StoredFilesAdapter storedFilesAdapter;
 
     public StoredFilesFragment() {
@@ -77,8 +77,6 @@ public class StoredFilesFragment extends Fragment implements StoredFilesView{
 
         // Show APs loading progress bar
         showAPsLoading();
-
-        savedInstance = savedInstanceState;
         state = new Bundle();
 
         loaderManager = getLoaderManager();
@@ -157,13 +155,13 @@ public class StoredFilesFragment extends Fragment implements StoredFilesView{
         Typeface regular_font = Utils.setQuicksandRegularFont(getContext());
 
         // Set the style of the file name title TextView
-        Utils.setTextViewStyle(getContext(), txtFileNameTitle, bold_font, "Regular");
+        Utils.setTextViewStyle(getContext(), txtFileNameTitle, bold_font, Constants.REGULAR_FONT);
 
         // Set the style of the file content TextView
-        Utils.setTextViewStyle(getContext(), txtFileContentTitle, bold_font, "Regular");
+        Utils.setTextViewStyle(getContext(), txtFileContentTitle, bold_font, Constants.REGULAR_FONT);
 
         // Set the style of the actions TextView
-        Utils.setTextViewStyle(getContext(), txtActionsTitle, bold_font, "Regular");
+        Utils.setTextViewStyle(getContext(), txtActionsTitle, bold_font, Constants.REGULAR_FONT);
     }
 
 }

@@ -241,8 +241,6 @@ public class Utils {
     }
 
     public static boolean isConnected(Context context, String mac) {
-//        WifiManager connectivityManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
-//        WifiInfo networkInfo = connectivityManager.getConnectionInfo();
         String ss = getMacAddr();
         if (ss.equals(mac)) {
             return true;
@@ -321,13 +319,13 @@ public class Utils {
     public static void setTextViewStyle(Context context, TextView tv, Typeface font, String fontSize){
         int darkSize = 0;
         int lightSize = 0;
-        if (fontSize.equals("Large")){
+        if (fontSize.equals(Constants.LARGE_FONT)){
             darkSize = R.style.text_large_dark;
             lightSize = R.style.text_large_light;
-        } else if (fontSize.equals("Regular")){
+        } else if (fontSize.equals(Constants.REGULAR_FONT)){
             darkSize = R.style.text_regular_dark;
             lightSize = R.style.text_regular_light;
-        } else if (fontSize.equals("Small")) {
+        } else if (fontSize.equals(Constants.SMALL_FONT)) {
             darkSize = R.style.text_small_dark;
             lightSize = R.style.text_small_light;
         }
@@ -346,14 +344,14 @@ public class Utils {
         wifiManager.startScan();
     }
 
-    public static Device readDeviceInfo(){
+    public static Device readDeviceInfo(Context context){
         Device device = new Device();
         device.setManufacturer(Build.MANUFACTURER);
         device.setBrand(Build.BRAND);
         device.setDevice(Build.DEVICE);
         device.setModel(Build.MODEL);
         device.setProduct(Build.PRODUCT);
-        device.setOs("Android");
+        device.setOs(context.getResources().getString(R.string.android_os));
         device.setApiLevel(Build.VERSION.SDK_INT);
         device.setOsVersion(Build.VERSION.RELEASE);
         return device;
@@ -366,10 +364,10 @@ public class Utils {
         String pm = context.getApplicationContext().getPackageName();
         Uri selectedUri = FileProvider.getUriForFile(context, pm + ".provider.GenericFileProvider", filePath);
         Intent intent = new Intent(Intent.ACTION_SEND);
-        intent.setType("*/*");
+        intent.setType(context.getResources().getString(R.string.share_file_type));
         intent.putExtra(Intent.EXTRA_STREAM, selectedUri);
         intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-        context.startActivity(Intent.createChooser(intent, "Share file"));
+        context.startActivity(Intent.createChooser(intent, context.getResources().getString(R.string.share_file_title)));
     }
 
     /**
@@ -377,7 +375,7 @@ public class Utils {
      */
     public static AlertDialog showDeleteDialog(final File filePath, final String fileName, final Context context) {
         String dialogTitle = context.getResources().getString(R.string.delete_dialog_title);
-        String dialogMessage = context.getResources().getString(R.string.delete_message) + " " + fileName + ".json file?";
+        String dialogMessage = context.getResources().getString(R.string.delete_message) + " " + fileName + context.getResources().getString(R.string.json_file_type);
         AlertDialog myQuittingDialogBox = new AlertDialog.Builder(context)
                 //Set dialog title
                 .setTitle(dialogTitle)
@@ -397,7 +395,7 @@ public class Utils {
                     }
 
                 })
-                .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+                .setNegativeButton(context.getResources().getString(R.string.small_cancel), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
 

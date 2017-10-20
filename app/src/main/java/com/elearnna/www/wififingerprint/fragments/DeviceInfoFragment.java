@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.elearnna.www.wififingerprint.R;
+import com.elearnna.www.wififingerprint.app.Constants;
 import com.elearnna.www.wififingerprint.app.Utils;
 import com.elearnna.www.wififingerprint.model.Device;
 import com.elearnna.www.wififingerprint.presenter.DeviceInfoPresenter;
@@ -136,51 +137,51 @@ public class DeviceInfoFragment extends Fragment implements DeviceInfoView{
         Typeface regular_font = Utils.setQuicksandRegularFont(getContext());
 
         // Set the style of the manufacturer value TextView
-        Utils.setTextViewStyle(getContext(), txtDIManufacturer, bold_font, "Regular");
+        Utils.setTextViewStyle(getContext(), txtDIManufacturer, bold_font, Constants.REGULAR_FONT);
 
         // Set the style of the manufacturer label TextView
-        Utils.setTextViewStyle(getContext(), txtDIManufacturerLabel, regular_font, "Regular");
+        Utils.setTextViewStyle(getContext(), txtDIManufacturerLabel, regular_font, Constants.REGULAR_FONT);
 
         // Set the style of the model value TextView
-        Utils.setTextViewStyle(getContext(), txtDIModel, bold_font, "Regular");
+        Utils.setTextViewStyle(getContext(), txtDIModel, bold_font, Constants.REGULAR_FONT);
 
         // Set the style of the model label TextView
-        Utils.setTextViewStyle(getContext(), txtDIModelLabel, regular_font, "Regular");
+        Utils.setTextViewStyle(getContext(), txtDIModelLabel, regular_font, Constants.REGULAR_FONT);
 
         // Set the style of the brand value TextView
-        Utils.setTextViewStyle(getContext(), txtDIBrand, bold_font, "Regular");
+        Utils.setTextViewStyle(getContext(), txtDIBrand, bold_font, Constants.REGULAR_FONT);
 
         // Set the style of the brand label TextView
-        Utils.setTextViewStyle(getContext(), txtDIBrandLabel, regular_font, "Regular");
+        Utils.setTextViewStyle(getContext(), txtDIBrandLabel, regular_font, Constants.REGULAR_FONT);
 
         // Set the style of the device value TextView
-        Utils.setTextViewStyle(getContext(), txtDIDevice, bold_font, "Regular");
+        Utils.setTextViewStyle(getContext(), txtDIDevice, bold_font, Constants.REGULAR_FONT);
 
         // Set the style of the device label TextView
-        Utils.setTextViewStyle(getContext(), txtDIDeviceLabel, regular_font, "Regular");
+        Utils.setTextViewStyle(getContext(), txtDIDeviceLabel, regular_font, Constants.REGULAR_FONT);
 
         // Set the style of the product value TextView
-        Utils.setTextViewStyle(getContext(), txtDIProduct, bold_font, "Regular");
+        Utils.setTextViewStyle(getContext(), txtDIProduct, bold_font, Constants.REGULAR_FONT);
 
         // Set the style of the product label TextView
-        Utils.setTextViewStyle(getContext(), txtDIProductLabel, regular_font, "Regular");
+        Utils.setTextViewStyle(getContext(), txtDIProductLabel, regular_font, Constants.REGULAR_FONT);
 
         // Set the style of the os value TextView
-        Utils.setTextViewStyle(getContext(), txtDIOS, bold_font, "Regular");
+        Utils.setTextViewStyle(getContext(), txtDIOS, bold_font, Constants.REGULAR_FONT);
 
         // Set the style of the os label TextView
-        Utils.setTextViewStyle(getContext(), txtDIOSLabel, regular_font, "Regular");
+        Utils.setTextViewStyle(getContext(), txtDIOSLabel, regular_font, Constants.REGULAR_FONT);
 
         // Set the style of the os version value TextView
-        Utils.setTextViewStyle(getContext(), txtDIOSVersion, bold_font, "Regular");
+        Utils.setTextViewStyle(getContext(), txtDIOSVersion, bold_font, Constants.REGULAR_FONT);
 
         // Set the style of the os version label TextView
-        Utils.setTextViewStyle(getContext(), txtDIOSVersionLabel, regular_font, "Regular");
+        Utils.setTextViewStyle(getContext(), txtDIOSVersionLabel, regular_font, Constants.REGULAR_FONT);
 
         // Set the style of the api level value TextView
-        Utils.setTextViewStyle(getContext(), txtDIAPILevel, bold_font, "Regular");
+        Utils.setTextViewStyle(getContext(), txtDIAPILevel, bold_font, Constants.REGULAR_FONT);
 
         // Set the style of the api level label TextView
-        Utils.setTextViewStyle(getContext(), txtDIAPILevelLabel, regular_font, "Regular");
+        Utils.setTextViewStyle(getContext(), txtDIAPILevelLabel, regular_font, Constants.REGULAR_FONT);
     }
 }
