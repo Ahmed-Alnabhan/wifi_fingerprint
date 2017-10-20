@@ -16,13 +16,16 @@ import android.view.MenuItem;
 
 import com.elearnna.www.wififingerprint.R;
 import com.elearnna.www.wififingerprint.app.Constants;
+import com.elearnna.www.wififingerprint.app.MyApplication;
 import com.elearnna.www.wififingerprint.app.Utils;
 import com.elearnna.www.wififingerprint.fragments.APsListFragment;
 import com.elearnna.www.wififingerprint.fragments.AboutFragment;
 import com.elearnna.www.wififingerprint.fragments.DeviceInfoFragment;
 import com.elearnna.www.wififingerprint.fragments.SettingsFragment;
 import com.elearnna.www.wififingerprint.fragments.StoredFilesFragment;
-import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.analytics.GoogleAnalytics;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 
 public class APsList extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, SharedPreferences.OnSharedPreferenceChangeListener {
@@ -32,7 +35,8 @@ public class APsList extends AppCompatActivity
     private String theme;
     private boolean mTwoPane = false;
     private int selectedItem;
-    private MenuItem menuItem;
+    private Tracker mTracker;
+    private GoogleAnalytics analytics;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +74,9 @@ public class APsList extends AppCompatActivity
         } else {
             selectedItem = savedInstanceState.getInt(Constants.SELECTED_ITEM);
         }
-
+        // Obtain the shared Tracker instance.
+        MyApplication application = (MyApplication) getApplication();
+        mTracker = application.getDefaultTracker();
 
     }
 
@@ -189,5 +195,12 @@ public class APsList extends AppCompatActivity
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         selectedItem = savedInstanceState.getInt(Constants.SELECTED_ITEM);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mTracker.setScreenName("Image~" + Constants.AP_LIST_SCREEN_NAME);
+        mTracker.send(new HitBuilders.ScreenViewBuilder().build());
     }
 }

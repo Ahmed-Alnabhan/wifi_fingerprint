@@ -59,5 +59,6 @@ dependencies {
         exclude group: 'com.android.support', module: 'recyclerview-v7'
     }
     compile 'com.rengwuxian.materialedittext:library:2.1.4'
-    compile 'com.google.android.gms:play-services-ads:11.2.0'
+    compile 'com.google.android.gms:play-services-ads:10.2.4'
+    compile 'com.google.android.gms:play-services-analytics:10.2.4'
 }
