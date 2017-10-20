@@ -162,6 +162,7 @@ public class Constants {
     public static final String ALL_BANDS = "all";
     public static final String RSSI_ASCENDING = "RSSI (DESC)";
     public static final String ALPHABETICALLY = "alphabetically";
+    public static final java.lang.String AP_ID_MOBILE_AD = "ca-app-pub-2524500526022422~2001299541";
 
     public static int MIN_5_GHZ_FREQUENCY = 5180;
     public static int MAX_5_GHZ_FREQUENCY =  5809;

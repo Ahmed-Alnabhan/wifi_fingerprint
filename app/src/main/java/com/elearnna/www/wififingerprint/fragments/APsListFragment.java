@@ -53,6 +53,9 @@ import com.elearnna.www.wififingerprint.presenter.APsListPresenter;
 import com.elearnna.www.wififingerprint.presenter.APsListPresenterImplementer;
 import com.elearnna.www.wififingerprint.provider.APContentProvider;
 import com.elearnna.www.wififingerprint.view.APsListView;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -101,6 +104,9 @@ public class APsListFragment extends Fragment implements APsListView, APsAdapter
 
     @BindView(R.id.ap_item_layout)
     FrameLayout apItemLayout;
+
+    @BindView(R.id.adView)
+    AdView adView;
 
     private APsListPresenter aPsListPresenter;
     private WifiManager wifiManager;
@@ -172,7 +178,7 @@ public class APsListFragment extends Fragment implements APsListView, APsAdapter
 
         // FAB
 
-        FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);
+        FloatingActionButton fab = view.findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -182,6 +188,13 @@ public class APsListFragment extends Fragment implements APsListView, APsAdapter
 
         // Set content description of used drawables
         fab.setContentDescription(getResources().getString(R.string.fab_description));
+
+        // AdView stuff// Initialize the admob
+        MobileAds.initialize(getActivity(), Constants.AP_ID_MOBILE_AD);
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                .build();
+        adView.loadAd(adRequest);
         return view;
     }
 

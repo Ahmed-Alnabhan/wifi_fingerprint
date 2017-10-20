@@ -22,6 +22,7 @@ import com.elearnna.www.wififingerprint.fragments.AboutFragment;
 import com.elearnna.www.wififingerprint.fragments.DeviceInfoFragment;
 import com.elearnna.www.wififingerprint.fragments.SettingsFragment;
 import com.elearnna.www.wififingerprint.fragments.StoredFilesFragment;
+import com.google.android.gms.ads.MobileAds;
 
 public class APsList extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, SharedPreferences.OnSharedPreferenceChangeListener {
@@ -69,6 +70,8 @@ public class APsList extends AppCompatActivity
         } else {
             selectedItem = savedInstanceState.getInt(Constants.SELECTED_ITEM);
         }
+
+
     }
 
     @Override

@@ -130,7 +130,7 @@ public class APDetailFragment extends Fragment implements APDetailView, APDetail
             }
 
             // set the band
-            if (!band.isEmpty() && band != null) {
+            if (band != null && !band.isEmpty()) {
                 bandValue.setText(band);
             } else {
                 bandValue.setText(Constants.UNKNOWN);
