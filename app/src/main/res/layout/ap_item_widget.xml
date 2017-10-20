@@ -30,7 +30,8 @@
         android:layout_height="wrap_content"
         tools:text="@string/signal_strength"
         android:layout_marginTop="@dimen/dimen_8_dp"
-        android:layout_toRightOf="@+id/widget_mac"
-        android:textColor="@android:color/white"/>
+        android:layout_toEndOf="@+id/widget_mac"
+        android:textColor="@android:color/white"
+        android:layout_toRightOf="@+id/widget_mac" />
 
 </RelativeLayout>
