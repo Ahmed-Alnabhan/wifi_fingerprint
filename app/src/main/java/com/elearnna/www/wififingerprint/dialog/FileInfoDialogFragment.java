@@ -7,9 +7,12 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Typeface;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.DialogFragment;
@@ -196,7 +199,9 @@ public class FileInfoDialogFragment extends DialogFragment{
         intent.putExtra("duration", getArguments().getInt("timer"));
         intent.putExtra("location", location);
         mContext.startService(intent);
-        startTimer();
+        //startTimer();
+        CounterAsyncTask at = new CounterAsyncTask();
+        at.execute(duration);
 
         // Set OnClickListener for the cancel button
         btnCancel.setOnClickListener(new View.OnClickListener() {
@@ -226,28 +231,28 @@ public class FileInfoDialogFragment extends DialogFragment{
     }
 
 
-    private void startTimer() {
-        txtCountDownTimer.setVisibility(View.VISIBLE);
-        //readAPInfo();
-        new CountDownTimer(duration * Constants.ONE_SECOND, Constants.ONE_SECOND) {
-            @Override
-            public void onTick(long l) {
-                currentTick = l / Constants.ONE_SECOND;
-                txtCountDownTimer.setText(String.valueOf(currentTick));
-            }
-
-            @Override
-            public void onFinish() {
-                txtCountDownTimer.setVisibility(View.GONE);
-                showControls();
-                readAPInfoFromDB(location);
-                if (isAdded()) {
-                    getLoaderManager().initLoader(1, null, mLoader).forceLoad();
-                }
-            }
-        }.start();
-
-    }
+//    private void startTimer() {
+//        txtCountDownTimer.setVisibility(View.VISIBLE);
+//        //readAPInfo();
+//        new CountDownTimer(duration * Constants.ONE_SECOND, Constants.ONE_SECOND) {
+//            @Override
+//            public void onTick(long l) {
+//                currentTick = l / Constants.ONE_SECOND;
+//                txtCountDownTimer.setText(String.valueOf(currentTick));
+//            }
+//
+//            @Override
+//            public void onFinish() {
+//                txtCountDownTimer.setVisibility(View.GONE);
+//                showControls();
+//                readAPInfoFromDB(location);
+//                if (isAdded()) {
+//                    getLoaderManager().initLoader(1, null, mLoader).forceLoad();
+//                }
+//            }
+//        }.start();
+//
+//    }
 
     private void hideControls() {
         txtFileTypeLabel.setVisibility(View.GONE);
@@ -400,6 +405,49 @@ public class FileInfoDialogFragment extends DialogFragment{
         // Set the font type of the file name edit text
         etFileName.setTypeface(bold_font);
         etFileName.setTextColor(ContextCompat.getColor(getContext(), R.color.wifi_light_gray));
+    }
+
+    private class CounterAsyncTask extends AsyncTask<Integer, Long, Void> {
+
+
+        @Override
+        protected Void doInBackground(Integer... params) {
+            startTimer(params[0]);
+            return null;
+        }
+
+        @Override
+        protected void onProgressUpdate(Long... values) {
+            txtCountDownTimer.setText(String.valueOf(values[0]));
+        }
+
+        private void startTimer(final Integer duration) {
+            txtCountDownTimer.setVisibility(View.VISIBLE);
+            //readAPInfo();
+            new Handler(Looper.getMainLooper()).post(new Runnable() {
+                @Override
+                public void run() {
+            new CountDownTimer(duration * Constants.ONE_SECOND, Constants.ONE_SECOND) {
+                @Override
+                public void onTick(long l) {
+                    currentTick = l / Constants.ONE_SECOND;
+                    //txtCountDownTimer.setText(String.valueOf(currentTick));
+                    publishProgress(currentTick);
+                }
+
+                @Override
+                public void onFinish() {
+                    txtCountDownTimer.setVisibility(View.GONE);
+                    showControls();
+                    readAPInfoFromDB(location);
+                    if (isAdded()) {
+                        getLoaderManager().initLoader(1, null, mLoader).forceLoad();
+                    }
+                }
+            }.start();
+                }
+            });
+        }
     }
 
 }

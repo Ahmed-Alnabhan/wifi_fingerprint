@@ -145,11 +145,12 @@
 
     <TextView
         android:id="@+id/txt_file_location_label"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/default_file_location_label"
         android:layout_marginLeft="@dimen/dimen_32_dp"
         app:layout_constraintLeft_toLeftOf="parent"
+        android:gravity="right"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/guideline12"
         app:layout_constraintEnd_toStartOf="@+id/guideline12"

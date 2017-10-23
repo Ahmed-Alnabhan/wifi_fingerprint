@@ -66,10 +66,14 @@ public class APsFingerprintService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         // Get the number of wifi scanning
-        numberOfReadings = intent.getIntExtra("duration", Constants.DEFAULT_DURATION);
+        if (intent.hasExtra("duration")) {
+            numberOfReadings = intent.getIntExtra("duration", Constants.DEFAULT_DURATION);
+        }
 
         // Get the location
-        location = intent.getStringExtra("location");
+        if (intent.hasExtra("location")) {
+            location = intent.getStringExtra("location");
+        }
         readAPInfo();
         return super.onStartCommand(intent, flags, startId);
     }
@@ -77,7 +81,7 @@ public class APsFingerprintService extends Service {
     private void readAPInfo(){
         Log.i("START READING", "START READING" + counter1);
 
-                handler = new Handler();
+        handler = new Handler();
         runnable = new Runnable() {
             @Override
             public void run() {
@@ -106,7 +110,7 @@ public class APsFingerprintService extends Service {
         @Override
         public void onReceive(Context context, Intent intent) {
                 wifiAPsList = wm.getScanResults();
-                Log.i("RECEIVED:", "RECEIVED" + counter++);
+                Log.i("RECEIVED:", "FROM SERVICE" + counter++);
                 for (ScanResult sr : wifiAPsList) {
                     ap = new AP();
                     ap.setSsid(sr.SSID);

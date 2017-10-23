@@ -89,7 +89,7 @@ public class APsListPresenterImplementer implements APsListPresenter{
                 APsList.add(ap);
             }
             aPsListView.displayAPsList(APsList);
-            Log.i("MAIN", "EVERY ... SECONDS");
+            Log.i("RECEIVED:", "FROM APFragment");
         }
     }
 }

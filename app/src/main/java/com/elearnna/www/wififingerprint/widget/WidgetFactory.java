@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
+import android.util.Log;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
@@ -117,6 +118,7 @@ public class WidgetFactory implements RemoteViewsService.RemoteViewsFactory {
 
         @Override
         public void onReceive(Context context, Intent intent) {
+            Log.i("RECEIVED:", "FROM WIDGET");
             apsList = new ArrayList<>();
             aps = new ArrayList<>();
             apsList = wm.getScanResults();
