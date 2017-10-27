@@ -179,6 +179,8 @@ public class APsListFragment extends Fragment implements APsListView, APsAdapter
         // FAB
 
         FloatingActionButton fab = view.findViewById(R.id.fab);
+
+        // Set fab elevation
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

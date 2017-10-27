@@ -1,7 +1,6 @@
 package com.elearnna.www.wififingerprint.service;
 
 import android.app.Service;
-import android.content.BroadcastReceiver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
@@ -21,6 +20,7 @@ import com.elearnna.www.wififingerprint.provider.APContentProvider;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -34,7 +34,7 @@ public class APsFingerprintService extends Service {
     private IntentFilter intentFilter;
     private WifiManager wm;
     private Context mContext;
-    private APBroadcastReceiver apBroadcastReceiver;
+//    private APBroadcastReceiver apBroadcastReceiver;
     private List<ScanResult> wifiAPsList;
     private AP ap;
     private DateFormat dateFormat;
@@ -51,6 +51,11 @@ public class APsFingerprintService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
+
+    }
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
         // Set Date format
         dateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
 
@@ -58,13 +63,7 @@ public class APsFingerprintService extends Service {
         mContext = getApplication().getApplicationContext();
         intentFilter = new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION);
         wm = (WifiManager) mContext.getSystemService(Context.WIFI_SERVICE);
-        apBroadcastReceiver = new APBroadcastReceiver();
-        mContext.registerReceiver(apBroadcastReceiver, intentFilter);
 
-    }
-
-    @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
         // Get the number of wifi scanning
         if (intent.hasExtra("duration")) {
             numberOfReadings = intent.getIntExtra("duration", Constants.DEFAULT_DURATION);
@@ -87,8 +86,7 @@ public class APsFingerprintService extends Service {
             public void run() {
                 if (numberOfReadings > 0) {
                     numberOfReadings -= 1;
-                    wm.setWifiEnabled(true);
-                    wm.startScan();
+                    performWifiScan();
                     Log.i("START READING", "START READING" + counter1++);
                     handler.postDelayed(this, 1000);
                 } else {
@@ -98,41 +96,8 @@ public class APsFingerprintService extends Service {
                 }
             }
         };
-        runnable.run();
         handler.postDelayed(runnable, 1000);
 
-    }
-
-
-    private class APBroadcastReceiver extends BroadcastReceiver {
-        int counter = 1;
-        int writen = 1;
-        @Override
-        public void onReceive(Context context, Intent intent) {
-                wifiAPsList = wm.getScanResults();
-                Log.i("RECEIVED:", "FROM SERVICE" + counter++);
-                for (ScanResult sr : wifiAPsList) {
-                    ap = new AP();
-                    ap.setSsid(sr.SSID);
-                    ap.setLocation(location);
-                    ap.setChannel(Utils.convertFrequencyToChannel(sr.frequency));
-                    ap.setFrequency(sr.frequency);
-                    ap.setMacAddress(sr.BSSID);
-                    ap.setRssi(sr.level);
-                    ap.setSecurityProtocol(sr.capabilities);
-                    if (sr.capabilities != null) {
-                        ap.setLocked(1);
-                    } else {
-                        ap.setLocked(0);
-                    }
-                    Date currentDate = Calendar.getInstance().getTime();
-                    String formattedDate = dateFormat.format(currentDate);
-                    ap.setTime(formattedDate);
-                    writeAPInfoToDB(ap, writen++);
-                    //numberOfReadings--;
-                }
-
-        }
     }
 
     private void writeAPInfoToDB(AP ap, int writen) {
@@ -154,10 +119,45 @@ public class APsFingerprintService extends Service {
         Log.i("WRITTEN TO:", "DB" + writen);
     }
 
+    private void performWifiScan() {
+        int counter = 1;
+        int writen = 1;
+        Log.i("RECEIVED:", "FROM SERVICE" + counter++);
+        List<ScanResult> scanResults = new ArrayList<>();
+        try {
+            if (!wm.isWifiEnabled()) {
+                wm.setWifiEnabled(true);
+            }
+            if (wm.startScan()) {
+                scanResults = wm.getScanResults();
+            }
+            for (ScanResult sr : scanResults) {
+                ap = new AP();
+                ap.setSsid(sr.SSID);
+                ap.setLocation(location);
+                ap.setChannel(Utils.convertFrequencyToChannel(sr.frequency));
+                ap.setFrequency(sr.frequency);
+                ap.setMacAddress(sr.BSSID);
+                ap.setRssi(sr.level);
+                ap.setSecurityProtocol(sr.capabilities);
+                if (sr.capabilities != null) {
+                    ap.setLocked(1);
+                } else {
+                    ap.setLocked(0);
+                }
+                Date currentDate = Calendar.getInstance().getTime();
+                String formattedDate = dateFormat.format(currentDate);
+                ap.setTime(formattedDate);
+                writeAPInfoToDB(ap, writen++);
+            }
+        } catch (Exception e) {
+            // critical error: set to no results and do not die
+        }
+    }
+
     @Override
     public void onDestroy() {
         super.onDestroy();
-        getApplication().getApplicationContext().unregisterReceiver(apBroadcastReceiver);
     }
 
     @Nullable

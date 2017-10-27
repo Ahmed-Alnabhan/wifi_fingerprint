@@ -52,11 +52,16 @@ public class APsListPresenterImplementer implements APsListPresenter{
         wiFiBroadcastReceiver = new WiFiBroadcastReceiver();
         mContext.getApplicationContext().registerReceiver(wiFiBroadcastReceiver, intentFilter);
         aPsListView.showAPsLoading();
+
         handler = new Handler();
         runnable = new Runnable(){
             @Override
             public void run() {
-                Utils.readWifiNetworks(1000, wifiManager, handler, runnable);
+                //Utils.readWifiNetworks(1000, wifiManager, handler, runnable);
+                wifiManager.setWifiEnabled(true);
+                handler.postDelayed(runnable, 1000);
+                Log.i("Main PostDelay:", "RUN");
+                wifiManager.startScan();
             }
         };
         handler.postDelayed(runnable, 1000);
