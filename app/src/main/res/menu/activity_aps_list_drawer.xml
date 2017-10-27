@@ -7,6 +7,10 @@
             android:icon="@drawable/ic_access_points"
             android:title="@string/access_points_drawer_item"/>
         <item
+            android:id="@+id/nav_fingerprint"
+            android:icon="@drawable/ic_save_drawer_icon"
+            android:title="@string/fingerprint_aps_drawer_item"/>
+        <item
             android:id="@+id/nav_files"
             android:icon="@drawable/ic_file"
             android:title="@string/stored_files_drawer_item" />

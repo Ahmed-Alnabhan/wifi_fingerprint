@@ -18,6 +18,7 @@ import com.elearnna.www.wififingerprint.R;
 import com.elearnna.www.wififingerprint.app.Constants;
 import com.elearnna.www.wififingerprint.app.MyApplication;
 import com.elearnna.www.wififingerprint.app.Utils;
+import com.elearnna.www.wififingerprint.dialog.LocationDialog;
 import com.elearnna.www.wififingerprint.fragments.APsListFragment;
 import com.elearnna.www.wififingerprint.fragments.AboutFragment;
 import com.elearnna.www.wififingerprint.fragments.DeviceInfoFragment;
@@ -106,7 +107,11 @@ public class APsList extends AppCompatActivity
                 APsListFragment aPsListFragment = new APsListFragment();
                 transactFragment(aPsListFragment);
             }
-        } else if (id == R.id.nav_files) {
+        }else if (id == R.id.nav_fingerprint) {
+            FragmentManager fm = this.getSupportFragmentManager();
+            LocationDialog editLocationDialogFragment = LocationDialog.newInstance("Location-duration Info");
+            editLocationDialogFragment.show(fm, "fragment_edit_name");
+        }else if (id == R.id.nav_files) {
             if (!mTwoPane) {
                 Intent intent = new Intent(this, StoredFiles.class);
                 startActivity(intent);
