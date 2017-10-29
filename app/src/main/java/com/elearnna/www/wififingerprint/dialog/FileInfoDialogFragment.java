@@ -23,7 +23,6 @@ import android.support.v4.content.Loader;
 import android.support.v7.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -293,9 +292,7 @@ public class FileInfoDialogFragment extends DialogFragment{
         Cursor cursor = mContext.getContentResolver().query(Constants.APS_CONTENT_URL, null, selection, selectionArgs, null);
         if (cursor.moveToFirst()) {
             try {
-                while (cursor.moveToNext()) {
-                    Log.i("APS_RECORDS", cursor.getString(cursor.getColumnIndex("mac_address")));
-                }
+
             } finally {
                 cursor.close();
             }
@@ -347,7 +344,6 @@ public class FileInfoDialogFragment extends DialogFragment{
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            Log.i("FingerPrint JSON: ", jsonString);
             return true;
         } else {
             return false;

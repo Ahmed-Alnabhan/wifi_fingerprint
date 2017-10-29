@@ -78,8 +78,6 @@ public class APsFingerprintService extends Service {
     }
 
     private void readAPInfo(){
-        Log.i("START READING", "START READING" + counter1);
-
         handler = new Handler();
         runnable = new Runnable() {
             @Override
@@ -87,10 +85,8 @@ public class APsFingerprintService extends Service {
                 if (numberOfReadings > 0) {
                     numberOfReadings -= 1;
                     performWifiScan();
-                    Log.i("START READING", "START READING" + counter1++);
                     handler.postDelayed(this, 1000);
                 } else {
-                    Log.i("STOPED:", "FINISH TIMER" );
                     handler.removeCallbacks(runnable);
                     stopSelf();
                 }
@@ -100,7 +96,7 @@ public class APsFingerprintService extends Service {
 
     }
 
-    private void writeAPInfoToDB(AP ap, int writen) {
+    private void writeAPInfoToDB(AP ap) {
         // Create a new map of values
         ContentValues apValues = new ContentValues();
         apValues.put(APContentProvider.location, ap.getLocation());
@@ -116,13 +112,9 @@ public class APsFingerprintService extends Service {
         apValues.put(APContentProvider.time, ap.getTime());
         Uri uri = mContext.getContentResolver().insert(Constants.APS_CONTENT_URL, apValues);
 
-        Log.i("WRITTEN TO:", "DB" + writen);
     }
 
     private void performWifiScan() {
-        int counter = 1;
-        int writen = 1;
-        Log.i("RECEIVED:", "FROM SERVICE" + counter++);
         List<ScanResult> scanResults = new ArrayList<>();
         try {
             if (!wm.isWifiEnabled()) {
@@ -148,7 +140,7 @@ public class APsFingerprintService extends Service {
                 Date currentDate = Calendar.getInstance().getTime();
                 String formattedDate = dateFormat.format(currentDate);
                 ap.setTime(formattedDate);
-                writeAPInfoToDB(ap, writen++);
+                writeAPInfoToDB(ap);
             }
         } catch (Exception e) {
             // critical error: set to no results and do not die

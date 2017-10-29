@@ -8,7 +8,6 @@ import android.net.wifi.ScanResult;
 import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Handler;
-import android.util.Log;
 
 import com.elearnna.www.wififingerprint.app.Constants;
 import com.elearnna.www.wififingerprint.app.Utils;
@@ -60,7 +59,6 @@ public class APsListPresenterImplementer implements APsListPresenter{
                 //Utils.readWifiNetworks(1000, wifiManager, handler, runnable);
                 wifiManager.setWifiEnabled(true);
                 handler.postDelayed(runnable, 1000);
-                Log.i("Main PostDelay:", "RUN");
                 wifiManager.startScan();
             }
         };
@@ -94,7 +92,6 @@ public class APsListPresenterImplementer implements APsListPresenter{
                 APsList.add(ap);
             }
             aPsListView.displayAPsList(APsList);
-            Log.i("RECEIVED:", "FROM APFragment");
         }
     }
 }
