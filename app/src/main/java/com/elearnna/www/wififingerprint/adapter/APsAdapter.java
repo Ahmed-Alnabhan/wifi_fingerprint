@@ -1,9 +1,11 @@
 package com.elearnna.www.wififingerprint.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.AppCompatDrawableManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -39,6 +41,7 @@ public class APsAdapter extends RecyclerView.Adapter<APsListViewHolder>{
         return new APsListViewHolder(inflater.inflate(R.layout.ap_item, parent, false), listOfAPs, onClickHandler);
     }
 
+    @SuppressLint("RestrictedApi")
     @Override
     public void onBindViewHolder(APsListViewHolder holder, int position) {
         ap = listOfAPs.get(position);
@@ -83,7 +86,7 @@ public class APsAdapter extends RecyclerView.Adapter<APsListViewHolder>{
         holder.getTxtMAC().setText(context.getResources().getString(R.string.mac_label) + ap.getMacAddress());
         holder.getTxtSignalStrength().setText(String.valueOf(rssi));
         RSSIRepresenter rssiRepresenter = Utils.setWifiImage(rssi, context);
-        holder.getWifiImage().setImageDrawable(ContextCompat.getDrawable(context, rssiRepresenter.getRSSIImage()));
+        holder.getWifiImage().setImageDrawable(AppCompatDrawableManager.get().getDrawable (context, rssiRepresenter.getRSSIImage()));
         holder.getRoundCornerProgressBar().setProgress((120 + (rssi)));
         holder.getRoundCornerProgressBar().setProgressColor(rssiRepresenter.getRSSIStrength());
         // Check if the AP is connected to the Internet then show a connected textview

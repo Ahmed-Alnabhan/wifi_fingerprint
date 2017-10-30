@@ -1,6 +1,7 @@
 package com.elearnna.www.wififingerprint.fragments;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
@@ -24,6 +25,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.preference.PreferenceManager;
+import android.support.v7.widget.AppCompatDrawableManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -199,6 +201,7 @@ public class APsListFragment extends Fragment implements APsListView, APsAdapter
         return view;
     }
 
+    @SuppressLint("RestrictedApi")
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private void getConnectedAPInfo(int timer) {
         if (getActivity() != null) {
@@ -226,7 +229,7 @@ public class APsListFragment extends Fragment implements APsListView, APsAdapter
                 txtMAC.setText(getContext().getResources().getString(R.string.mac_label) + Utils.getMacAddr());
 
                 RSSIRepresenter rssiRepresenter = Utils.setWifiImage(rssi, getContext());
-                wifiImage.setImageDrawable(ContextCompat.getDrawable(getContext(), rssiRepresenter.getRSSIImage()));
+                wifiImage.setImageDrawable(AppCompatDrawableManager.get().getDrawable (getContext(), rssiRepresenter.getRSSIImage()));
                 roundCornerProgressBar.setProgress((120 + (rssi)));
                 roundCornerProgressBar.setProgressColor(rssiRepresenter.getRSSIStrength());
                 txtSignalStrength.setText(String.valueOf(rssi));

@@ -65,7 +65,7 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
         android:elevation="@dimen/dimen_6_dp"
-        android:src="@drawable/ic_save"
+        app:srcCompat="@drawable/ic_save"
         android:layout_marginRight="@dimen/dimen_8_dp"
         android:layout_marginEnd="@dimen/dimen_8_dp"
         app:layout_constraintRight_toRightOf="parent"
