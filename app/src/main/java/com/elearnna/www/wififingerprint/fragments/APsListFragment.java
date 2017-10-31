@@ -25,7 +25,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.preference.PreferenceManager;
-import android.support.v7.widget.AppCompatDrawableManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -229,7 +228,7 @@ public class APsListFragment extends Fragment implements APsListView, APsAdapter
                 txtMAC.setText(getContext().getResources().getString(R.string.mac_label) + Utils.getMacAddr());
 
                 RSSIRepresenter rssiRepresenter = Utils.setWifiImage(rssi, getContext());
-                wifiImage.setImageDrawable(AppCompatDrawableManager.get().getDrawable (getContext(), rssiRepresenter.getRSSIImage()));
+                wifiImage.setImageResource(rssiRepresenter.getRSSIImage());
                 roundCornerProgressBar.setProgress((120 + (rssi)));
                 roundCornerProgressBar.setProgressColor(rssiRepresenter.getRSSIStrength());
                 txtSignalStrength.setText(String.valueOf(rssi));
